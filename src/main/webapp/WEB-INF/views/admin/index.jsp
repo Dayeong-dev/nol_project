@@ -4,11 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 메인</title>
 </head>
 <body>
-	<jsp:include page="./fragments/header.jsp"></jsp:include>
-	<h1>Index Page</h1>
+	<h1>Admin Main</h1>
 	<hr/>
 </body>
 </html>
