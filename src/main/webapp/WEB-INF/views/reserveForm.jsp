@@ -19,7 +19,7 @@
     <h2>티켓 예매</h2>
 
     <form action="/reserve" method="post">
-        <!-- 티켓 번호 및 사용자 ID 하드코딩--> 
+     
         <input type="hidden" name="tno" value="${ticket.tno}">
         <input type="hidden" name="id" value="${sessionScope.id}">
         <input type="hidden" id="unitPrice" value="${ticket.price}">
