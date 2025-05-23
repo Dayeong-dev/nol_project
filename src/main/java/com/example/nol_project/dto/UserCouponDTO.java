@@ -9,7 +9,11 @@ public class UserCouponDTO {
 	
 	    private int ucno;
 	    private int cno;
+	    private String id;
+	    private Date issue_date;
+	    private Date expire_date;
+	    private int used;
+	    
 	    private String name;
 	    private int discount_rate;
-	    private Date expire_date;
 }

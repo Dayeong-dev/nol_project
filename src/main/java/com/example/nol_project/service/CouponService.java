@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.nol_project.dao.CouponDAO;
+import com.example.nol_project.dao.UserCouponDAO;
 import com.example.nol_project.dto.CouponDTO;
 import com.example.nol_project.dto.UserCouponDTO;
 
@@ -14,6 +16,9 @@ public class CouponService {
 
 	@Autowired
     private CouponDAO couponDAO;
+	
+	@Autowired
+	private UserCouponDAO userCouponDAO;
 
     public List<UserCouponDTO> getCouponsByUserId(String id) {
         return couponDAO.getCouponsByUserId(id);
@@ -31,4 +36,32 @@ public class CouponService {
     public List<CouponDTO> getAllEvents() {
         return couponDAO.getAllEvents(); // mapper 연동
     }
+
+    @Transactional
+	public boolean addUserCoupon(int eno, String userId) {
+    	// 해당 이벤트의 쿠폰 번호 확인
+		CouponDTO coupon = couponDAO.getCouponByEno(eno);
+		
+		if(coupon == null) {
+			throw new RuntimeException("해당 이벤트는 발급되는 쿠폰이 없습니다.");
+		}
+		
+		int cno = coupon.getCno();
+		
+		// 사용자의 해당 이벤트 쿠폰 발급 여부 확인
+		UserCouponDTO userCoupon = userCouponDAO.selectUserCoupon(cno);
+		
+		if(userCoupon != null) {
+			throw new RuntimeException("이미 해당 쿠폰을 발급 받았습니다.");
+		}
+		
+		// 사용자에게 해당 쿠폰 발급
+		int result = userCouponDAO.insertUserCoupon(coupon.getCno(), userId);
+		
+		if(result == 1) {
+			return true;
+		}
+
+		throw new RuntimeException("쿠폰 발급에 실패하였습니다. ");
+	}
 }

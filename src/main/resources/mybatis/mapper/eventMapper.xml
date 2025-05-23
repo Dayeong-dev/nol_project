@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.nol_project.dao.EventDAO">
+	<select id="selectAllEvents">
+		SELECT * FROM nol_event ORDER BY eno DESC
+	</select>
+	<select id="selectEvent">
+		SELECT * FROM nol_event WHERE eno = #{eno}
+	</select>
+	<select id="getAllEvents" resultType="com.example.nol_project.dto.CouponDTO">
+	    SELECT eno, name, description, 0 AS discount_rate
+	    FROM nol_event
+	</select>
+</mapper>

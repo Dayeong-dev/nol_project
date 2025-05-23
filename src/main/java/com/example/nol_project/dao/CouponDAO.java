@@ -10,8 +10,14 @@ import com.example.nol_project.dto.UserCouponDTO;
 
 @Mapper
 public interface CouponDAO {
-	 List<UserCouponDTO> getCouponsByUserId(@Param("id") String id);
-	 void insertCoupon(CouponDTO dto);
-	 List<UserCouponDTO> getAllUserCoupons();
-	 List<CouponDTO> getAllEvents(); // 이벤트 목록 조회
+	
+	List<UserCouponDTO> getCouponsByUserId(@Param("id") String id);
+	 
+	void insertCoupon(CouponDTO dto);
+	 
+	List<UserCouponDTO> getAllUserCoupons();
+	 
+	List<CouponDTO> getAllEvents(); // 이벤트 목록 조회
+	 
+	CouponDTO getCouponByEno(@Param("eno") int eno);
 }
