@@ -1,0 +1,72 @@
+package com.example.nol_project.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.nol_project.dao.AttractionDAO;
+import com.example.nol_project.dto.AttractionDTO;
+import com.example.nol_project.service.AttractionService;
+
+@Controller
+public class AttractionController {
+	
+	@Autowired
+	private AttractionDAO attrctnDao;
+	
+	@Autowired
+	private AttractionService attrctnService;
+	
+	
+//	@GetMapping("/")
+//	public String mainAttrctn(Model model) {
+//		List<AttractionDTO> list = attrctnDao.getMainAttrctn();
+//		
+//		model.addAttribute("list", list);
+//		
+//		return "main";
+//	}
+	
+	
+	@GetMapping("/attrctn")
+	public String listAttrctn(Model model, 
+							  @RequestParam(name = "alevel" ,required = false)Integer alevel,
+							  @RequestParam(name = "name" ,required = false)String name
+							  ) {
+		List<AttractionDTO> list = attrctnService.searchAttrctn(alevel, name);
+		model.addAttribute("list", list);
+		
+		return "attrctn";
+	}
+	
+
+	@GetMapping("/detail")
+	public String detailAttrctn(Model model, @RequestParam("atno") int atno) {
+		List<AttractionDTO> list = attrctnService.getAtno(atno);
+		model.addAttribute("list", list);
+		
+		return "detail";
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
