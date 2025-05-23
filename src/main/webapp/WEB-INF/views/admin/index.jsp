@@ -9,5 +9,6 @@
 <body>
 	<h1>Admin Main</h1>
 	<hr/>
+	<a href="/admin/event">이벤트 관리 페이지</a>
 </body>
 </html>

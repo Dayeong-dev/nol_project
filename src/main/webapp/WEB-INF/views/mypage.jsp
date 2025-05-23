@@ -29,6 +29,7 @@
 		<p>👥 수량: ${reservelist.QUANTITY}장</p>
 		<p>💰 단가: <fmt:formatNumber value="${reservelist.UNITPRICE}" pattern="#,##0" />원</p>
 		<p>💳 총 금액: <fmt:formatNumber value="${reservelist.TOTALPRICE}" pattern="#,##0" />원</p>
+		
 
     </div>
 </c:forEach>
