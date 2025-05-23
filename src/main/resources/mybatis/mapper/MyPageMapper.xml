@@ -5,18 +5,18 @@
   
     <mapper namespace="com.example.nol_project.dao.MyPageDAO">
     	 <select id="getMyReserveList" resultType="map">
-		    SELECT 
-		      t.name AS ticketName,
-		      td.tdate AS reserveDate,
-		      r.quantity AS quantity,
-		      t.price AS unitPrice,
-		      (r.quantity * t.price) AS totalPrice
-		    FROM nol_reserve r
-		    JOIN nol_ticket_date td ON r.tdno = td.tdno
-		    JOIN nol_ticket t ON td.tno = t.tno
-		    WHERE r.id = #{id}
-		    ORDER BY td.tdate DESC
-		  </select>
-    	
+			  SELECT 
+			    t.name AS ticketName,
+			    td.tdate AS reserveDate,
+			    r.quantity,
+			    t.price AS unitPrice,
+			    r.discount_price AS totalPrice
+			  FROM nol_reserve r
+			  JOIN nol_ticket_date td ON r.tdno = td.tdno
+			  JOIN nol_ticket t ON td.tno = t.tno
+			  WHERE r.id = #{id}
+			  ORDER BY td.tdate DESC
+		</select>
+
     
     </mapper>

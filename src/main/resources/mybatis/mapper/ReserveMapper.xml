@@ -31,16 +31,17 @@
   </update>
 
   <insert id="insertReserve">
-    INSERT INTO nol_reserve (rno, tdno, id, quantity)
-    VALUES (
-      nol_reserve_seq.NEXTVAL,
-      (SELECT tdno FROM nol_ticket_date
-       WHERE tno = #{tno}
-         AND tdate = TO_DATE(#{tdate}, 'YYYY-MM-DD')),
-      #{id},
-      #{quantity}
-    )
-  </insert>
+	  INSERT INTO nol_reserve (rno, tdno, id, quantity, discount_price)
+	  VALUES (
+	    nol_reserve_seq.NEXTVAL,
+	    (SELECT tdno FROM nol_ticket_date
+	     WHERE tno = #{tno}
+	       AND tdate = TO_DATE(#{tdate}, 'YYYY-MM-DD')),
+	    #{id},
+	    #{quantity},
+	    #{totalPrice}
+	  )
+	</insert>
 
 </mapper>
   

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.example.nol_project.dao.CouponDAO">
+  <select id="getCouponsByUserId" parameterType="String" resultType="com.example.nol_project.dto.UserCouponDTO">
+    SELECT 
+      uc.ucno,
+      uc.cno,
+      c.name,
+      c.discount_rate,
+      uc.expire_date
+    FROM nol_user_coupon uc
+    JOIN nol_coupon c ON uc.cno = c.cno
+    WHERE uc.id = #{id} AND uc.used = 0 AND uc.expire_date >= SYSDATE
+  </select>
+  
+  	<insert id="insertCoupon" parameterType="com.example.nol_project.dto.CouponDTO">
+	    INSERT INTO nol_coupon (
+	        cno, eno, name, description, discount_rate
+	    ) VALUES (
+	        nol_coupon_seq.NEXTVAL,
+	        #{eno}, #{name}, #{description}, #{discount_rate}
+	    )
+	</insert>
+	
+	<select id="getAllEvents" resultType="com.example.nol_project.dto.CouponDTO">
+	    SELECT eno, name, description, 0 AS discount_rate
+	    FROM nol_event
+	</select>
+
+	
+	<select id="getAllUserCoupons" resultType="com.example.nol_project.dto.UserCouponDTO">
+	    SELECT
+	        uc.ucno,
+	        uc.cno,
+	        uc.id,
+	        c.name,
+	        c.discount_rate,
+	        uc.expire_date,
+	        uc.used
+	    FROM nol_user_coupon uc
+	    JOIN nol_coupon c ON uc.cno = c.cno
+	    ORDER BY uc.ucno DESC
+	</select>
+</mapper>
