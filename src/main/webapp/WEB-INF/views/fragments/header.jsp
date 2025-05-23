@@ -6,7 +6,7 @@
 	<c:choose>
 		<c:when test="${sessionScope.id != null}">
 			<ul>
-				<li>예매하기</li>
+				<li><a href="/reserve">예매하기</a></li>
 				<li>어트랙션</li>
 				<li>QnA</li>
 				<li>FAQ</li>
@@ -16,7 +16,7 @@
 		</c:when>
 		<c:otherwise>
 			<ul>
-				<li>예매하기</li>
+				<li><a href="/reserve">예매하기</a></li>
 				<li>어트랙션</li>
 				<li>FAQ</li>
 				<li><a href="login">로그인</a></li>

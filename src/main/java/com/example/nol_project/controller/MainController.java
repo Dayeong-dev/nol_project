@@ -1,4 +1,4 @@
-package com.example.nol.controller;
+package com.example.nol_project.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

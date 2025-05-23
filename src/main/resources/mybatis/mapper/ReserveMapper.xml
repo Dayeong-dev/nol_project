@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.example.nol_project.dao.ReserveDAO">
+
+  <insert id="mergeTicketDate">
+    MERGE INTO nol_ticket_date d
+    USING (
+      SELECT #{tno} AS tno, TO_DATE(#{tdate}, 'YYYY-MM-DD') AS tdate FROM dual
+    ) s
+    ON (d.tno = s.tno AND d.tdate = s.tdate)
+    WHEN NOT MATCHED THEN
+      INSERT (tdno, tno, tdate, quantity)
+      VALUES (nol_ticket_date_seq.NEXTVAL, s.tno, s.tdate, 1000)
+  </insert>
+
+  <select id="getTicketDateQuantity" resultType="int">
+    SELECT quantity
+    FROM nol_ticket_date
+    WHERE tno = #{tno}
+      AND tdate = TO_DATE(#{tdate}, 'YYYY-MM-DD')
+  </select>
+
+  <update id="updateQuantity">
+    UPDATE nol_ticket_date
+    SET quantity = quantity - #{quantity}
+    WHERE tno = #{tno}
+      AND tdate = TO_DATE(#{tdate}, 'YYYY-MM-DD')
+  </update>
+
+  <insert id="insertReserve">
+    INSERT INTO nol_reserve (rno, tdno, id, quantity)
+    VALUES (
+      nol_reserve_seq.NEXTVAL,
+      (SELECT tdno FROM nol_ticket_date
+       WHERE tno = #{tno}
+         AND tdate = TO_DATE(#{tdate}, 'YYYY-MM-DD')),
+      #{id},
+      #{quantity}
+    )
+  </insert>
+
+</mapper>
+  

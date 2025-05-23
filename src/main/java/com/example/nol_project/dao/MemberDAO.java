@@ -1,12 +1,12 @@
-package com.example.nol.dao;
+package com.example.nol_project.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.example.nol.dto.MemberDTO;
+import com.example.nol_project.dto.MemberDTO;
 
 @Mapper
-public interface IMemberDAO {
+public interface MemberDAO {
 
 	public MemberDTO selectMemberById(@Param("id") String id);
 

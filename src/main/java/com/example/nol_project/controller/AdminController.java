@@ -1,4 +1,4 @@
-package com.example.nol.controller;
+package com.example.nol_project.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.nol.dto.AdminDTO;
-import com.example.nol.service.AdminService;
+import com.example.nol_project.dto.AdminDTO;
+import com.example.nol_project.service.AdminService;
 
 import jakarta.servlet.http.HttpSession;
 
