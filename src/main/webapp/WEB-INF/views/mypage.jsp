@@ -15,6 +15,7 @@
 </c:if>
 
 <h2>예매된 티켓</h2>
+
 <br>
 
 <c:if test="${empty myReserveList}">
