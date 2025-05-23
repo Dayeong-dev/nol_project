@@ -1,4 +1,4 @@
-package com.example.nol.controller;
+package com.example.nol_project.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.nol.dto.MemberDTO;
-import com.example.nol.service.MemberService;
+import com.example.nol_project.dto.MemberDTO;
+import com.example.nol_project.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

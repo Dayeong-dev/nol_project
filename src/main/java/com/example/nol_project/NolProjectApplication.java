@@ -1,4 +1,4 @@
-package com.example.nol;
+package com.example.nol_project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

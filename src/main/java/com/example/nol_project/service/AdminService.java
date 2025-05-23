@@ -1,17 +1,17 @@
-package com.example.nol.service;
+package com.example.nol_project.service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.nol.dao.IAdminDAO;
-import com.example.nol.dto.AdminDTO;
 import com.example.nol.util.PasswordEncryptor;
+import com.example.nol_project.dao.AdminDAO;
+import com.example.nol_project.dto.AdminDTO;
 
 @Service
 public class AdminService {
-	private final IAdminDAO adminDao;
+	private final AdminDAO adminDao;
 	private PasswordEncryptor pwEncryptor = new PasswordEncryptor();
 	
-	public AdminService(IAdminDAO adminDao) {
+	public AdminService(AdminDAO adminDao) {
 		this.adminDao = adminDao;
 	}
 
