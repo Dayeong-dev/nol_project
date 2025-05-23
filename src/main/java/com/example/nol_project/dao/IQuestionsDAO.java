@@ -20,6 +20,7 @@ public interface IQuestionsDAO {
 		    LEFT JOIN nol_answers a ON q.qno = a.qno
 		    WHERE q.qno = #{qno}""")
 		QuestionsDTO getQuestionDetail(int qno);
+	
 
 	@Select("""
 		    SELECT 
@@ -29,8 +30,21 @@ public interface IQuestionsDAO {
 		""")
 		List<QuestionsDTO> getAllQuestions();
 
+	//답변 안한 내용이 보이도록 아래 List로 추가
+	@Select("""
+		    SELECT 
+		        q.qno, q.title, q.content, q.createDate,
+		        q.isAnswered, m.name AS memberName 
+		    FROM nol_questions q
+		    JOIN nol_member m ON q.id = m.id 
+		    WHERE q.isAnswered = 0
+		    ORDER BY q.qno DESC
+		""")
+		List<QuestionsDTO> getUnansweredList();
+	
     @Insert("INSERT INTO nol_questions (qno, id, title, content, createDate) " +
             "VALUES (seq_nol_questions.NEXTVAL, #{id}, #{title}, #{content}, SYSDATE)")
     void insertQuestion(QuestionsDTO dto);
+
 
 }
