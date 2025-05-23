@@ -16,12 +16,12 @@
 	        <th>작성자</th>
 	    </tr>
 	    <c:forEach var="notice" items="${list}">
-	        <tr> 
+	        <tr>  
 	            <td>${notice.nno}</td>
 	            <td><a href="/notice/NoticeDetail?nno=${notice.nno}">${notice.title}</a></td>
 	            <td>${notice.adminId}</td>
-	        </tr>
+	        </tr>  
 	    </c:forEach>
 	</table>
-</body>
+</body>	
 </html>
