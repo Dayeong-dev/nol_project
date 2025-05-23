@@ -1,10 +1,14 @@
 package com.example.nol_project.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.nol_project.dto.AnswersDTO;
+import com.example.nol_project.dto.QuestionsDTO;
 
 @Mapper
 public interface IAnswersDAO {
@@ -30,4 +34,17 @@ public interface IAnswersDAO {
 		    WHERE a.qno = #{qno}
 	""")
 	AnswersDTO selectAnswerByQno(int qno);
+	
+	// 질문 isAnswered 업데이트
+	@Update("""
+	    UPDATE nol_questions
+	    SET isAnswered = 1
+	    WHERE qno = #{qno}
+	""")
+	void updateIsAnswered(int qno);
+
+	@Select("SELECT * FROM nol_questions WHERE isAnswered = 0 ORDER BY createDate DESC")
+	List<QuestionsDTO> selectUnansweredList();
+	
+	
 }

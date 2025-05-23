@@ -12,4 +12,5 @@ public class AnswersDTO {
 	// 조회용으로 활용할수도 있음
 	private String adminName;     	  // 관리자 이름 (JOIN용)
 	private String questionTitle;   // 질문 제목 (JOIN용)
+	private String memberName;
 }

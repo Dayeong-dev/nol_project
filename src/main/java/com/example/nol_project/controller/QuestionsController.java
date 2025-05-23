@@ -30,12 +30,20 @@ public class QuestionsController {
 //    	System.out.println("root....");
 //        return "index";
 //    }
-    
+
+//관리자 전용 답 안한 리스트만 보이도록 변경
     @GetMapping("/QuestionsList")
     public String questions(Model model) {
         List<QuestionsDTO> list = questionsService.getQuestionsList();
         model.addAttribute("questions", list);
         return "QuestionsList";
+    }
+    
+    @GetMapping("/admin/UnansweredList")
+    public String unansweredList(Model model) {
+        List<QuestionsDTO> list = questionsService.getUnansweredList();
+        model.addAttribute("questions", list);
+        return "admin/UnansweredList";
     }
     
     // 폼 페이지
@@ -70,7 +78,7 @@ public class QuestionsController {
     public String questions(HttpSession session, Model model) {
 //        session.setAttribute("id", "user01");
 
-        List<QuestionsDTO> list = questionsService.getQuestionsList();
+        List<QuestionsDTO> list = questionsService.getUnansweredList();
         model.addAttribute("questionsList", list);
         return "questions";
     }
