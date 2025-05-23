@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.nol_project.dao.IAnswersDAO">
+<!--답변 등록
+    <insert id="insertAnswer" parameterType="com.example.nol_project.dto.AnswersDTO">
+        INSERT INTO nol_answers (ano, qno, adminId, content)
+        VALUES (
+            (SELECT NVL(MAX(ano), 0) + 1 FROM nol_answers),
+            #{qno},
+            #{adminId},
+            #{content}
+        )
+    </insert>-->
+
+<!--특정 질문에 대한 답변 조회
+<select id="selectAnswerByQno" resultType="com.example.nol_project.dto.AnswersDTO">
+        SELECT a.*, ad.adminName, q.title AS questionTitle
+        FROM nol_answers a
+        JOIN nol_admin ad ON a.adminId = ad.adminId
+        JOIN nol_questions q ON a.qno = q.qno
+        WHERE a.qno = #{qno}
+    </select>-->
+</mapper>
