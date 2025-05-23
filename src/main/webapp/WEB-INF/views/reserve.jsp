@@ -43,7 +43,7 @@
         <div id="calendar_${ticket.tno}" class="calendar-form" style="text-align:center;">
             <form action="reserve.do" method="post">
                 <input type="hidden" name="tno" value="${ticket.tno}">
-                <input type="hidden" name="id" value="user01"><!-- 로그인 연동 전 -->
+              
                 <p><strong>${ticket.name}</strong></p>
                 날짜: <input type="date" name="tdate" required><br>
                 수량: <input type="number" name="quantity" value="1" min="1"><br>
