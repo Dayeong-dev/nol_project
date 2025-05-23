@@ -36,7 +36,7 @@
 			if(FA.style.display === 'none'){
 				FA.style.display = 'block';
 			}else{
-				FA.style.display = 'none'; 
+				FA.style.display = 'none';
 			}
 		});
 	});
