@@ -7,8 +7,28 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
+<style>
+	* {
+		padding: 0;
+	}
+
+	li {
+		list-style-type: none;
+	}
+	
+	a{
+		text-decoration: none;
+	}
+
+	ul {
+		display: flex;
+		gap: 20px;
+		padding: 0;
+	}
+</style>
 </head>
 <body>
+<jsp:include page="./fragments/header.jsp"></jsp:include>
 
 <c:if test="${not empty msg}">
     <p style="color:green;">✅ ${msg}</p>
@@ -31,6 +51,10 @@
 		<p>💳 총 금액: <fmt:formatNumber value="${reservelist.TOTALPRICE}" pattern="#,##0" />원</p>
 		
 
+    <form action="reviewWrite" method="get">
+    	<input type="hidden" name="rno" value="${reservelist.rno }">
+    	<button type="submit">리뷰 하기</button>
+    </form>
     </div>
 </c:forEach>
 
