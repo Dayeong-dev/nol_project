@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.nol_project.dao.EventDAO;
+import com.example.nol_project.dto.EventCouponDTO;
 import com.example.nol_project.dto.EventDTO;
 
 @Service
@@ -27,13 +28,13 @@ public class EventService {
 		return elist;
 	}
 	
-	public EventDTO getEventDetail(int eno) {
-		EventDTO event = eventDao.selectEvent(eno);
+	public EventCouponDTO getEventDetail(int eno) {
+		EventCouponDTO eventCoupon = eventDao.selectEventWithCno(eno);
 		
 		Date now = new Date();
-		event.setPast(now.after(event.getEndDate()));
+		eventCoupon.setPast(now.after(eventCoupon.getEndDate()));
 		
-		return event;
+		return eventCoupon;
 	}
 	
     public List<EventDTO> getAllEvents() {

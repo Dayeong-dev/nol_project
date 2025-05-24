@@ -5,8 +5,8 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class EventDTO {
-	private int eno;
+public class EventCouponDTO {
+	private int eno;			// 이벤트 번호
 	private String name;
 	private String description;
 	private Date startDate;
@@ -14,5 +14,6 @@ public class EventDTO {
 	private String thumbnailURL;
 	private String contentImgURL;
 	
-	private boolean isPast;
+	private int cno;			// 쿠폰 번호
+	private boolean isPast;		// 이벤트 종료 여부
 }

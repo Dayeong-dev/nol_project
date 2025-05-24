@@ -7,6 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트 상세</title>
+<style>
+	img {
+		width: 500px;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="./fragments/header.jsp"></jsp:include>
@@ -29,10 +34,15 @@
 					<th>이벤트 설명</th>
 					<td>${event.description}</td>
 				</tr>
-				<c:if test="${!event.isPast()}">
+				<tr>
+					<td colspan="2">
+						<img src="${event.contentImgURL}" />
+					</td>
+				</tr>
+				<c:if test="${!event.isPast() && sessionScope.id != null}">
 					<tr>
 						<td colspan="2">
-							<button onclick="addCoupon(${event.eno})">쿠폰 받기</button>
+							<button onclick="addCoupon(${event.cno})">쿠폰 받기</button>
 						</td>
 					</tr>
 				</c:if>
@@ -40,12 +50,19 @@
 		</table>
 	</section>
 	<script>
-		function addCoupon(eno) {
-			fetch("/addCoupon?eno=" + eno)
-				.then(response => response.json())
+		function addCoupon(cno) {
+			fetch("/addCoupon?cno=" + cno)
+				.then(response => response.text())
 				.then(data => {
-					if(data.result) {
-						alert(data.message);
+					console.log(data);
+					if(data === "success") {
+						alert("쿠폰을 발급받았습니다. ");
+					}
+					else if(data === "exist"){
+						alert("쿠폰을 이미 발급받았습니다. ");
+					}
+					else {
+						alert("쿠폰 발급 중 문제가 발생했습니다. ");
 					}
 				})
 				.catch(error => alert(error));

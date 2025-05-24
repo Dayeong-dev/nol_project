@@ -6,11 +6,14 @@
 	<select id="selectAllEvents">
 		SELECT * FROM nol_event ORDER BY eno DESC
 	</select>
-	<select id="selectEvent">
-		SELECT * FROM nol_event WHERE eno = #{eno}
-	</select>
 	<select id="getAllEvents" resultType="com.example.nol_project.dto.CouponDTO">
 	    SELECT eno, name, description, 0 AS discount_rate
 	    FROM nol_event
+	</select>
+	<select id="selectEventWithCno">
+		SELECT e.*, cno FROM nol_event e 
+		JOIN nol_coupon c 
+		ON e.eno = c.eno 
+		WHERE e.eno = #{eno}
 	</select>
 </mapper>

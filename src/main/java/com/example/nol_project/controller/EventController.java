@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.nol_project.dto.EventCouponDTO;
 import com.example.nol_project.dto.EventDTO;
 import com.example.nol_project.dto.UserCouponDTO;
 import com.example.nol_project.service.CouponService;
@@ -38,29 +39,30 @@ public class EventController {
 	
 	@GetMapping("/eventDetail")
 	public String eventDetail(@RequestParam("eno") int eno, Model model) {
-		EventDTO event = eventService.getEventDetail(eno);
+		EventCouponDTO eventCoupon = eventService.getEventDetail(eno);
 		
 		Date now = new Date();
-		event.setPast(now.after(event.getEndDate()));
+		eventCoupon.setPast(now.after(eventCoupon.getEndDate()));
 		
-		model.addAttribute("event", event);
+		model.addAttribute("event", eventCoupon);
 		
 		return "eventDetail";
 	}
 	
 	@GetMapping("/addCoupon")
-	public @ResponseBody String addCoupon(@RequestParam("eno") int eno, HttpSession session, Model model) {
-		String id = (String) session.getAttribute("id");	
+	public @ResponseBody String addCoupon(@RequestParam("cno") int cno, HttpSession session, Model model) {
 		try {
-			boolean result = couponService.addUserCoupon(eno, id);
+			String id = (String) session.getAttribute("id");
+			boolean result = couponService.addUserCoupon(cno, id);
 			
 			if(result) {
-				return "쿠폰이 발급되었습니다. ";
+				return "success";
 			}
 			
-			return "쿠폰 발급 중 문제 발생하였습니다.";
+			return "fail";
 		} catch(RuntimeException e) {
 			return e.getMessage();
 		}
+		
 	}
 }

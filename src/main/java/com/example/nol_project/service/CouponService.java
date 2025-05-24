@@ -38,30 +38,23 @@ public class CouponService {
     }
 
     @Transactional
-	public boolean addUserCoupon(int eno, String userId) {
-    	// 해당 이벤트의 쿠폰 번호 확인
-		CouponDTO coupon = couponDAO.getCouponByEno(eno);
-		
-		if(coupon == null) {
-			throw new RuntimeException("해당 이벤트는 발급되는 쿠폰이 없습니다.");
-		}
-		
-		int cno = coupon.getCno();
-		
+	public boolean addUserCoupon(int cno, String userId) {		
 		// 사용자의 해당 이벤트 쿠폰 발급 여부 확인
 		UserCouponDTO userCoupon = userCouponDAO.selectUserCoupon(cno);
 		
 		if(userCoupon != null) {
-			throw new RuntimeException("이미 해당 쿠폰을 발급 받았습니다.");
+			System.out.println("이미 쿠폰 발급 받음");
+			throw new RuntimeException("exist");
 		}
 		
 		// 사용자에게 해당 쿠폰 발급
-		int result = userCouponDAO.insertUserCoupon(coupon.getCno(), userId);
+		int result = userCouponDAO.insertUserCoupon(cno, userId);
 		
 		if(result == 1) {
 			return true;
 		}
 
-		throw new RuntimeException("쿠폰 발급에 실패하였습니다. ");
+		System.out.println("쿠폰 발급 실패");
+		throw new RuntimeException("fail");
 	}
 }

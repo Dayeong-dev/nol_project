@@ -7,41 +7,41 @@
 <head>
 <meta charset="UTF-8">
 <title>이벤트 목록</title>
+<style>
+	img {
+		width: 300px;
+	}
+	
+	.item {
+		display: inline-block;
+	}
+	
+	.item a {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 4px;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="./fragments/header.jsp"></jsp:include>
 	<section id="eventList">
-		<table border="1">
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>이벤트 명</th>
-					<th>기간</th>
-					<th>진행여부</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="event" items="${elist}" varStatus="status">
-					<tr>
-						<td>${status.count}</td>
-						<td><a href="/eventDetail?eno=${event.eno}">${event.name}</a></td>
-						<td>
+		<c:forEach var="event" items="${elist}" varStatus="status">
+			<c:if test="${!event.isPast()}">
+				<div class="item">
+					<a href="/eventDetail?eno=${event.eno}">
+						<img src="${event.thumbnailURL}" />
+						<span>${event.name}</span>
+						<span>
 							<fmt:formatDate value="${event.startDate}" pattern="yyyy/MM/dd" />
 							-
 							<fmt:formatDate value="${event.endDate}" pattern="yyyy/MM/dd" />						
-						</td>
-						<c:choose>
-							<c:when test="${event.isPast()}">
-								<td>종료</td>	
-							</c:when>
-							<c:otherwise>
-								<td>진행중</td>
-							</c:otherwise>
-						</c:choose>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+						</span>
+					</a>
+				</div>
+			</c:if>
+		</c:forEach>
 	</section>
 </body>
 </html>
