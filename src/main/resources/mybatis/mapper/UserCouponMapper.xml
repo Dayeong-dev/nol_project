@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.example.nol_project.dao.UserCouponDAO">
+	<insert id="insertUserCoupon">
+		INSERT INTO nol_user_coupon(ucno, cno, id) VALUES(seq_nol_user_coupon.NEXTVAL, #{cno}, #{id})
+	</insert>
+	<select id="selectUserCoupon">
+		SELECT * FROM nol_user_coupon WHERE cno = #{cno}
+	</select>
+</mapper>

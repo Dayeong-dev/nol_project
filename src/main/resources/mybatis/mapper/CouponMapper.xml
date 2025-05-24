@@ -44,4 +44,7 @@
 	    JOIN nol_coupon c ON uc.cno = c.cno
 	    ORDER BY uc.ucno DESC
 	</select>
+	<select id="getCouponByEno">
+		SELECT * FROM nol_coupon WHERE eno = #{eno}
+	</select>
 </mapper>
