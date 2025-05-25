@@ -31,6 +31,15 @@ public class QuestionsService {
 	    return questionsDAO.getQuestionDetail(qno);
 	}
 
-	
+	public List<QuestionsDTO> getPagedQuestions(int page, int size) {
+	    int startRow = (page - 1) * size + 1;
+	    int endRow = page * size;
+	    return questionsDAO.getPagedQuestions(startRow, endRow);
+	}
+
+	public int getTotalPages(int size) {
+	    int totalCount = questionsDAO.getTotalQuestionCount();
+	    return (int) Math.ceil((double) totalCount / size);
+	}
     
 }

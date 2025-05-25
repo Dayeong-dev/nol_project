@@ -12,5 +12,6 @@
 	<a href="/admin/event">이벤트 관리 페이지</a>
 	<a href="/admin/event">이벤트 관리 페이지</a>
 	<a href="${pageContext.request.contextPath}/admin/answers/UnansweredList">미답변 QnA 보기</a>
+	<a href="${pageContext.request.contextPath}/notice/NoticeList">공지사항 목록보기</a>
 </body>
 </html>

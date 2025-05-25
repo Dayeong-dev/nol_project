@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.nol_project.dto.AnswersDTO;
 import com.example.nol_project.service.AnswersService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/admin/answers")
 public class AnswersController {
@@ -27,11 +29,12 @@ public class AnswersController {
 
     // 답변 등록 처리
     @PostMapping("/AnswersInsert")
-    public String insertAnswer(AnswersDTO answer) {
-    	answer.setAdminId("admin1234"); // 하드코딩
+    public String insertAnswer(HttpSession session, AnswersDTO answer) {
+        String adminId = (String) session.getAttribute("adminId"); // 세션에서 가져오기
+        answer.setAdminId(adminId); // DTO에 주입
         answersService.insertAnswer(answer);
-        answersService.updateIsAnswered(answer.getQno());  // 추가
-        return "redirect:/QuestionsDetail?qno=" + answer.getQno(); //질문 상세 페이지로
+        answersService.updateIsAnswered(answer.getQno());
+        return "redirect:/QuestionsDetail?qno=" + answer.getQno();
     }
 
     // 답변 상세 보기

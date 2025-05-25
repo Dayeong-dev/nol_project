@@ -34,9 +34,9 @@
 	
     <br><a href="QuestionsList">← 목록으로 돌아가기</a>
     
-   <%--  <c:if test="${answer == null}">
+  	<!--<c:if test="${answer == null}">
 	    <a href="${pageContext.request.contextPath}/answers/AnswersForm?qno=${questions.qno}">답변 작성하기</a>
-	</c:if> --%>
+	</c:if>-->
 	
 	<!-- questionsDetail.jsp 내부에서 관리자 전용 버튼 (임시 테스트용) -->
 	<c:if test="${sessionScope.role eq 'admin'}">
