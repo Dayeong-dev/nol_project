@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.example.nol_project.dto.QuestionsDTO;
@@ -46,5 +47,25 @@ public interface IQuestionsDAO {
             "VALUES (seq_nol_questions.NEXTVAL, #{id}, #{title}, #{content}, SYSDATE)")
     void insertQuestion(QuestionsDTO dto);
 
+    @Select("""
+    	    SELECT * FROM (
+    	        SELECT q.*, ROWNUM rnum FROM (
+    	            SELECT 
+    	                q.qno, q.title, q.content, q.createDate,
+    	                q.isAnswered, m.name AS memberName 
+    	            FROM nol_questions q
+    	            JOIN nol_member m ON q.id = m.id 
+    	            ORDER BY q.qno DESC
+    	        ) q
+    	        WHERE ROWNUM <= #{endRow}
+    	    )
+    	    WHERE rnum >= #{startRow}
+    	""")
+    	List<QuestionsDTO> getPagedQuestions(
+    	    @Param("startRow") int startRow,
+    	    @Param("endRow") int endRow
+    	);
 
+    	@Select("SELECT COUNT(*) FROM nol_questions")
+    	int getTotalQuestionCount();
 }

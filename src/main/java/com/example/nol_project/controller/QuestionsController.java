@@ -31,11 +31,16 @@ public class QuestionsController {
 //        return "index";
 //    }
 
-//관리자 전용 답 안한 리스트만 보이도록 변경
+//관리자 전용 답 안한 리스트만 보이도록 변경 + 페이지네이션
     @GetMapping("/QuestionsList")
-    public String questions(Model model) {
-        List<QuestionsDTO> list = questionsService.getQuestionsList();
+    public String questions(@RequestParam(name = "page",defaultValue = "1") int page, Model model) {
+        int pageSize = 10;
+        List<QuestionsDTO> list = questionsService.getPagedQuestions(page, pageSize);
+        int totalPages = questionsService.getTotalPages(pageSize);
+
         model.addAttribute("questions", list);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
         return "QuestionsList";
     }
     
