@@ -24,24 +24,6 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
-    // 공지사항 목록
-//    @GetMapping("/NoticeList")
-//    public String NoticeList(@RequestParam(name = "page", defaultValue = "1") int page, Model model, HttpSession session) {
-//    	int pageSize = 10;
-//    	
-//    	List<NoticeDTO> list = noticeService.getPagedNotices(page, pageSize);
-//        int totalPages = noticeService.getTotalPages(pageSize);
-//        
-//        model.addAttribute("list", list);
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("totalPages", totalPages);
-//        
-//        String adminId = (String) session.getAttribute("adminId");
-//        model.addAttribute("isAdmin", "admin1234".equals(adminId));
-//        
-//        return "NoticeList";
-//    }
-
     @GetMapping("/NoticeList")
     public String NoticeList(
         @RequestParam(name = "page", defaultValue = "1") int page,

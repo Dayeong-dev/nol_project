@@ -15,12 +15,13 @@ public interface IAnswersDAO {
 	
 	// 답변 등록
 	@Insert("""
-		    INSERT INTO nol_answers (ano, qno, adminId, content)
+		    INSERT INTO nol_answers (ano, qno, adminId, content, memberName)
 		    VALUES (
 		        seq_nol_answers.NEXTVAL,
 		        #{qno},
 		        #{adminId},
-		        #{content}
+		        #{content},
+		        #{memberName}
 		    )
 		""")
 	void insertAnswer(AnswersDTO answer);
@@ -43,10 +44,24 @@ public interface IAnswersDAO {
 	""")
 	void updateIsAnswered(int qno);
 
-	@Select("SELECT * FROM nol_questions WHERE isAnswered = 0 ORDER BY createDate DESC")
-	List<QuestionsDTO> selectUnansweredList();
+	@Select("""
+		    SELECT q.*, m.name AS memberName
+		    FROM nol_questions q
+		    JOIN nol_member m ON q.id = m.id
+		    WHERE q.isAnswered = 0
+		    ORDER BY q.createDate DESC
+		""")
+		List<QuestionsDTO> selectUnansweredList();
 	
-	@Select("SELECT * FROM nol_questions WHERE isAnswered = 1 ORDER BY createDate DESC")
-	List<QuestionsDTO> selectAnsweredList();
+//	@Select("SELECT * FROM nol_questions WHERE isAnswered = 1 ORDER BY createDate DESC")
+//	List<QuestionsDTO> selectAnsweredList();
 
+	@Select("""
+		    SELECT q.*, m.name AS memberName
+		    FROM nol_questions q
+		    JOIN nol_member m ON q.id = m.id
+		    WHERE q.isAnswered = 1
+		    ORDER BY q.createDate DESC
+		""")
+	List<QuestionsDTO> selectAnsweredList();
 }
