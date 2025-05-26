@@ -97,6 +97,7 @@ public class AdminController {
 	public String salesDetail() {
 		
 		return "admin/salesDetail";
+	}
 
 	@GetMapping("/reservationList")
 	public String showReservationList(@RequestParam(value = "page", defaultValue = "1") int page,
