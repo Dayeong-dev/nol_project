@@ -61,7 +61,7 @@ header .user-section a {
 <header>
 	<!-- 왼쪽 로고 -->
 	<div class="logo">
-		<a href="/"> <img src="/images/logo.png" alt="Logo"> <!-- 로고 이미지 경로 맞춰주세요 -->
+		<a href="/">  <img src="/nol_image/logo.png" alt="EASYWORLD 로고" height="140"> 
 		</a>
 	</div>
 
