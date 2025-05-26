@@ -9,4 +9,14 @@
 	<select id="getReviewsList">
 		SELECT * FROM nol_review
 	</select>
+	
+	<select id="getReviewList">
+		SELECT * FROM nol_review
+	</select>
+	<select id="getReviewNo">
+		SELECT * FROM nol_review WHERE rvno = #{rvno}
+	</select>
+	<delete id="getReviewDelete">
+		DELETE FROM nol_review WHERE rvno = #{rvno}
+	</delete>
 </mapper>

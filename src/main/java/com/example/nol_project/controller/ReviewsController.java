@@ -21,7 +21,7 @@ public class ReviewsController {
 	private ReviewsService reviewsService;
 	
 	@GetMapping("/reviews")
-	public String reviewsList(Model model) {
+	public String reviews(Model model) {
 		System.out.println("reviews.............");
 		
 		List<ReviewsDTO> list = reviewsService.getReviewsList();
@@ -44,6 +44,31 @@ public class ReviewsController {
 		reviewsService.insertReview(reviews);
 		
 		return "redirect:/mypage";
+	}
+	
+	//---------관리자----------
+	@GetMapping("/admin/reviewList")
+	public String reviewList(Model model) {
+		
+		List<ReviewsDTO> list = reviewsService.getReviewList();
+		model.addAttribute("list", list);
+		
+		return "admin/reviewList";
+	}
+	
+	@GetMapping("/admin/reviewDetail.do")
+	public String reviewDetail(@RequestParam("rvno")int rvno, Model model) {
+		ReviewsDTO review = reviewsService.getReviewNO(rvno);
+		model.addAttribute("review", review);
+		
+		return "admin/reviewDetail";
+	}
+	
+	@PostMapping("/admin/reviewDelete")
+	public String reviewDelete(@RequestParam("rvno")int rvno) {
+		reviewsService.getReviewDelete(rvno);
+		
+		return "redirect:/admin/reviewList";
 	}
 	
 }

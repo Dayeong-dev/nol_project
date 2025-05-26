@@ -93,10 +93,23 @@ public class AdminController {
 	    return "admin/couponList"; // views/admin/couponList.jsp
 	}
 	
-	 @GetMapping("/reservationList")
-	    public String showReservationList(Model model) {
-	        List<ReserveDTO> list = reserveService.showReservation(new ReserveDTO()); // 전체 조회
-	        model.addAttribute("reservationList", list);
-	        return "admin/reservationList";
-	    }
+	@GetMapping("/salesDetail")
+	public String salesDetail() {
+		
+		return "admin/salesDetail";
+
+	@GetMapping("/reservationList")
+	public String showReservationList(@RequestParam(value = "page", defaultValue = "1") int page,
+	                                   Model model) {
+	    int pageSize = 10;
+	    List<ReserveDTO> list = reserveService.getReservationPage(page, pageSize);
+	    int totalCount = reserveService.getReservationCount();
+	    int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+
+	    model.addAttribute("reservationList", list);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
+
+	    return "admin/reservationList";
+	}
 }
