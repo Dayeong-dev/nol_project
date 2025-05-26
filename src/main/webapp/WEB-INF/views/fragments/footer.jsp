@@ -36,6 +36,6 @@ footer .footer-links {
     <a href="/NoticeList">공지사항</a>
   </div>
   <div>
-    ⓒ 2025 Lotte World Adventure. All rights reserved.
+    ⓒ 2025 Easy World Adventure. All rights reserved.
   </div>
 </footer>

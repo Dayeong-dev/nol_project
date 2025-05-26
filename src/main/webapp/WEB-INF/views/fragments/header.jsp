@@ -21,7 +21,7 @@ header .logo {
 }
 
 header .logo img {
-	height: 40px;
+	height: 70px;
 	margin-right: 10px;
 }
 
@@ -61,8 +61,7 @@ header .user-section a {
 <header>
 	<!-- 왼쪽 로고 -->
 	<div class="logo">
-		<a href="/">  <img src="/nol_image/logo.png" alt="EASYWORLD 로고" height="140"> 
-		</a>
+		<a href="/"> <img src="/nol_image/logo.png" alt="EASYWORLD 로고">	</a>
 	</div>
 
 	<!-- 중앙 메뉴 -->
