@@ -21,16 +21,18 @@ public class ReviewsController {
 	private ReviewsService reviewsService;
 	
 	@GetMapping("/reviews")
-	public String reviewsList() {
+	public String reviewsList(Model model) {
 		System.out.println("reviews.............");
 		
+		List<ReviewsDTO> list = reviewsService.getReviewsList();
+		model.addAttribute("list", list);
 		
 		return "reviews";
 	}
 	
 	@GetMapping("/reviewWrite")
 	public String reviewWrite(Model model,
-							  @RequestParam("rno")int rno) {
+							  @RequestParam("rno") int rno) {
 //		List<TicketDTO> myReserveList = reviewsService.getTno(rno);
 		model.addAttribute("rno", rno);
 		

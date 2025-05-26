@@ -13,7 +13,7 @@
 	<input type="hidden" name="rno" value="${rno }">
 	
 	<label for="content">리뷰 내용</label><br>
-	<textarea name="content" rows="5" cols="50" required></textarea><br>
+	<textarea name="content" rows="10" cols="50" required></textarea><br>
 	<button type="submit">리뷰 등록</button>
 </form>
 </body>

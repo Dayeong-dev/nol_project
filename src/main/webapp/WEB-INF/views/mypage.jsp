@@ -52,7 +52,7 @@
 		
 
     <form action="reviewWrite" method="get">
-    	<input type="hidden" name="rno" value="${reservelist.rno }">
+    	<input type="hidden" name="rno" value="${reservelist.RNO}">
     	<button type="submit">리뷰 하기</button>
     </form>
     </div>

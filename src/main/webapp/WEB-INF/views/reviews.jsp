@@ -10,7 +10,21 @@
 <body>
 <h1>리뷰</h1>
 <hr>
-
+<table border="1">
+	<thead>
+		<tr>
+			<th>번호</th><th>리뷰내용</th><th>예매번호</th><th>작성일</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="reviews" items="${list }">
+			<td>${reviews.rvno }</td>
+			<td>${reviews.content }</td>
+			<td>${reviews.rno }</td>
+			<td>${reviews.rvdate }</td>
+		</c:forEach>
+	</tbody>
+</table>
 
 </body>
 </html>

@@ -96,6 +96,7 @@ public class ReserveController {
     public String showMyPage(HttpSession session, Model model) {
         String id = (String)session.getAttribute("id"); 
         List<Map<String, Object>> list = mypageService.getMyReserveList(id);
+        
         for (Map<String, Object> row : list) {
             System.out.println("🔍 Row keys: " + row.keySet());
             System.out.println("🔍 Row values: " + row.values());

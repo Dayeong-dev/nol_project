@@ -18,6 +18,11 @@ public class ReviewsService {
 	public void insertReview(ReviewsDTO reviews) {
 		reviewsDao.insertReview(reviews);
 	}
+
+	public List<ReviewsDTO> getReviewsList() {
+		
+		return reviewsDao.getReviewsList();
+	}
 	
 	
 }

@@ -12,6 +12,8 @@ public interface ReviewsDAO {
 
 	void insertReview(ReviewsDTO reviews);
 
+	List<ReviewsDTO> getReviewsList();
+
 	//List<TicketDTO> getTno();
 	
 	
