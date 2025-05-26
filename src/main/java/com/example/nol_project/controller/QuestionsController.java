@@ -53,7 +53,11 @@ public class QuestionsController {
         @RequestParam(value = "category", required = false) String category,
         @RequestParam(value = "keyword", required = false) String keyword,
         @RequestParam(value = "page", defaultValue = "1") int page,
-        Model model) {
+        Model model, HttpSession session) {
+    	
+    	String adminId = (String) session.getAttribute("adminId");
+    	   boolean isAdmin = "admin1234".equals(adminId);
+    	   model.addAttribute("isAdmin", isAdmin);  
         // 검색 + 페이징 처리
         List<QuestionsDTO> filteredList = questionsService.getFilteredQuestions(category, keyword, page);
         int totalPages = questionsService.getTotalPages(category, keyword);

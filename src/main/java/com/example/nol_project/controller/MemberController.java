@@ -69,7 +69,9 @@ public class MemberController {
 		
 		session.setAttribute("id", member.getId());
 		session.setAttribute("name", member.getName());
-		
+		session.setAttribute("creationTime", System.currentTimeMillis());
+		session.setMaxInactiveInterval(30 * 60);
+
 		return "redirect:/";
 	}
 	
@@ -89,4 +91,6 @@ public class MemberController {
 		
 		return "redirect:" + referer;
 	}
+	
+	
 }
