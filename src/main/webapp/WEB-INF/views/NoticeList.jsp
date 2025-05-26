@@ -28,7 +28,7 @@
 	
 	<button type="submit">검색</button>
 	</form>
-	
+
 
 	<table border="1">
 		<tr>
@@ -43,7 +43,7 @@
 				<td>${notice.category}</td>
 				<td>
 					<c:if test="${notice.isFixed == 1}">
-						<span style="color:red;">[중요]</span>
+						<span style="color:red;">📢중요 공지</span>
 					</c:if>
 					<a href="/notice/NoticeDetail?nno=${notice.nno}">${notice.title}</a>
 				</td>
