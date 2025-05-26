@@ -9,4 +9,6 @@ public class NoticeDTO {
 	private String adminId;
 	private String title;
 	private String content;
+	private int isFixed;
+	private int hit;
 }

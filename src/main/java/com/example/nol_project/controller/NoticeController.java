@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.nol_project.dto.NoticeDTO;
 import com.example.nol_project.service.NoticeService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/notice")
@@ -23,17 +26,35 @@ public class NoticeController {
 
     // 공지사항 목록
     @GetMapping("/NoticeList")
-    public String NoticeList(Model model) {
-        List<NoticeDTO> list = noticeService.getAllNotices();
+    public String NoticeList(@RequestParam(name = "page", defaultValue = "1") int page, Model model, HttpSession session) {
+    	int pageSize = 10;
+    	
+    	List<NoticeDTO> list = noticeService.getPagedNotices(page, pageSize);
+        int totalPages = noticeService.getTotalPages(pageSize);
+        
         model.addAttribute("list", list);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        
+        String adminId = (String) session.getAttribute("adminId");
+        model.addAttribute("isAdmin", "admin1234".equals(adminId));
+        
         return "NoticeList";
     }
 
     // 공지사항 상세보기
     @GetMapping("/NoticeDetail")
-    public String NoticeDetail(@RequestParam("nno") int nno, Model model) {
+    public String NoticeDetail(@RequestParam("nno") int nno, Model model, HttpSession session) {
+    	noticeService.increaseHit(nno);
+    	
         NoticeDTO notice = noticeService.getNoticeByNno(nno);
         model.addAttribute("notice", notice);
+        
+        //세션에서 사용자 정보 가져오기
+        String adminId = (String) session.getAttribute("adminId");
+        boolean isAdmin = "admin1234".equals(adminId);
+        model.addAttribute("isAdmin", isAdmin);
+        
         return "NoticeDetail";
     }
 
@@ -43,18 +64,15 @@ public class NoticeController {
         return "NoticeForm";
     }
     
-    //공지사항 추가
     @PostMapping("/insert")
-    public String insert(NoticeDTO notice) {
-        System.out.println("등록 요청 - 제목: " + notice.getTitle() + ", 내용: " + notice.getContent());
+    public String insert(@ModelAttribute NoticeDTO notice) {
         notice.setAdminId("admin1234");
-        try {
-            noticeService.insert(notice);
-            System.out.println("등록 성공");
-        } catch (Exception e) {
-            System.out.println("등록 실패: " + e.getMessage());
-            e.printStackTrace();
+
+        if (notice.getIsFixed() != 1) {
+            notice.setIsFixed(0);
         }
+
+        noticeService.insert(notice);
         return "redirect:/notice/NoticeList";
     }
     
@@ -66,16 +84,12 @@ public class NoticeController {
         return "notice/NoticeEdit";
     }
 
-    @GetMapping("/NoticeUpdate")
-    public String NoticeUpdate(@RequestParam("nno") int nno, Model model) {
-        NoticeDTO notice = noticeService.getNoticeByNno(nno);  // 공지사항 상세 조회 서비스 호출
-        model.addAttribute("notice", notice);             // JSP에 데이터 전달
-        return "NoticeUpdate";                             // 수정 폼 JSP
-    }
-    
-    // 공지사항 수정 처리
     @PostMapping("/NoticeUpdate")
-    public String NoticeUpdate(NoticeDTO notice) {
+    public String NoticeUpdate(@ModelAttribute NoticeDTO notice) {
+        if (notice.getIsFixed() != 1) {
+            notice.setIsFixed(0);
+        }
+
         noticeService.NoticeUpdate(notice);
         return "redirect:/notice/NoticeDetail?nno=" + notice.getNno();
     }
@@ -93,4 +107,5 @@ public class NoticeController {
         noticeService.delete(nno);
         return "redirect:/notice/NoticeList";
     }
+    
 }
