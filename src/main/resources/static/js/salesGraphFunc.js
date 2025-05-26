@@ -1,5 +1,13 @@
 let myLineChart;
 
+let tickets = [];
+fetch("/getTicketType")
+	.then(response => response.json())
+	.then(data => {
+		tickets = data;
+	})
+	.catch(error => console.log(error));
+
 function getISOWeekYear(tmpDate) {
 	 tmpDate.setDate(tmpDate.getDate() + 3 - ((tmpDate.getDay() + 6) % 7));
 	 return tmpDate.getFullYear();
@@ -18,22 +26,27 @@ function getISOWeek(tmpDate) {
 }
 
 // 올해 연간 매출
-function setThisYearly(curr_date) {
+function setYearlyGraph(curr_date) {
 	const year = curr_date.getFullYear();
 	
 	fetch("/yearlySales?year=" + year)
 		.then(response => response.json())
 		.then(data => {
 			const month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+			let labels = month.map(v => v + '월');
 			
-			let labels = month.map(v => v + "월");
 			let dataObj = {};
+			for(let ticket of tickets) {
+				dataObj[ticket.name] = Array(labels.length).fill(0);				
+			}
 
-			for(let row of data) {
+			for(let row of data) {			
 				if(!dataObj[row.tname]) {
 					dataObj[row.tname] = labels.map(() => 0);
 				}
-				dataObj[row.tname][month.indexOf(Number(row.tmonth))] += row.monthlySales;
+								
+				const idx = month.indexOf(Number(row.tmonth));
+				dataObj[row.tname][idx] += row.monthlySales;
 			}
 			
 			setChart(labels, dataObj, year + "년 연간 매출");
@@ -42,7 +55,7 @@ function setThisYearly(curr_date) {
 }
 
 // 이번 달 월간 매출
-function setThisMonthly(curr_date) {
+function setMonthlyGraph(curr_date) {
 	const year = curr_date.getFullYear();
 	const month = curr_date.getMonth() + 1;
 
@@ -55,12 +68,17 @@ function setThisMonthly(curr_date) {
 			let labels = days.map(v => year + "-" + month.toString().padStart(2, '0') + "-" + v.toString().padStart(2, '0'));
 			// let labels = days.map(v => v + "일");
 			let dataObj = {};
+			for(let ticket of tickets) {
+				dataObj[ticket.name] = Array(labels.length).fill(0);				
+			}
 
 			for(let row of data) {
 				if(!dataObj[row.tname]) {
 					dataObj[row.tname] = labels.map(() => 0);
 				}
-				dataObj[row.tname][labels.indexOf(row.tdate)] += row.dailySales;
+				
+				const idx = labels.indexOf(row.tdate);
+				dataObj[row.tname][idx] += row.dailySales;
 			}
 			
 			
@@ -70,7 +88,10 @@ function setThisMonthly(curr_date) {
 }
 
 // 이번 주 주간 매출
-function setThisWeekly(curr_date) {
+function setWeeklyGraph(curr_date) {
+	let labels = [];
+	let dataObj = {};
+	
 	const isoYear = getISOWeekYear(curr_date);
 	const isoWeek = getISOWeek(curr_date);
 	
@@ -83,7 +104,6 @@ function setThisWeekly(curr_date) {
 	fetch("/weeklySales?date=" + dateStr)
 		.then(response => response.json())
 		.then(data => {
-			const labels = [];
 			const day = curr_date.getDay();
 			
 			// ISO 기준에서 주의 시작은 월요일이므로, 보정값 계산
@@ -99,23 +119,23 @@ function setThisWeekly(curr_date) {
 			  	// result.push(d.toLocaleDateString().split('T')[0]); // 'YYYY-MM-DD' 형식
 			  	
 			  	let dYear = d.getFullYear();
-			  	let dMonth = String(d.getMonth() + 1).padStart(2, '0');
-			  	let dDay = String(d.getDate()).padStart(2, '0');
+			  	let dMonth = (d.getMonth() + 1).toString().padStart(2, '0');
+			  	let dDay = d.getDate().toString().padStart(2, '0');
 
 			  	labels.push(dYear + "-" + dMonth + "-" + dDay);
 			}
 
-			let dataObj = {
-				"오전 이용권": [], 
-				"오후 이용권": [], 
-				"종일 이용권": [], 
-			};
+			for(let ticket of tickets) {
+				dataObj[ticket.name] = Array(labels.length).fill(0);				
+			}
 			
 			for(let row of data) {
-				if(!dataObj[row.tname].length) {
+				if(!dataObj[row.tname]) {
 					dataObj[row.tname] = labels.map(() => 0);
 				}
-				dataObj[row.tname][labels.indexOf(row.tdate)] += row.dailySales;
+				
+				const idx = labels.indexOf(row.tdate);
+				dataObj[row.tname][idx] += row.dailySales;
 			}
 			
 			setChart(labels, dataObj, isoYear + "년 " + isoWeek + "주차 매출");
@@ -123,8 +143,7 @@ function setThisWeekly(curr_date) {
 		.catch(error => console.log(error));
 }
 
-function setChart(labels, dataObj, title) {
-	
+function setChart(labels, dataObj, title) {	
 	if(myLineChart != undefined) {
 		myLineChart.destroy();
 	}

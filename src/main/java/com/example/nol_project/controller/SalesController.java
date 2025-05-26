@@ -9,14 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.nol_project.dto.SalesChartDTO;
 import com.example.nol_project.dto.SalesRangeDTO;
+import com.example.nol_project.dto.TicketDTO;
 import com.example.nol_project.service.SalesService;
+import com.example.nol_project.service.TicketService;
 
 @RestController
 public class SalesController {
 	private final SalesService salesService;
+	private final TicketService ticketService;
 	
-	public SalesController(SalesService salesService) {
+	public SalesController(SalesService salesService, TicketService ticketService) {
 		this.salesService = salesService;
+		this.ticketService = ticketService;
 	}
 	
 	@GetMapping("/getSalesRange")
@@ -24,6 +28,13 @@ public class SalesController {
 		SalesRangeDTO salesRange = salesService.getSalesRange();
 		
 		return salesRange;
+	}
+	
+	@GetMapping("/getTicketType")
+	public List<TicketDTO> getTicketType() {
+		List<TicketDTO> tlist = ticketService.getAllTickets();
+		
+		return tlist;
 	}
 	
 	@GetMapping("/yearlySales")

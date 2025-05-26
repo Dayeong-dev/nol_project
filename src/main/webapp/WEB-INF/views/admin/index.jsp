@@ -41,12 +41,11 @@
 		const $ctx = document.getElementById('myChart');
 		const $radios = document.querySelectorAll('input[name="chartType"]');
 		
-		// 오늘 날짜 문자열 포맷
+		// 오늘 날짜 데이터
 		let today = new Date();
 
-		// 그래프 범위 저장
-		let salesRange;
-		
+		// 그래프 범위 조회
+		let salesRange = {};	
 		fetch("/getSalesRange")
 			.then(response => response.json())
 			.then(data => {
@@ -54,21 +53,22 @@
 			})
 			.catch(error => console.log(error));
 		
+		
 		// 올해 연간 매출 그래프 출력
-		setThisYearly(today);
+		setYearlyGraph(today);
 		
 		$radios.forEach(radio => {
 			radio.addEventListener("change", e => {
 				const value = e.currentTarget.value;
 				
 				if(value === "1") {
-					setThisYearly(today);
+					setYearlyGraph(today);
 				}
 				else if(value === "2") {
-					setThisMonthly(today);
+					setMonthlyGraph(today);
 				}
 				else {
-					setThisWeekly(today);
+					setWeeklyGraph(today);
 				}
 			})
 		})
