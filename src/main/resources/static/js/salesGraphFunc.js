@@ -27,11 +27,7 @@ function setThisYearly(curr_date) {
 			const month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 			
 			let labels = month.map(v => v + "월");
-			let dataObj = {
-				"오전 이용권": [], 
-				"오후 이용권": [], 
-				"종일 이용권": [], 
-			};
+			let dataObj = {};
 
 			for(let row of data) {
 				if(!dataObj[row.tname]) {
@@ -58,11 +54,7 @@ function setThisMonthly(curr_date) {
 			
 			let labels = days.map(v => year + "-" + month.toString().padStart(2, '0') + "-" + v.toString().padStart(2, '0'));
 			// let labels = days.map(v => v + "일");
-			let dataObj = {
-				"오전 이용권": [], 
-				"오후 이용권": [], 
-				"종일 이용권": [], 
-			};
+			let dataObj = {};
 
 			for(let row of data) {
 				if(!dataObj[row.tname]) {
