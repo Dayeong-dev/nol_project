@@ -7,7 +7,14 @@
 	<insert id="insertUserCoupon">
 		INSERT INTO nol_user_coupon(ucno, cno, id) VALUES(seq_nol_user_coupon.NEXTVAL, #{cno}, #{id})
 	</insert>
+	
 	<select id="selectUserCoupon">
 		SELECT * FROM nol_user_coupon WHERE cno = #{cno}
+	</select>
+	
+	<select id="countByCnoAndId" resultType="int">
+	    SELECT COUNT(*) 
+	    FROM nol_user_coupon 
+	    WHERE cno = #{cno} AND id = #{id}
 	</select>
 </mapper>

@@ -49,21 +49,28 @@ public class EventController {
 	}
 	
 	@GetMapping("/addCoupon")
-	public @ResponseBody String addCoupon(@RequestParam("cno") int cno, HttpSession session, Model model) {
-		try {
-			String id = (String) session.getAttribute("id");
-			boolean result = couponService.addUserCoupon(cno, id);
-			
-			if(result) {
-				return "success";
-			}
-			
-			return "fail";
-		} catch(RuntimeException e) {
-			return e.getMessage();
-		}
-		
+	@ResponseBody
+	public String addCoupon(@RequestParam("cno") int cno, HttpSession session) {
+	    String id = (String) session.getAttribute("id");
+
+	    if (id == null) {
+	        return "unauthorized";
+	    }
+
+	    // 발급 여부 먼저 확인
+	    if (eventService.hasCoupon(cno, id)) {
+	        return "exist";
+	    }
+
+	    // 그 다음 발급 시도
+	    try {
+	        boolean result = couponService.addUserCoupon(cno, id);
+	        return result ? "success" : "fail";
+	    } catch (RuntimeException e) {
+	        return e.getMessage(); // "exist", "fail" 등이 반환될 수 있음
+	    }
 	}
+
 	
 	 @GetMapping("/popupCookie")
 	    @ResponseBody
