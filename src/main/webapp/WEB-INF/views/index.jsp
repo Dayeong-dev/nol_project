@@ -44,4 +44,5 @@
 	</ul>
 	<a href="attrctn">더 보러가기</a>
 </body>
+	<jsp:include page="./fragments/footer.jsp"></jsp:include>
 </html>
