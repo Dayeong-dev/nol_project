@@ -29,7 +29,7 @@ public class NoticeService {
     }
 
     public void NoticeUpdate(NoticeDTO notice) {
-        noticeDAO.NoticeUpdate(notice);
+        noticeDAO.noticeUpdate(notice);
     }
 
     public void delete(int nno) {
@@ -40,14 +40,29 @@ public class NoticeService {
         noticeDAO.increaseHit(nno);
     }
     
-    public List<NoticeDTO> getPagedNotices(int page, int pageSize) {
-        int start = (page - 1) * pageSize + 1;
-        int end = page * pageSize;
-        return noticeDAO.selectPaged(start, end);
+//    public List<NoticeDTO> getPagedNotices(int page, int pageSize) {
+//        int start = (page - 1) * pageSize + 1;
+//        int end = page * pageSize;
+//        return noticeDAO.selectPaged(start, end);
+//    }
+
+//    public int getTotalPages(int pageSize) {
+//        int totalNotices = noticeDAO.countNotices();
+//        return (int) Math.ceil((double) totalNotices / pageSize);
+//    }
+    
+    public List<NoticeDTO> getPagedNotices(int page, int pageSize, String category, String keyword) {
+    	int start = (page - 1) * pageSize + 1;
+    	int end = page * pageSize;
+    	if (category == null || category.isBlank()) category = "";
+    	if (keyword == null || keyword.isBlank()) keyword = "";
+    	return noticeDAO.selectPagedFiltered(start, end, category, keyword);
     }
 
-    public int getTotalPages(int pageSize) {
-        int totalNotices = noticeDAO.countNotices();
-        return (int) Math.ceil((double) totalNotices / pageSize);
+    public int getTotalPages(int pageSize, String category, String keyword) {
+    	int total = noticeDAO.countFiltered(category, keyword);
+    	if (category == null || category.isBlank()) category = "";
+    	if (keyword == null || keyword.isBlank()) keyword = "";
+    	return (int) Math.ceil((double) total / pageSize);
     }
 }

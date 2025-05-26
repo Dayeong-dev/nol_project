@@ -14,6 +14,8 @@ public class QuestionsService {
     @Autowired
     private IQuestionsDAO questionsDAO;
 
+    private final int pageSize = 10;
+    
 	public List<QuestionsDTO> getQuestionsList() {
   	return questionsDAO.getAllQuestions();
 	}
@@ -31,15 +33,26 @@ public class QuestionsService {
 	    return questionsDAO.getQuestionDetail(qno);
 	}
 
-	public List<QuestionsDTO> getPagedQuestions(int page, int size) {
-	    int startRow = (page - 1) * size + 1;
-	    int endRow = page * size;
-	    return questionsDAO.getPagedQuestions(startRow, endRow);
-	}
+//	public List<QuestionsDTO> getPagedQuestions(int page, int size) {
+//	    int startRow = (page - 1) * size + 1;
+//	    int endRow = page * size;
+//	    return questionsDAO.getPagedQuestions(startRow, endRow);
+//	}
+//
+//	public int getTotalPages(int size) {
+//	    int totalCount = questionsDAO.getTotalQuestionCount();
+//	    return (int) Math.ceil((double) totalCount / size);
+//	}
 
-	public int getTotalPages(int size) {
-	    int totalCount = questionsDAO.getTotalQuestionCount();
-	    return (int) Math.ceil((double) totalCount / size);
-	}
+	 public List<QuestionsDTO> getFilteredQuestions(String category, String keyword, int page) {
+	        int startRow = (page - 1) * pageSize + 1;
+	        int endRow = page * pageSize;
+	        return questionsDAO.getFilteredQuestions(category, keyword, startRow, endRow);
+	    }
+
+	    public int getTotalPages(String category, String keyword) {
+	        int totalCount = questionsDAO.getFilteredQuestionsCount(category, keyword);
+	        return (int) Math.ceil((double) totalCount / pageSize);
+	    }
     
 }

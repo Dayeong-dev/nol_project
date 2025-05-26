@@ -1,37 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.example.nol_project.dao.IQuestionsDAO">
-<!--<select id="getAllQuestions" resultType="com.example.nol_project.dto.QuestionsDTO">
-	    SELECT q.qno,
-	           q.title,
-	           q.content,
-	           q.createDate,
-	           q.isAnswered,
-	           m.name AS memberName
-	    FROM nol_questions q
-	    JOIN nol_member m ON q.id = m.id
-	    ORDER BY q.qno DESC
-	</select>
-    
-    <insert id="insertQuestion" parameterType="com.example.nol_project.dto.QuestionsDTO">
-	    INSERT INTO nol_questions (qno, id, title, content, createDate)
-	    VALUES (nol_questions_seq.NEXTVAL, #{id}, #{title}, #{content}, SYSDATE)
-	</insert>
-		
-	<select id="getQuestionDetail" parameterType="int" resultType="com.example.nol_project.dto.QuestionsDTO">
-	    SELECT 
-	        q.qno, q.id, q.title, q.content, q.createDate, q.isAnswered,
-	        m.name AS memberName,
-	        m.phone AS memberPhone,
-	        a.content AS answerContent,
-	        ad.name AS adminName
-	    FROM nol_questions q
-	    JOIN nol_member m ON q.id = m.id
-	    LEFT JOIN nol_answers a ON q.qno = a.qno
-	    LEFT JOIN nol_admin ad ON a.adminId = ad.adminId
-	    WHERE q.qno = #{qno}
-</select> -->
+
+  <select id="getFilteredQuestions" resultType="com.example.nol_project.dto.QuestionsDTO" parameterType="map">
+    SELECT * FROM (
+      SELECT q.*, ROWNUM rnum FROM (
+        SELECT 
+          q.qno, q.title, q.content, q.createDate,
+          q.isAnswered, q.category, m.name AS memberName 
+        FROM nol_questions q
+        JOIN nol_member m ON q.id = m.id
+        <where>
+          <if test="category != null and category != ''">
+            AND q.category = #{category}
+          </if>
+          <if test="keyword != null and keyword != ''">
+            AND (q.title LIKE '%' || #{keyword} || '%' OR q.content LIKE '%' || #{keyword} || '%')
+          </if>
+        </where>
+        ORDER BY q.qno DESC
+      ) q
+      WHERE ROWNUM &lt;= #{endRow}
+    )
+    WHERE rnum &gt;= #{startRow}
+  </select>
+
+  <select id="getFilteredQuestionsCount" resultType="int" parameterType="map">
+    SELECT COUNT(*) FROM nol_questions q
+    <where>
+      <if test="category != null and category != ''">
+        AND q.category = #{category}
+      </if>
+      <if test="keyword != null and keyword != ''">
+        AND (q.title LIKE '%' || #{keyword} || '%' OR q.content LIKE '%' || #{keyword} || '%')
+      </if>
+    </where>
+  </select>
 
 </mapper>

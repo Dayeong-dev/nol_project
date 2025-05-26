@@ -46,5 +46,7 @@ public interface IAnswersDAO {
 	@Select("SELECT * FROM nol_questions WHERE isAnswered = 0 ORDER BY createDate DESC")
 	List<QuestionsDTO> selectUnansweredList();
 	
-	
+	@Select("SELECT * FROM nol_questions WHERE isAnswered = 1 ORDER BY createDate DESC")
+	List<QuestionsDTO> selectAnsweredList();
+
 }

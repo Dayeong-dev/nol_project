@@ -16,6 +16,14 @@
 	    </p>
 	    <p>제목: <input type="text" name="title" required></p>
 	    <p>내용: <textarea name="content" required></textarea></p>
+	    <p>카테고리:
+			<select name="category" required>
+				<option value="">선택</option>
+				<option value="공지">공지</option>
+				<option value="이벤트">이벤트</option>
+				<option value="점검">점검</option>
+			</select>
+		</p>
 	    <button type="submit">등록</button>
 	</form>
 	<a href="/notice/NoticeList">목록</a>

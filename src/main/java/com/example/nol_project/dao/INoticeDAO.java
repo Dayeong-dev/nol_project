@@ -20,11 +20,12 @@ public interface INoticeDAO {
     @Select("SELECT nno, adminId, title, content, isFixed, hit FROM nol_notice WHERE nno = #{nno}")
     NoticeDTO selectByNno(int nno);
 
-    @Insert("INSERT INTO nol_notice (nno, adminId, title, content, isFixed) VALUES (seq_nol_notice.NEXTVAL, #{adminId}, #{title}, #{content}, #{isFixed})")
+    @Insert("INSERT INTO nol_notice (nno, adminId, title, content, isFixed, category) " +
+            "VALUES (seq_nol_notice.NEXTVAL, #{adminId}, #{title}, #{content}, #{isFixed}, #{category})")
     void insert(NoticeDTO notice);
 
     @Update("UPDATE nol_notice SET title = #{title}, content = #{content}, isFixed = #{isFixed} WHERE nno = #{nno}")
-    void NoticeUpdate(NoticeDTO notice);
+    void noticeUpdate(NoticeDTO notice);
 
     @Delete("DELETE FROM nol_notice WHERE nno = #{nno}")
     void delete(int nno);
@@ -37,16 +38,42 @@ public interface INoticeDAO {
     int countNotices();
 
     // 페이지 단위 조회
-    @Select("""
-        SELECT * FROM (
-            SELECT ROWNUM AS rn, a.* FROM (
-                SELECT nno, adminId, title, content, isFixed, hit 
-                FROM nol_notice 
-                ORDER BY isFixed DESC, nno DESC
-            ) a
-            WHERE ROWNUM <= #{end}
-        )
-        WHERE rn >= #{start}
-    """)
-    List<NoticeDTO> selectPaged(@Param("start") int start, @Param("end") int end);
+//    @Select("""
+//        SELECT * FROM (
+//            SELECT ROWNUM AS rn, a.* FROM (
+//                SELECT nno, adminId, title, content, isFixed, hit 
+//                FROM nol_notice 
+//                ORDER BY isFixed DESC, nno DESC
+//            ) a
+//            WHERE ROWNUM <= #{end}
+//        )
+//        WHERE rn >= #{start}
+//    """)
+//    List<NoticeDTO> selectPaged(@Param("start") int start, @Param("end") int end);
+    
+//    @Select("""
+//    		SELECT * FROM (
+//    			SELECT ROWNUM AS rn, a.* FROM (
+//    				SELECT nno, adminId, title, content, isFixed, hit, category
+//    				FROM nol_notice
+//    				WHERE (#{category} = '' OR category = #{category})
+//    				AND (#{keyword} = '' OR title LIKE '%' || #{keyword} || '%')
+//    				ORDER BY isFixed DESC, nno DESC
+//    			) a
+//    			WHERE ROWNUM <= #{end}
+//    		)
+//    		WHERE rn >= #{start}
+//    	""")
+    	List<NoticeDTO> selectPagedFiltered(@Param("start") int start,
+    	                                    @Param("end") int end,
+    	                                    @Param("category") String category,
+    	                                    @Param("keyword") String keyword);
+//
+//    	@Select("""
+//    		SELECT COUNT(*) FROM nol_notice
+//    		WHERE (#{category} = '' OR category = #{category})
+//    		AND (#{keyword} = '' OR title LIKE '%' || #{keyword} || '%')
+//    	""")
+    	int countFiltered(@Param("category") String category,
+    	                  @Param("keyword") String keyword);
 }

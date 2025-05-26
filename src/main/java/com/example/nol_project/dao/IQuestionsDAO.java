@@ -43,10 +43,12 @@ public interface IQuestionsDAO {
 		""")
 		List<QuestionsDTO> getUnansweredList();
 	
-    @Insert("INSERT INTO nol_questions (qno, id, title, content, createDate) " +
-            "VALUES (seq_nol_questions.NEXTVAL, #{id}, #{title}, #{content}, SYSDATE)")
-    void insertQuestion(QuestionsDTO dto);
-
+    @Insert("""
+    	    INSERT INTO nol_questions (qno, id, title, content, createDate, category)
+    	    VALUES (seq_nol_questions.NEXTVAL, #{id}, #{title}, #{content}, SYSDATE, #{category})
+    	""")
+    	void insertQuestion(QuestionsDTO dto);
+    
     @Select("""
     	    SELECT * FROM (
     	        SELECT q.*, ROWNUM rnum FROM (
@@ -66,6 +68,19 @@ public interface IQuestionsDAO {
     	    @Param("endRow") int endRow
     	);
 
-    	@Select("SELECT COUNT(*) FROM nol_questions")
-    	int getTotalQuestionCount();
+    @Select("SELECT COUNT(*) FROM nol_questions")
+    int getTotalQuestionCount();
+    	
+    // 필터링 + 검색 + 페이징된 질문 목록 조회
+    List<QuestionsDTO> getFilteredQuestions(
+            @Param("category") String category,
+            @Param("keyword") String keyword,
+            @Param("startRow") int startRow,
+            @Param("endRow") int endRow
+        );
+
+    int getFilteredQuestionsCount(
+            @Param("category") String category,
+            @Param("keyword") String keyword
+        );
 }
