@@ -28,8 +28,7 @@
 </head>
 <body>
 	<jsp:include page="./fragments/header.jsp"></jsp:include>
-	<h1>Index Page</h1>
-	<hr/>
+	
 	<h1>재미있고 즐거운 다양한 어트랙션</h1>
 	<ul id="attrctn">
 		<c:forEach var="attrctn" items="${list }" varStatus="status">
@@ -45,4 +44,5 @@
 	</ul>
 	<a href="attrctn">더 보러가기</a>
 </body>
+	<jsp:include page="./fragments/footer.jsp"></jsp:include>
 </html>
