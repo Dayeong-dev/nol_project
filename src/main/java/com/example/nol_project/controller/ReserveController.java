@@ -80,8 +80,7 @@ public class ReserveController {
         }
 
         dto.setTotalPrice(total); // 실제 결제 금액 저장
-        System.out.println("✅ 저장될 결제 금액: " + dto.getTotalPrice());
-
+     
         boolean result = reserveService.processReserve(dto);
         if (result) {
             rttr.addFlashAttribute("msg", "예매 성공!");
