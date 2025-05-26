@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.nol_project.dao.ReviewsDAO">
+	<insert id="insertReview">
+		INSERT INTO nol_review (rvno, rno, content, rvdate) VALUES (seq_nol_review.nextval, #{rno}, #{content}, SYSDATE)
+	</insert>
+	<select id="getReviewsList">
+		SELECT * FROM nol_review
+	</select>
+	
+	<select id="getReviewList">
+		SELECT * FROM nol_review
+	</select>
+	<select id="getReviewNo">
+		SELECT * FROM nol_review WHERE rvno = #{rvno}
+	</select>
+	<delete id="getReviewDelete">
+		DELETE FROM nol_review WHERE rvno = #{rvno}
+	</delete>
+</mapper>

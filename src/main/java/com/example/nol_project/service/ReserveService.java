@@ -3,6 +3,8 @@ package com.example.nol_project.service;
 import com.example.nol_project.dao.ReserveDAO;
 import com.example.nol_project.dto.ReserveDTO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +30,23 @@ public class ReserveService {
 
         return true;
     }
+    
+   
+        public List<ReserveDTO> showReservation(ReserveDTO dto) {
+            return reserveDAO.showReservation(dto);
+        }
+        
+        public List<ReserveDTO> getReservationPage(int page, int pageSize) {
+            int offset = (page - 1) * pageSize;
+            return reserveDAO.getReservationPage(offset, pageSize); //페이지네이션
+        }
+
+        public int getReservationCount() {
+            return reserveDAO.getReservationCount();
+        }
+
+        
+        
+    
+
 }

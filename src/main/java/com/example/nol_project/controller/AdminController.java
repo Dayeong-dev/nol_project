@@ -14,9 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.nol_project.dto.AdminDTO;
 import com.example.nol_project.dto.CouponDTO;
+import com.example.nol_project.dto.ReserveDTO;
 import com.example.nol_project.dto.UserCouponDTO;
 import com.example.nol_project.service.AdminService;
 import com.example.nol_project.service.CouponService;
+import com.example.nol_project.service.ReserveService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,10 +27,12 @@ import jakarta.servlet.http.HttpSession;
 public class AdminController {
 	private final AdminService adminService;
 	private final CouponService couponService;
+	private final ReserveService reserveService;
 	
-	public AdminController(AdminService adminService, CouponService couponService) {
+	public AdminController(AdminService adminService, CouponService couponService, ReserveService reserveService) {
 		this.adminService = adminService;
 		this.couponService = couponService;
+		this.reserveService = reserveService;
 	}
 	
 	
@@ -93,5 +97,19 @@ public class AdminController {
 	public String salesDetail() {
 		
 		return "admin/salesDetail";
+
+	@GetMapping("/reservationList")
+	public String showReservationList(@RequestParam(value = "page", defaultValue = "1") int page,
+	                                   Model model) {
+	    int pageSize = 10;
+	    List<ReserveDTO> list = reserveService.getReservationPage(page, pageSize);
+	    int totalCount = reserveService.getReservationCount();
+	    int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+
+	    model.addAttribute("reservationList", list);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
+
+	    return "admin/reservationList";
 	}
 }

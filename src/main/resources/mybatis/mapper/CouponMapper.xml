@@ -5,16 +5,19 @@
   
 <mapper namespace="com.example.nol_project.dao.CouponDAO">
   <select id="getCouponsByUserId" parameterType="String" resultType="com.example.nol_project.dto.UserCouponDTO">
-    SELECT 
-      uc.ucno,
-      uc.cno,
-      c.name,
-      c.discount_rate,
-      uc.expire_date
-    FROM nol_user_coupon uc
-    JOIN nol_coupon c ON uc.cno = c.cno
-    WHERE uc.id = #{id} AND uc.used = 0 AND uc.expire_date >= SYSDATE
-  </select>
+	  SELECT 
+	    uc.ucno,
+	    uc.cno,
+	    c.name,
+	    c.discount_rate,
+	    uc.expire_date
+	  FROM nol_user_coupon uc
+	  JOIN nol_coupon c ON uc.cno = c.cno
+	  WHERE uc.id = #{id, jdbcType=VARCHAR}
+	    AND uc.used = 0
+	    AND uc.expire_date >= SYSDATE
+   </select>
+
   
   	<insert id="insertCoupon" parameterType="com.example.nol_project.dto.CouponDTO">
 	    INSERT INTO nol_coupon (

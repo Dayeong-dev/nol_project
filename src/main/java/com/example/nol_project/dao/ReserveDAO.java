@@ -1,6 +1,9 @@
 package com.example.nol_project.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.nol_project.dto.ReserveDTO;
 
@@ -10,4 +13,10 @@ public interface ReserveDAO {
     int getTicketDateQuantity(ReserveDTO dto); // 남은 수량 조회
     void updateQuantity(ReserveDTO dto); // 수량 차감
     void insertReserve(ReserveDTO dto); // 예매 등록
+    List showReservation(ReserveDTO DTO); //예매 목록 조회
+    
+    List<ReserveDTO> getReservationPage(@Param("offset") int offset, @Param("pageSize") int pageSize); // 페이지네이션
+    int getReservationCount();
+
+
 }

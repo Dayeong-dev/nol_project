@@ -80,8 +80,7 @@ public class ReserveController {
         }
 
         dto.setTotalPrice(total); // 실제 결제 금액 저장
-        System.out.println("✅ 저장될 결제 금액: " + dto.getTotalPrice());
-
+     
         boolean result = reserveService.processReserve(dto);
         if (result) {
             rttr.addFlashAttribute("msg", "예매 성공!");
@@ -96,6 +95,7 @@ public class ReserveController {
     public String showMyPage(HttpSession session, Model model) {
         String id = (String)session.getAttribute("id"); 
         List<Map<String, Object>> list = mypageService.getMyReserveList(id);
+        
         for (Map<String, Object> row : list) {
             System.out.println("🔍 Row keys: " + row.keySet());
             System.out.println("🔍 Row values: " + row.values());
