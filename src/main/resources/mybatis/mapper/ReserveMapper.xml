@@ -2,13 +2,14 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.example.nol_project.dao.ReserveDAO">
 
+<mapper namespace="com.example.nol_project.dao.ReserveDAO">
+
+  <!-- 날짜 없으면 자동 등록 -->
   <insert id="mergeTicketDate">
     MERGE INTO nol_ticket_date d
     USING (
-      SELECT #{tno} AS tno, TO_DATE(#{tdate}, 'YYYY-MM-DD') AS tdate FROM dual
+      SELECT #{tno} AS tno, #{tdate} AS tdate FROM dual
     ) s
     ON (d.tno = s.tno AND d.tdate = s.tdate)
     WHEN NOT MATCHED THEN
@@ -16,53 +17,55 @@
       VALUES (nol_ticket_date_seq.NEXTVAL, s.tno, s.tdate, 1000)
   </insert>
 
+  <!-- 남은 수량 조회 -->
   <select id="getTicketDateQuantity" resultType="int">
     SELECT quantity
     FROM nol_ticket_date
     WHERE tno = #{tno}
-      AND tdate = TO_DATE(#{tdate}, 'YYYY-MM-DD')
+      AND tdate = #{tdate}
   </select>
 
+  <!-- 수량 차감 -->
   <update id="updateQuantity">
     UPDATE nol_ticket_date
     SET quantity = quantity - #{quantity}
     WHERE tno = #{tno}
-      AND tdate = TO_DATE(#{tdate}, 'YYYY-MM-DD')
+      AND tdate = #{tdate}
   </update>
 
+  <!-- 예매 등록 -->
   <insert id="insertReserve">
-	  INSERT INTO nol_reserve (rno, tdno, id, quantity, discount_price)
-	  VALUES (
-	    nol_reserve_seq.NEXTVAL,
-	    (SELECT tdno FROM nol_ticket_date
-	     WHERE tno = #{tno}
-	       AND tdate = TO_DATE(#{tdate}, 'YYYY-MM-DD')),
-	    #{id},
-	    #{quantity},
-	    #{totalPrice}
-	  )
-	</insert>
-	
-	<select id="showReservation" resultType="com.example.nol_project.dto.ReserveDTO">
-	    SELECT 
-	        r.rno,
-	        m.name AS memberName,
-	        t.name AS ticketName,
-	        td.tdate AS tdate,
-	        r.quantity,
-	        (r.quantity * t.price) AS totalPrice
-		    FROM nol_reserve r
-		    JOIN nol_ticket_date td ON r.tdno = td.tdno
-		    JOIN nol_ticket t ON td.tno = t.tno
-		    JOIN nol_member m ON r.id = m.id
-	    <where>
-	        <if test="id != null and id != ''">
-	            AND r.id = #{id}
-	        </if>
-	    </where>
-	    ORDER BY td.tdate DESC
-	</select>
-	
+    INSERT INTO nol_reserve (rno, tdno, id, quantity, discount_price)
+    VALUES (
+      nol_reserve_seq.NEXTVAL,
+      (SELECT tdno FROM nol_ticket_date
+       WHERE tno = #{tno}
+         AND tdate = #{tdate}),
+      #{id},
+      #{quantity},
+      #{totalPrice}
+    )
+  </insert>
+
+  <!-- 예매 조회 -->
+  <select id="showReservation" resultType="com.example.nol_project.dto.ReserveDTO">
+    SELECT 
+      r.rno,
+      m.name AS memberName,
+      t.name AS ticketName,
+      td.tdate AS tdate,
+      r.quantity,
+      (r.quantity * t.price) AS totalPrice
+    FROM nol_reserve r
+    JOIN nol_ticket_date td ON r.tdno = td.tdno
+    JOIN nol_ticket t ON td.tno = t.tno
+    JOIN nol_member m ON r.id = m.id
+    <where>
+      <if test="id != null and id != ''">
+        AND r.id = #{id}
+      </if>
+    </where>
+    ORDER BY td.tdate DESC
+  </select>
 
 </mapper>
-  
