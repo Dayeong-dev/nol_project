@@ -6,6 +6,7 @@
     <mapper namespace="com.example.nol_project.dao.MyPageDAO">
     	 <select id="getMyReserveList" resultType="map">
 			  SELECT 
+			  	r.rno, 
 			    t.name AS ticketName,
 			    td.tdate AS reserveDate,
 			    r.quantity,

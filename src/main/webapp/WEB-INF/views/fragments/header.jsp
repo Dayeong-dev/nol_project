@@ -71,7 +71,11 @@ header .user-section a {
 			<li><a href="/reserve">예매</a></li>
 			<li><a href="/coupon">쿠폰</a></li>
 			<li><a href="/mypage">마이페이지</a></li>
-			<li><a href="/app">앱다운로드</a></li>
+			<li><a href="/attrctn">어트랙션</a></li>
+			<li><a href="/notice/NoticeList">공지사항</a></li>
+			<li><a href="/QuestionsList">QnA</a></li>
+			<li><a href="/faq">FAQ</a></li>
+			<li><a href="/reviews">리뷰보기</a></li>
 		</ul>
 	</nav>
 
@@ -81,6 +85,7 @@ header .user-section a {
 			<c:when test="${sessionScope.id != null}">
 				<span><strong><c:out value="${sessionScope.name}"
 							default="회원" /></strong>님 환영합니다</span>
+				<a href="/mypage">마이페이지</a>
 				<a href="/logout">로그아웃</a>
 			</c:when>
 			<c:otherwise>

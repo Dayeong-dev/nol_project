@@ -35,4 +35,19 @@ public class NoticeService {
     public void delete(int nno) {
         noticeDAO.delete(nno);
     }
+    
+    public void increaseHit(int nno) {
+        noticeDAO.increaseHit(nno);
+    }
+    
+    public List<NoticeDTO> getPagedNotices(int page, int pageSize) {
+        int start = (page - 1) * pageSize + 1;
+        int end = page * pageSize;
+        return noticeDAO.selectPaged(start, end);
+    }
+
+    public int getTotalPages(int pageSize) {
+        int totalNotices = noticeDAO.countNotices();
+        return (int) Math.ceil((double) totalNotices / pageSize);
+    }
 }
