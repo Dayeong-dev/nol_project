@@ -79,6 +79,7 @@ public class AdminController {
 	    return "admin/event"; // views/admin/event.jsp
 	}
 	
+
 	@PostMapping("/insertCoupon")
 	public String insertCoupon(@ModelAttribute CouponDTO dto, RedirectAttributes rttr) {
 	    couponService.insertCoupon(dto);
