@@ -42,6 +42,27 @@
 	    #{totalPrice}
 	  )
 	</insert>
+	
+	<select id="showReservation" resultType="com.example.nol_project.dto.ReserveDTO">
+	    SELECT 
+	        r.rno,
+	        m.name AS memberName,
+	        t.name AS ticketName,
+	        td.tdate AS tdate,
+	        r.quantity,
+	        (r.quantity * t.price) AS totalPrice
+		    FROM nol_reserve r
+		    JOIN nol_ticket_date td ON r.tdno = td.tdno
+		    JOIN nol_ticket t ON td.tno = t.tno
+		    JOIN nol_member m ON r.id = m.id
+	    <where>
+	        <if test="id != null and id != ''">
+	            AND r.id = #{id}
+	        </if>
+	    </where>
+	    ORDER BY td.tdate DESC
+	</select>
+	
 
 </mapper>
   
