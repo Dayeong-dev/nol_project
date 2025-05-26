@@ -13,7 +13,7 @@
 </head>
 <body>
 	<jsp:include page="./fragments/header.jsp"></jsp:include>
-	<section id="eventList">
+	<section id="eventDetail">
 		<table border="1">
 			<tbody>
 				<tr>

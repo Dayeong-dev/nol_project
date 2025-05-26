@@ -10,6 +10,7 @@
 </head>
 <body>
 	<section id="salesDetail">
+		<h2>매출 상세</h2>
 		<div id="btnList">
 			<button id="prevBtn" onclick="prevPage()">지난 해</button>
 			<button id="nextBtn" onclick="nextPage()">다음 해</button>

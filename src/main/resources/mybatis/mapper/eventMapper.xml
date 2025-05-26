@@ -11,9 +11,37 @@
 	    FROM nol_event
 	</select>
 	<select id="selectEventWithCno">
-		SELECT e.*, cno FROM nol_event e 
-		JOIN nol_coupon c 
+		SELECT e.*, c.cno, c.name AS cName, c.description AS cDescription, c.discount_rate FROM nol_event e 
+		LEFT JOIN nol_coupon c 
 		ON e.eno = c.eno 
 		WHERE e.eno = #{eno}
 	</select>
+	<select id="getEventByEno">
+		SELECT * FROM nol_event WHERE eno = #{eno}
+	</select>
+	<insert id="insertEvent">
+		INSERT INTO nol_event 
+		VALUES (
+			seq_nol_event.NEXTVAL, 
+			#{e.name}, 
+			#{e.description}, 
+			#{e.startDate}, 
+			#{e.endDate}, 
+			#{e.thumbnailURL}, 
+			#{e.contentImgURL})
+	</insert>
+	<update id="updateEvent">
+		UPDATE nol_event 
+		SET 
+			name = #{e.name}, 
+			description = #{e.description}, 
+			startDate = #{e.startDate}, 
+			endDate = #{e.endDate}, 
+			thumbnailURL = #{e.thumbnailURL}, 
+			contentImgURL = #{e.contentImgURL}
+		WHERE eno = #{eno}
+	</update>
+	<delete id="deleteEvent">
+		DELETE FROM nol_event WHERE eno = #{eno}
+	</delete>
 </mapper>
