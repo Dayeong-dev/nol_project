@@ -47,4 +47,39 @@ public class EventService {
     public boolean hasCoupon(int cno, String id) { //쿠폰 유무 확인(발급시)
         return userCouponDao.countByCnoAndId(cno, id) > 0;
     }
+
+	public EventDTO getEventByEno(int eno) {
+		EventDTO event = eventDao.getEventByEno(eno);
+		return event;
+	}
+
+	public boolean regEvent(EventDTO event) {
+		int result = eventDao.insertEvent(event);
+		
+		if(result == 1) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean updateEvent(EventDTO event, int eno) {
+		int result = eventDao.updateEvent(event, eno);
+		
+		if(result == 1) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	public boolean deleteEvent(int eno) {
+		int result = eventDao.deleteEvent(eno);
+		
+		if(result == 1) {
+			return true;
+		}
+		
+		return false;
+	}
 }

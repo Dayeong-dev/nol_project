@@ -15,5 +15,8 @@ public class EventCouponDTO {
 	private String contentImgURL;
 	
 	private int cno;			// 쿠폰 번호
+	private String cname;
+	private String cdescription;
+	private String discount_rate;
 	private boolean isPast;		// 이벤트 종료 여부
 }
