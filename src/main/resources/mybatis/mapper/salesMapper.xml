@@ -21,7 +21,7 @@
 			FROM nol_ticket_date td 
 			JOIN nol_reserve r ON td.tdno = r.tdno 
 			JOIN nol_ticket t ON td.tno = t.tno 
-			WHERE td.tdate BETWEEN TO_DATE(SUBSTR(#{date}, 1, 4) || '0101', 'YYYYMMDD') AND TO_DATE(SUBSTR(#{date}, 1, 4) || '1231', 'YYYYMMDD') 
+			WHERE td.tdate BETWEEN TO_DATE(#{year} || '0101', 'YYYYMMDD') AND TO_DATE(#{year} || '1231', 'YYYYMMDD') 
 			AND td.tdate < SYSDATE 
 			GROUP BY TO_CHAR(td.tdate, 'MM'), t.tno, t.name 
 			ORDER BY TO_CHAR(td.tdate, 'MM'), t.tno
@@ -33,7 +33,7 @@
 			FROM nol_ticket_date td 
 			JOIN nol_reserve r ON td.tdno = r.tdno 
 			JOIN nol_ticket t ON td.tno = t.tno 
-			WHERE TO_CHAR(td.tdate, 'YYYYMM') = TO_CHAR(TO_DATE(#{date}, 'YYYYMMDD'), 'YYYYMM') 
+			WHERE TO_CHAR(td.tdate, 'YYYYMM') = TO_CHAR(TO_DATE(#{year} || #{month}, 'YYYYMM'), 'YYYYMM') 
 			AND td.tdate < SYSDATE 
 			GROUP BY td.tdate, t.tno, t.name 
 			ORDER BY td.tdate, t.tno

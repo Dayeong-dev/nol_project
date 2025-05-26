@@ -13,9 +13,9 @@ public interface SalesDAO {
 
 	public SalesRangeDTO selectSalesRange();
 	
-	public List<SalesChartDTO> selectYearlySales(@Param("date") String date);
+	public List<SalesChartDTO> selectYearlySales(@Param("year") String year);
 
-	public List<SalesChartDTO> selectMonthlySales(@Param("date") String date);
+	public List<SalesChartDTO> selectMonthlySales(@Param("year") String year, @Param("month") String month);
 
 	public List<SalesChartDTO> selectWeeklySales(@Param("date") String date);
 }

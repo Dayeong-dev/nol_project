@@ -88,4 +88,10 @@ public class AdminController {
 	    model.addAttribute("couponList", list);
 	    return "admin/couponList"; // views/admin/couponList.jsp
 	}
+	
+	@GetMapping("/salesDetail")
+	public String salesDetail() {
+		
+		return "admin/salesDetail";
+	}
 }

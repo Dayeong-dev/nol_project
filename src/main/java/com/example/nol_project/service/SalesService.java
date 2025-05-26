@@ -24,15 +24,15 @@ public class SalesService {
 	}
 	
 
-	public List<SalesChartDTO> getYearlySales(String date) {	
-		List<SalesChartDTO> slist = salesDao.selectYearlySales(date);
+	public List<SalesChartDTO> getYearlySales(String year) {	
+		List<SalesChartDTO> slist = salesDao.selectYearlySales(year);
 
 		return slist;
 	}
 
 
-	public List<SalesChartDTO> getMonthlySales(String date) {	
-		List<SalesChartDTO> slist = salesDao.selectMonthlySales(date);
+	public List<SalesChartDTO> getMonthlySales(String year, String month) {	
+		List<SalesChartDTO> slist = salesDao.selectMonthlySales(year, month);
 		
 		return slist;
 	}
