@@ -14,5 +14,7 @@ public interface UserCouponDAO {
 	public UserCouponDTO selectUserCoupon(@Param("cno") int cno);
 	
 	 int countByCnoAndId(@Param("cno") int cno, @Param("id") String id);//쿠폰발급확인
+	 
+	 UserCouponDTO selectUserCouponByCnoAndId(@Param("cno") int cno, @Param("id") String id);
 
 }
