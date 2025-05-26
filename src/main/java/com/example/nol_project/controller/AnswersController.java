@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.nol_project.dto.AnswersDTO;
 import com.example.nol_project.service.AnswersService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
-@RequestMapping("/answers")
+@RequestMapping("/admin/answers")
 public class AnswersController {
 
     @Autowired
@@ -22,15 +24,17 @@ public class AnswersController {
     @GetMapping("/AnswersForm")
     public String answerForm(@RequestParam("qno") int qno, Model model) {
         model.addAttribute("qno", qno); // 질문 번호를 전달
-        return "AnswersForm";
+        return "admin/AnswersForm";
     }
 
     // 답변 등록 처리
-    @PostMapping("/AnwersInsert")
-    public String insertAnswer(AnswersDTO answer) {
-    	answer.setAdminId("admin1234"); // 하드코딩
+    @PostMapping("/AnswersInsert")
+    public String insertAnswer(HttpSession session, AnswersDTO answer) {
+        String adminId = (String) session.getAttribute("adminId"); // 세션에서 가져오기
+        answer.setAdminId(adminId); // DTO에 주입
         answersService.insertAnswer(answer);
-        return "redirect:/QuestionsDetail?qno=" + answer.getQno(); //질문 상세 페이지로
+        answersService.updateIsAnswered(answer.getQno());
+        return "redirect:/QuestionsDetail?qno=" + answer.getQno();
     }
 
     // 답변 상세 보기
@@ -40,4 +44,13 @@ public class AnswersController {
         model.addAttribute("answer", answer);
         return "AnswersDetail";
     }
+    
+    @GetMapping("/UnansweredList")
+    public String unansweredList(Model model) {
+        // 미답변 질문 목록을 가져와서 모델에 담기
+        model.addAttribute("questions", answersService.getUnansweredList()); 
+        return "admin/UnansweredList"; // 경로: /WEB-INF/views/admin/UnansweredList.jsp
+    }
+    
+    
 }
