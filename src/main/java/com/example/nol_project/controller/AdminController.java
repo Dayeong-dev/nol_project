@@ -14,9 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.nol_project.dto.AdminDTO;
 import com.example.nol_project.dto.CouponDTO;
+import com.example.nol_project.dto.ReserveDTO;
 import com.example.nol_project.dto.UserCouponDTO;
 import com.example.nol_project.service.AdminService;
 import com.example.nol_project.service.CouponService;
+import com.example.nol_project.service.ReserveService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,10 +27,12 @@ import jakarta.servlet.http.HttpSession;
 public class AdminController {
 	private final AdminService adminService;
 	private final CouponService couponService;
+	private final ReserveService reserveService;
 	
-	public AdminController(AdminService adminService, CouponService couponService) {
+	public AdminController(AdminService adminService, CouponService couponService, ReserveService reserveService) {
 		this.adminService = adminService;
 		this.couponService = couponService;
+		this.reserveService = reserveService;
 	}
 	
 	
@@ -88,4 +92,11 @@ public class AdminController {
 	    model.addAttribute("couponList", list);
 	    return "admin/couponList"; // views/admin/couponList.jsp
 	}
+	
+	 @GetMapping("/reservationList")
+	    public String showReservationList(Model model) {
+	        List<ReserveDTO> list = reserveService.showReservation(new ReserveDTO()); // 전체 조회
+	        model.addAttribute("reservationList", list);
+	        return "admin/reservationList";
+	    }
 }

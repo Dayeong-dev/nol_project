@@ -9,8 +9,8 @@
 <body>
 	<h1>Admin Main</h1>
 	<hr/>
-	<a href="/admin/event">이벤트 관리 페이지</a>
-	<a href="/admin/event">이벤트 관리 페이지</a>
+	<a href="/admin/event">이벤트/쿠폰 관리 페이지</a>
+	<a href="/admin/reservationList">예매 목록 페이지</a>
 	<a href="${pageContext.request.contextPath}/admin/answers/UnansweredList">미답변 QnA 보기</a>
 </body>
 </html>
