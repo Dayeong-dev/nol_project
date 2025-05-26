@@ -93,10 +93,10 @@ public class AdminController {
 	    return "admin/couponList"; // views/admin/couponList.jsp
 	}
 	
-	 @GetMapping("/reservationList")
-	    public String showReservationList(Model model) {
-	        List<ReserveDTO> list = reserveService.showReservation(new ReserveDTO()); // 전체 조회
-	        model.addAttribute("reservationList", list);
-	        return "admin/reservationList";
-	    }
+	@GetMapping("/reservationList")
+    public String showReservationList(Model model) {
+        List<ReserveDTO> list = reserveService.showReservation(new ReserveDTO()); // 전체 조회
+        model.addAttribute("reservationList", list);
+        return "admin/reservationList";
+    }
 }
