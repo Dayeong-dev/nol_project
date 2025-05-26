@@ -23,7 +23,7 @@
 	    INSERT INTO nol_coupon (
 	        cno, eno, name, description, discount_rate
 	    ) VALUES (
-	        nol_coupon_seq.NEXTVAL,
+	        seq_nol_coupon.NEXTVAL,
 	        #{eno}, #{name}, #{description}, #{discount_rate}
 	    )
 	</insert>

@@ -92,16 +92,23 @@ public class ReserveController {
     }
     
     @GetMapping("/mypage")
-    public String showMyPage(HttpSession session, Model model) {
-        String id = (String)session.getAttribute("id"); 
+    public String showMyPage(HttpSession session, Model model, RedirectAttributes rttr) {
+        String id = (String) session.getAttribute("id");
+
+        if (id == null || id.trim().isEmpty()) {
+            rttr.addFlashAttribute("msg", "로그인 후 이용해주세요.");
+            return "redirect:/login"; // 로그인 페이지로 이동
+        }
+
         List<Map<String, Object>> list = mypageService.getMyReserveList(id);
-        
+
         for (Map<String, Object> row : list) {
             System.out.println("🔍 Row keys: " + row.keySet());
             System.out.println("🔍 Row values: " + row.values());
-        
         }
+
         model.addAttribute("myReserveList", list);
-        return "mypage"; 
+        return "mypage";
     }
+
 }

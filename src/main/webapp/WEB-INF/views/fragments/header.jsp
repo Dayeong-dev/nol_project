@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     long now = System.currentTimeMillis();
@@ -10,8 +9,18 @@
     if (remainingSeconds < 0) remainingSeconds = 0;
 %>
 
+<!-- 로그인 여부를 JS 변수로 전달 -->
+<c:choose>
+  <c:when test="${sessionScope.id != null}">
+    <script>const isLoggedIn = true;</script>
+  </c:when>
+  <c:otherwise>
+    <script>const isLoggedIn = false;</script>
+  </c:otherwise>
+</c:choose>
+
+<!-- ✅ 스타일 -->
 <style>
-/* 헤더 전체 */
 header {
 	display: flex;
 	justify-content: space-between;
@@ -22,18 +31,16 @@ header {
 	font-family: sans-serif;
 }
 
-/* 로고 */
 header .logo {
 	display: flex;
 	align-items: center;
 }
 
 header .logo img {
-	height: 40px;
+	height: 70px;
 	margin-right: 10px;
 }
 
-/* 메뉴 */
 header nav {
 	flex: 1;
 	text-align: center;
@@ -51,9 +58,9 @@ header nav ul li a {
 	text-decoration: none;
 	color: #222;
 	font-weight: bold;
+	cursor: pointer;
 }
 
-/* 로그인/유저정보 */
 header .user-section {
 	text-align: right;
 	font-size: 14px;
@@ -66,21 +73,20 @@ header .user-section a {
 }
 </style>
 
+
 <header>
 	<!-- 왼쪽 로고 -->
 	<div class="logo">
-		<a href="/">  <img src="/nol_image/logo.png" alt="EASYWORLD 로고" height="140"> 
-		</a>
+		<a href="/"><img src="/nol_image/logo.png" alt="EASYWORLD 로고"></a>
 	</div>
 	<!-- 중앙 메뉴 -->
 	<nav>
 		<ul>
-			<li><a href="/reserve">예매</a></li>
-			<li><a href="/coupon">쿠폰</a></li>
-			<li><a href="/mypage">마이페이지</a></li>
+			<li><a onclick="requireLogin('/reserve')">예매</a></li>
+			<li><a onclick="requireLogin('/mypage')">마이페이지</a></li>
 			<li><a href="/attrctn">어트랙션</a></li>
 			<li><a href="/notice/NoticeList">공지사항</a></li>
-			<li><a href="/QuestionsList">QnA</a></li>
+			<li><a onclick="requireLogin('/QuestionsList')">QnA</a></li>
 			<li><a href="/faq">FAQ</a></li>
 			<li><a href="/reviews">리뷰보기</a></li>
 		</ul>
@@ -130,6 +136,14 @@ header .user-section a {
 	      const interval = setInterval(updateSessionTimer, 1000);
 	    }
 	  });
+    function requireLogin(targetUrl) {
+      if (!isLoggedIn) {
+        alert("로그인 후 이용해주세요.");
+        window.location.href = "/login";
+      } else {
+        window.location.href = targetUrl;
+      }
+    }
 	</script>
 			
 </header>

@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.nol_project.dto.EventCouponDTO;
 import com.example.nol_project.dto.EventDTO;
+import com.example.nol_project.dto.UserCouponDTO;
 import com.example.nol_project.service.CouponService;
 import com.example.nol_project.service.EventService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -47,19 +50,53 @@ public class EventController {
 	}
 	
 	@GetMapping("/addCoupon")
-	public @ResponseBody String addCoupon(@RequestParam("cno") int cno, HttpSession session, Model model) {
-		try {
-			String id = (String) session.getAttribute("id");
-			boolean result = couponService.addUserCoupon(cno, id);
-			
-			if(result) {
-				return "success";
-			}
-			
-			return "fail";
-		} catch(RuntimeException e) {
-			return e.getMessage();
-		}
-		
+	@ResponseBody
+	public String addCoupon(@RequestParam("cno") int cno, HttpSession session) {
+	    String id = (String) session.getAttribute("id");
+
+	    if (id == null) {
+	        return "unauthorized";
+	    }
+
+	    // 발급 여부 먼저 확인
+	    if (eventService.hasCoupon(cno, id)) {
+	        return "exist";
+	    }
+
+	    // 그 다음 발급 시도
+	    try {
+	        boolean result = couponService.addUserCoupon(cno, id);
+	        return result ? "success" : "fail";
+	    } catch (RuntimeException e) {
+	        return e.getMessage(); // "exist", "fail" 등이 반환될 수 있음
+	    }
 	}
+	
+	@GetMapping("/mypage/couponList")
+	public String showMyCouponList(HttpSession session, Model model) {
+	    String id = (String) session.getAttribute("id");
+
+	    if (id == null) {
+	        return "redirect:/login"; // 비로그인 시 로그인 페이지로 이동
+	    }
+
+	    List<UserCouponDTO> myCoupons = couponService.getCouponsByUserId(id);
+	    model.addAttribute("couponList", myCoupons);
+
+	    return "couponList"; // ⬅ JSP 파일 경로
+	}
+	
+	 @GetMapping("/popupCookie")
+	    @ResponseBody
+	    public String popupCookie(@RequestParam(required = false) String inactiveToday,
+	                              HttpServletResponse response) {
+
+	        if ("1".equals(inactiveToday)) {
+	            Cookie cookie = new Cookie("PopupClose", "off");
+	            cookie.setPath("/"); // 모든 경로에서 적용
+	            cookie.setMaxAge(60 * 60 * 24); // 1일 
+	            response.addCookie(cookie);
+	        }
+	        return "하루 동안 열지 않음";
+	    }
 }
