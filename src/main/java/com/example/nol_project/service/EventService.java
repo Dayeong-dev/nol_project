@@ -6,15 +6,18 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.nol_project.dao.EventDAO;
+import com.example.nol_project.dao.UserCouponDAO;
 import com.example.nol_project.dto.EventCouponDTO;
 import com.example.nol_project.dto.EventDTO;
 
 @Service
 public class EventService {
 	private final EventDAO eventDao;
+	private final UserCouponDAO userCouponDao;
 	
-	public EventService(EventDAO eventDao) {
+	public EventService(EventDAO eventDao, UserCouponDAO userCouponDao) {
 		this.eventDao = eventDao;
+		this.userCouponDao = userCouponDao;
 	}
 
 	public List<EventDTO> getEventList() {
@@ -39,5 +42,9 @@ public class EventService {
 	
     public List<EventDTO> getAllEvents() {
         return eventDao.getAllEvents(); // mapper 연동
+    }
+    
+    public boolean hasCoupon(int cno, String id) { //쿠폰 유무 확인(발급시)
+        return userCouponDao.countByCnoAndId(cno, id) > 0;
     }
 }
