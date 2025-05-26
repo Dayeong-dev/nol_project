@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.example.nol_project.dao.INoticeDAO">
+ 	<select id="selectPagedFiltered" resultType="com.example.nol_project.dto.NoticeDTO">
+	    SELECT * FROM (
+	      SELECT ROWNUM AS rn, a.* FROM (
+	        SELECT nno, adminId, title, content, isFixed, hit, category
+	        FROM nol_notice
+	        <where>
+	          <if test="category != null and category != ''">
+	            AND category = #{category}
+	          </if>
+	          <if test="keyword != null and keyword != ''">
+	            AND title LIKE '%' || #{keyword} || '%'
+	          </if>
+	        </where>
+	        ORDER BY isFixed DESC, nno DESC
+	      ) a
+	      WHERE ROWNUM &lt;= #{end}
+	    )
+	    WHERE rn &gt;= #{start}
+	 </select>
+
+	 <select id="countFiltered" resultType="int">
+	    SELECT COUNT(*) FROM nol_notice
+	    <where>
+	      <if test="category != null and category != ''">
+	        AND category = #{category}
+	      </if>
+	      <if test="keyword != null and keyword != ''">
+	        AND title LIKE '%' || #{keyword} || '%'
+	      </if>
+	    </where>
+	 </select>
+
+</mapper>

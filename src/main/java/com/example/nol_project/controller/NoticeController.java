@@ -25,23 +25,47 @@ public class NoticeController {
     private NoticeService noticeService;
 
     // 공지사항 목록
-    @GetMapping("/NoticeList")
-    public String NoticeList(@RequestParam(name = "page", defaultValue = "1") int page, Model model, HttpSession session) {
-    	int pageSize = 10;
-    	
-    	List<NoticeDTO> list = noticeService.getPagedNotices(page, pageSize);
-        int totalPages = noticeService.getTotalPages(pageSize);
-        
-        model.addAttribute("list", list);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
-        
-        String adminId = (String) session.getAttribute("adminId");
-        model.addAttribute("isAdmin", "admin1234".equals(adminId));
-        
-        return "NoticeList";
-    }
+//    @GetMapping("/NoticeList")
+//    public String NoticeList(@RequestParam(name = "page", defaultValue = "1") int page, Model model, HttpSession session) {
+//    	int pageSize = 10;
+//    	
+//    	List<NoticeDTO> list = noticeService.getPagedNotices(page, pageSize);
+//        int totalPages = noticeService.getTotalPages(pageSize);
+//        
+//        model.addAttribute("list", list);
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", totalPages);
+//        
+//        String adminId = (String) session.getAttribute("adminId");
+//        model.addAttribute("isAdmin", "admin1234".equals(adminId));
+//        
+//        return "NoticeList";
+//    }
 
+    @GetMapping("/NoticeList")
+    public String NoticeList(
+        @RequestParam(name = "page", defaultValue = "1") int page,
+        @RequestParam(name = "category", required = false) String category,
+        @RequestParam(name = "keyword", required = false) String keyword,
+        Model model, HttpSession session) {
+
+    	int pageSize = 10;
+
+    	List<NoticeDTO> list = noticeService.getPagedNotices(page, pageSize, category, keyword);
+    	int totalPages = noticeService.getTotalPages(pageSize, category, keyword);
+
+    	model.addAttribute("list", list);
+    	model.addAttribute("currentPage", page);
+    	model.addAttribute("totalPages", totalPages);
+    	model.addAttribute("selectedCategory", category);
+    	model.addAttribute("keyword", keyword);
+
+    	String adminId = (String) session.getAttribute("adminId");
+    	model.addAttribute("isAdmin", "admin1234".equals(adminId));
+
+    	return "NoticeList";
+    }
+    
     // 공지사항 상세보기
     @GetMapping("/NoticeDetail")
     public String NoticeDetail(@RequestParam("nno") int nno, Model model, HttpSession session) {
@@ -74,14 +98,6 @@ public class NoticeController {
 
         noticeService.insert(notice);
         return "redirect:/notice/NoticeList";
-    }
-    
-    // 공지사항 수정 폼
-    @GetMapping("/NoticeEdit")
-    public String edit(@RequestParam("nno") int nno, Model model) {
-        NoticeDTO notice = noticeService.getNoticeByNno(nno);
-        model.addAttribute("notice", notice);
-        return "notice/NoticeEdit";
     }
 
     @PostMapping("/NoticeUpdate")

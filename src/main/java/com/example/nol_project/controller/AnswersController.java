@@ -52,5 +52,10 @@ public class AnswersController {
         return "admin/UnansweredList"; // 경로: /WEB-INF/views/admin/UnansweredList.jsp
     }
     
-    
+    @GetMapping("/AnsweredList")
+    public String AnsweredList(Model model) {
+        // 미답변 질문 목록을 가져와서 모델에 담기
+        model.addAttribute("questions", answersService.getAnsweredList()); 
+        return "admin/AnsweredList"; 
+    }
 }

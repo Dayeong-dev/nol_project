@@ -12,6 +12,7 @@ public class QuestionsDTO {
 	private String content;
 	private Date createDate;
 	private Integer isAnswered;
+	private String category;
 	
 	// JOIN 결과용
 	private String memberName;      // 질문한 사람 이름

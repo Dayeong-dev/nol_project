@@ -11,4 +11,5 @@ public class NoticeDTO {
 	private String content;
 	private int isFixed;
 	private int hit;
+	private String category;
 }

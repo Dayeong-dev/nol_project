@@ -31,5 +31,9 @@ public class AnswersService {
 	public void updateIsAnswered(int qno) {
 		 answersDAO.updateIsAnswered(qno);
 	}
+
+	public List<QuestionsDTO> getAnsweredList() {
+		return answersDAO.selectAnsweredList();
+	}
     
 }
