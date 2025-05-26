@@ -18,10 +18,12 @@
 	</thead>
 	<tbody>
 		<c:forEach var="reviews" items="${list }">
-			<td>${reviews.rvno }</td>
-			<td>${reviews.content }</td>
-			<td>${reviews.rno }</td>
-			<td>${reviews.rvdate }</td>
+			<tr>
+				<td>${reviews.rvno }</td>
+				<td>${reviews.content }</td>
+				<td>${reviews.rno }</td>
+				<td>${reviews.rvdate }</td>
+			</tr>
 		</c:forEach>
 	</tbody>
 </table>
