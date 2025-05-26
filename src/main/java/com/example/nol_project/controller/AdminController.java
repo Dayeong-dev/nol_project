@@ -93,6 +93,11 @@ public class AdminController {
 	    return "admin/couponList"; // views/admin/couponList.jsp
 	}
 	
+	@GetMapping("/salesDetail")
+	public String salesDetail() {
+		
+		return "admin/salesDetail";
+
 	@GetMapping("/reservationList")
 	public String showReservationList(@RequestParam(value = "page", defaultValue = "1") int page,
 	                                   Model model) {

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.nol_project.dao.SalesDAO">
+	<select id="selectSalesRange">
+		SELECT 
+	    TO_CHAR(MIN(tdate), 'YYYY') AS earliestYear,        -- 최소 날짜 연도
+	    TO_CHAR(MIN(tdate), 'MM') AS earliestMonth,         -- 최소 날짜 월
+	    TO_CHAR(MAX(tdate), 'YYYY') AS latestYear,          -- 최대 날짜 연도
+	    TO_CHAR(MAX(tdate), 'MM') AS latestMonth,           -- 최대 날짜 월
+	    TO_CHAR(MIN(tdate), 'IYYY') AS earliestIsoYear,     -- 최소 날짜 ISO 연도
+	    TO_CHAR(MIN(tdate), 'IW') AS earliestIsoWeek,       -- 최소 날짜 ISO 주
+	    TO_CHAR(MAX(tdate), 'IYYY') AS latestIsoYear,       -- 최대 날짜 ISO 연도
+	    TO_CHAR(MAX(tdate), 'IW') AS latestIsoWeek          -- 최대 날짜 ISO 주
+		FROM nol_ticket_date
+	</select>
+	<select id="selectYearlySales">
+		<![CDATA[
+			SELECT TO_CHAR(td.tdate, 'MM') AS tmonth, t.tno, t.name AS tName, SUM(t.price * r.quantity - r.discount_price) AS monthlySales
+			FROM nol_ticket_date td 
+			JOIN nol_reserve r ON td.tdno = r.tdno 
+			JOIN nol_ticket t ON td.tno = t.tno 
+			WHERE td.tdate BETWEEN TO_DATE(#{year} || '0101', 'YYYYMMDD') AND TO_DATE(#{year} || '1231', 'YYYYMMDD') 
+			AND td.tdate < SYSDATE 
+			GROUP BY TO_CHAR(td.tdate, 'MM'), t.tno, t.name 
+			ORDER BY TO_CHAR(td.tdate, 'MM'), t.tno
+		]]>
+	</select>
+	<select id="selectMonthlySales">
+		<![CDATA[
+			SELECT TO_CHAR(td.tdate, 'YYYY-MM-DD') AS tdate, t.tno, t.name AS tName, SUM(t.price * r.quantity - r.discount_price) AS dailySales
+			FROM nol_ticket_date td 
+			JOIN nol_reserve r ON td.tdno = r.tdno 
+			JOIN nol_ticket t ON td.tno = t.tno 
+			WHERE TO_CHAR(td.tdate, 'YYYYMM') = TO_CHAR(TO_DATE(#{year} || #{month}, 'YYYYMM'), 'YYYYMM') 
+			AND td.tdate < SYSDATE 
+			GROUP BY td.tdate, t.tno, t.name 
+			ORDER BY td.tdate, t.tno
+		]]>
+	</select>
+	<select id="selectWeeklySales">
+		<![CDATA[
+			SELECT TO_CHAR(td.tdate, 'YYYY-MM-DD') AS tdate, t.tno, t.name AS tName, SUM(t.price * r.quantity - r.discount_price) AS dailySales
+			FROM nol_ticket_date td 
+			JOIN nol_reserve r ON td.tdno = r.tdno 
+			JOIN nol_ticket t ON td.tno = t.tno 
+			WHERE TO_CHAR(td.tdate, 'IYYY IW') = TO_CHAR(TO_DATE(#{date}, 'YYYYMMDD'), 'IYYY IW')
+			AND td.tdate < SYSDATE 
+			GROUP BY td.tdate, t.tno, t.name 
+			ORDER BY td.tdate, t.tno
+		]]>
+	</select>
+</mapper>
