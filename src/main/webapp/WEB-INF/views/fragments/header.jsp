@@ -76,7 +76,6 @@ header .user-section a {
 	<nav>
 		<ul>
 			<li><a onclick="requireLogin('/reserve')">예매</a></li>
-			<li><a onclick="requireLogin('/mypage/couponList')">쿠폰</a></li>
 			<li><a onclick="requireLogin('/mypage')">마이페이지</a></li>
 			<li><a href="/attrctn">어트랙션</a></li>
 			<li><a href="/notice/NoticeList">공지사항</a></li>

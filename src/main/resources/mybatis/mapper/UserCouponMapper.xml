@@ -17,4 +17,9 @@
 	    FROM nol_user_coupon 
 	    WHERE cno = #{cno} AND id = #{id}
 	</select>
+	
+	<select id="selectUserCouponByCnoAndId" resultType="com.example.nol_project.dto.UserCouponDTO">
+		SELECT * FROM nol_user_coupon 
+		WHERE cno = #{cno} AND id = #{id}
+	</select>
 </mapper>

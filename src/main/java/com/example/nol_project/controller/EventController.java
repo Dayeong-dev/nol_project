@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.nol_project.dto.EventCouponDTO;
 import com.example.nol_project.dto.EventDTO;
+import com.example.nol_project.dto.UserCouponDTO;
 import com.example.nol_project.service.CouponService;
 import com.example.nol_project.service.EventService;
 
@@ -70,7 +71,20 @@ public class EventController {
 	        return e.getMessage(); // "exist", "fail" 등이 반환될 수 있음
 	    }
 	}
+	
+	@GetMapping("/mypage/couponList")
+	public String showMyCouponList(HttpSession session, Model model) {
+	    String id = (String) session.getAttribute("id");
 
+	    if (id == null) {
+	        return "redirect:/login"; // 비로그인 시 로그인 페이지로 이동
+	    }
+
+	    List<UserCouponDTO> myCoupons = couponService.getCouponsByUserId(id);
+	    model.addAttribute("couponList", myCoupons);
+
+	    return "couponList"; // ⬅ JSP 파일 경로
+	}
 	
 	 @GetMapping("/popupCookie")
 	    @ResponseBody
