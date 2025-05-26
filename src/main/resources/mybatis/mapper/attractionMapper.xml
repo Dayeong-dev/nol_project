@@ -22,6 +22,30 @@
 	<select id="getDetail" parameterType="int">
 		SELECT * FROM nol_attraction WHERE atno = #{atno}
 	</select>
+	
+	
+	<select id="getAttrctnList">
+		SELECT * FROM nol_attraction
+	</select>
+	<select id="attrctnDetail">
+		SELECT * FROM nol_attraction WHERE atno = #{atno}
+	</select>
+	<delete id="attrctnDelete">
+		DELETE FROM nol_attraction WHERE atno = #{atno}
+	</delete>
+	<update id="attrctnUpdate">
+		UPDATE nol_attraction 
+		SET name = #{name},
+			description = #{description},
+			imageURL = #{imageURL},
+			alevel = #{alevel},
+			state = #{state}
+		WHERE atno = #{atno}
+	</update>
+	<insert id="attrctnInsert">
+		INSERT INTO nol_attraction (atno, name, description, imageURL, alevel, state) 
+		VALUES(seq_nol_attraction.nextval, #{name}, #{description}, #{imageURL}, #{alevel}, #{state})
+	</insert>
 </mapper>
 
 
