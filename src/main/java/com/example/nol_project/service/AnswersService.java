@@ -36,4 +36,5 @@ public class AnswersService {
 		return answersDAO.selectAnsweredList();
 	}
     
+
 }

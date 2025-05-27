@@ -16,21 +16,24 @@
         }
 
         h2 {
-		    color: #b30000;
-		    border-bottom: 3px solid #b30000;
-		    padding-bottom: 12px;
-		    margin: 40px 0 30px;
-		    text-align: center;
-		}
+            color: #b30000;
+            border-bottom: 3px solid #b30000;
+            padding-bottom: 12px;
+            margin: 40px 0 30px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
         .container p {
             font-size: 1rem;
             margin-bottom: 12px;
+            line-height: 1.6;
         }
 
-        /* 버튼 스타일 */
+        /* 버튼 공통 */
         .btn {
-            padding: 8px 16px;
-            margin: 6px 4px 6px 0;
+            padding: 10px 18px;
+            margin: 8px 6px 8px 0;
             border: none;
             border-radius: 6px;
             cursor: pointer;
@@ -75,7 +78,7 @@
             background-color: #1e7e34;
         }
 
-        /* 모달 스타일 */
+        /* 모달 전체 배경 */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -87,6 +90,7 @@
             z-index: 1000;
         }
 
+        /* 모달 박스 */
         .modal-box {
             background: #fff;
             padding: 24px;
@@ -100,7 +104,7 @@
             position: absolute;
             top: 12px;
             right: 16px;
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
             font-weight: bold;
             color: #b30000;
@@ -108,18 +112,26 @@
 
         .form-control {
             width: 100%;
-            padding: 10px;
+            padding: 10px 14px;
             font-size: 0.95rem;
-            border: 2px solid #ccc;
+            border: 1px solid #ccc;
             border-radius: 6px;
-            margin-bottom: 12px;
-            transition: 0.3s ease;
+            margin-bottom: 14px;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
         }
 
         .form-control:focus {
             border-color: #b30000;
             box-shadow: 0 0 6px rgba(179, 0, 0, 0.4);
             outline: none;
+        }
+
+        /* 라벨 및 체크박스 정렬 */
+        form p label {
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
     </style>
 </head>
@@ -128,17 +140,17 @@
 
 <div class="container mt-4">
     <h2>공지사항 상세</h2>
-    <p>번호: ${notice.nno}</p>
-    <p>제목: ${notice.title}</p>
-    <p>작성자: ${notice.adminId}</p>
-    <p>내용: ${notice.content}</p>
-    <p>조회수: ${notice.hit}</p>
+    <p><strong>번호:</strong> ${notice.nno}</p>
+    <p><strong>제목:</strong> ${notice.title}</p>
+    <p><strong>작성자:</strong> ${notice.adminId}</p>
+    <p><strong>내용:</strong> ${notice.content}</p>
+    <p><strong>조회수:</strong> ${notice.hit}</p>
 
     <c:if test="${isAdmin}">
         <button type="button" class="btn btn-primary btn-update" data-nno="${notice.nno}">수정</button>
         <a href="delete?nno=${notice.nno}" class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
     </c:if>
-    <a href="/notice/NoticeList" class="btn btn-secondary">목록</a>
+    <a href="/notice/NoticeList" class="btn btn-secondary">← 목록으로 돌아가기</a>
 </div>
 
 <!-- 수정 모달 -->
@@ -152,10 +164,8 @@
                     <input type="checkbox" name="isFixed" id="modalIsFixed" value="1"> 상단 고정
                 </label>
             </p>
-            <div>
-                <input type="text" name="title" id="modalTitle" placeholder="제목" class="form-control" required>
-                <textarea name="content" id="modalContent" placeholder="내용" class="form-control" rows="4" required></textarea>
-            </div>
+            <input type="text" name="title" id="modalTitle" placeholder="제목" class="form-control" required>
+            <textarea name="content" id="modalContent" placeholder="내용" class="form-control" rows="4" required></textarea>
             <div style="text-align:right;">
                 <button type="submit" class="btn btn-success">저장</button>
                 <button type="button" class="btn btn-secondary" id="modalCancelBtn">닫기</button>
