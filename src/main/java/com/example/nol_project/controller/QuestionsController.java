@@ -33,13 +33,13 @@ public class QuestionsController {
         @RequestParam(value = "page", defaultValue = "1") int page,
         Model model, HttpSession session) {
 
+    	String adminId = (String) session.getAttribute("adminId"); 
         String id = (String) session.getAttribute("id");
-        if (id == null) {
+        if (id == null && adminId == null) {
             model.addAttribute("loginMessage", "로그인이 필요합니다.");
             return "login";
         }
-
-        String adminId = (String) session.getAttribute("adminId");
+        
         boolean isAdmin = "admin1234".equals(adminId);
         model.addAttribute("isAdmin", isAdmin);
 
@@ -94,7 +94,8 @@ public class QuestionsController {
     @GetMapping("/QuestionsDetail")
     public String questionsDetail(@RequestParam("qno") int qno, Model model, HttpSession session) {
         String id = (String) session.getAttribute("id");
-        if (id == null) {
+        String adminId = (String) session.getAttribute("adminId"); 
+        if (id == null && adminId == null) {
             model.addAttribute("loginMessage", "로그인이 필요합니다.");
             return "login";
         }
