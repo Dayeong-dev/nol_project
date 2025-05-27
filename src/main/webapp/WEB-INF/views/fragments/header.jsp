@@ -10,62 +10,6 @@
     if (remainingSeconds < 0) remainingSeconds = 0;
 %>
 
-<style>
-/* 헤더 전체 */
-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 40px;
-	background-color: #fff;
-	border-bottom: 1px solid #ddd;
-	font-family: sans-serif;
-}
-
-/* 로고 */
-header .logo {
-	display: flex;
-	align-items: center;
-}
-
-header .logo img {
-	height: 40px;
-	margin-right: 10px;
-}
-
-/* 메뉴 */
-header nav {
-	flex: 1;
-	text-align: center;
-}
-
-header nav ul {
-	list-style: none;
-	display: inline-flex;
-	gap: 40px;
-	padding: 0;
-	margin: 0;
-}
-
-header nav ul li a {
-	text-decoration: none;
-	color: #222;
-	font-weight: bold;
-}
-
-/* 로그인/유저정보 */
-header .user-section {
-	text-align: right;
-	font-size: 14px;
-}
-
-header .user-section a {
-	text-decoration: none;
-	color: #0077cc;
-	margin-left: 10px;
-}
-</style>
-
 <header>
 	<!-- 왼쪽 로고 -->
 	<div class="logo">
@@ -101,8 +45,7 @@ header .user-section a {
 				<a href="/join">회원가입</a>
 			</c:otherwise>
 		</c:choose>
-	</div>	
-	
+	</div>		
 	<script>
 	  document.addEventListener("DOMContentLoaded", function () {
 	    const isLoggedIn = '${sessionScope.id != null ? "true" : "false"}';
@@ -131,5 +74,5 @@ header .user-section a {
 	    }
 	  });
 	</script>
-			
 </header>
+<link rel="stylesheet" href="/css/style.css" />
