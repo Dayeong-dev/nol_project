@@ -100,6 +100,9 @@
 				</div>
 			</form>
 		</div>
+		<c:if test="${not empty loginMessage}">
+		    <div class="alert alert-danger">${loginMessage}</div>
+		</c:if>
 	</section>
 	<jsp:include page="./fragments/footer.jsp"></jsp:include>
 	<script>

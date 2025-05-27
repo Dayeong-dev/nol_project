@@ -24,41 +24,25 @@ public class QuestionsController {
 
     @Autowired
     private AnswersService answersService; 
-    
-//    @GetMapping("/")
-//    public String root() {
-//    	System.out.println("root....");
-//        return "index";
-//    }
 
 //관리자 전용 답 안한 리스트만 보이도록 변경 + 페이지네이션
-//    @GetMapping("/QuestionsList")
-//    public String questions(@RequestParam(name = "page", defaultValue = "1") int page, Model model, HttpSession session) {
-//        int pageSize = 10;
-//        List<QuestionsDTO> list = questionsService.getPagedQuestions(page, pageSize);
-//        int totalPages = questionsService.getTotalPages(pageSize);
-//    
-//        String adminId = (String) session.getAttribute("adminId");
-//        boolean isAdmin = "admin1234".equals(adminId);
-//        model.addAttribute("isAdmin", isAdmin);
-//        
-//        model.addAttribute("questions", list);
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("totalPages", totalPages);
-//        return "QuestionsList";
-//    }
-    
     @GetMapping("/QuestionsList")
     public String showQuestionsList(
         @RequestParam(value = "category", required = false) String category,
         @RequestParam(value = "keyword", required = false) String keyword,
         @RequestParam(value = "page", defaultValue = "1") int page,
         Model model, HttpSession session) {
-    	
-    	String adminId = (String) session.getAttribute("adminId");
-    	   boolean isAdmin = "admin1234".equals(adminId);
-    	   model.addAttribute("isAdmin", isAdmin);  
-        // 검색 + 페이징 처리
+
+        String id = (String) session.getAttribute("id");
+        if (id == null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "login";
+        }
+
+        String adminId = (String) session.getAttribute("adminId");
+        boolean isAdmin = "admin1234".equals(adminId);
+        model.addAttribute("isAdmin", isAdmin);
+
         List<QuestionsDTO> filteredList = questionsService.getFilteredQuestions(category, keyword, page);
         int totalPages = questionsService.getTotalPages(category, keyword);
 
@@ -72,33 +56,52 @@ public class QuestionsController {
     }
     
     @GetMapping("/admin/UnansweredList")
-    public String unansweredList(Model model) {
+    public String unansweredList(HttpSession session, Model model) {
+        String adminId = (String) session.getAttribute("adminId");
+        if (adminId == null || !adminId.equals("admin1234")) {
+            model.addAttribute("loginMessage", "관리자 로그인 필요합니다.");
+            return "redirect:/login";
+        }
+        
         List<QuestionsDTO> list = questionsService.getUnansweredList();
         model.addAttribute("questions", list);
         return "admin/UnansweredList";
     }
     
-    // 폼 페이지
     @GetMapping("/QuestionsForm")
-    public String questionsForm() {
-    	//System.out.println("QuestionsForm 요청 도달");
+    public String questionsForm(HttpSession session, Model model) {
+        String id = (String) session.getAttribute("id");
+        if (id == null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "login"; // 로그인 페이지로 이동
+        }
         return "QuestionsForm";
     }
 
     // 질문 등록 처리
     @PostMapping("/insertQuestion")
-    public String insertQuestion(QuestionsDTO dto, HttpSession session) {
+    public String insertQuestion(QuestionsDTO dto, HttpSession session, Model model) {
         String id = (String) session.getAttribute("id");
-        dto.setId(id);  // 세션에서 사용자 ID 설정
+        if (id == null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "login";
+        }
+        dto.setId(id);
         questionsService.insertQuestion(dto);
         return "redirect:/QuestionsList";
     }
     
     @GetMapping("/QuestionsDetail")
-    public String questionsDetail(@RequestParam("qno") int qno, Model model) {
+    public String questionsDetail(@RequestParam("qno") int qno, Model model, HttpSession session) {
+        String id = (String) session.getAttribute("id");
+        if (id == null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "login";
+        }
+
         QuestionsDTO dto = questionsService.getQuestionDetail(qno);
         model.addAttribute("questions", dto);
-        //일단 쓰고 붙일때 삭제하기
+
         AnswersDTO answer = answersService.getAnswerByQno(qno);
         model.addAttribute("answer", answer);
 
@@ -108,15 +111,20 @@ public class QuestionsController {
     //하드코딩
     @GetMapping("/Questions")
     public String questions(HttpSession session, Model model) {
-//        session.setAttribute("id", "user01");
+        String id = (String) session.getAttribute("id");
+        if (id == null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "login";
+        }
 
         List<QuestionsDTO> list = questionsService.getUnansweredList();
         model.addAttribute("questionsList", list);
         return "questions";
     }
+
     @GetMapping("/fakeLogin")
     public String fakeLogin(HttpSession session) {
-//        session.setAttribute("id", "user01"); // DB에 있는 id여야 함
+        // session.setAttribute("id", "user01"); // 개발 중 테스트용
         return "redirect:/Questions";
     }
 }

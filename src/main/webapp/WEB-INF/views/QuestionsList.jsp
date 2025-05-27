@@ -13,13 +13,13 @@
   --text-gray: #555;
 }
 
-body {
+#questionsList {
   font-family: 'Segoe UI', sans-serif;
   background: #fff;
   color: #333;
 }
 
-h2 {
+#questionsList h2 {
   text-align: center;
   color: var(--main-color);
   margin-bottom: 30px;
@@ -154,11 +154,13 @@ h2 {
 </style>
 </head>
 <body>
-<jsp:include page="./fragments/header.jsp"></jsp:include>
-
-<c:if test="${isAdmin}">
+	<c:if test="${!isAdmin}">
+		<jsp:include page="./fragments/header.jsp"></jsp:include>
+	</c:if>
+<section id="questionsList">
+<%-- <c:if test="${isAdmin}">
   <div class="action-bar"><span style="color: var(--main-color); font-weight: bold;">※ 관리자 전용</span></div>
-</c:if>
+</c:if> --%>
 
 <h2>QnA</h2>
 
@@ -175,10 +177,13 @@ h2 {
     <input type="text" name="keyword" value="${keyword}" placeholder="제목 또는 내용 검색">
     <button type="submit">검색</button>
   </form>
-
+  
+<c:if test="${!isAdmin}">
   <div class="register-btn">
     <a href="QuestionsForm">➕ 질문 등록하기</a>
   </div>
+</c:if>
+
 </div>
 
 <!-- 📋 QnA 목록 테이블 -->
@@ -238,11 +243,16 @@ h2 {
 <c:if test="${isAdmin}">
   <div class="admin-links">
     <a href="${pageContext.request.contextPath}/admin/answers/UnansweredList">미답변 QnA 보기</a> |
-    <a href="${pageContext.request.contextPath}/admin/answers/AnsweredList">답변된 QnA 보기</a>
+    <a href="${pageContext.request.contextPath}/admin/answers/AnsweredList">답변된 QnA 보기</a> |
+    <a href="/admin" class="admin-links">관리자 메인</a><br>
   </div>
 </c:if>
+</section>
 
-<jsp:include page="./fragments/footer.jsp"></jsp:include>
+<c:if test="${!isAdmin}">
+	<jsp:include page="./fragments/footer.jsp"></jsp:include>
+</c:if>
+
 </body>
 </html>
  

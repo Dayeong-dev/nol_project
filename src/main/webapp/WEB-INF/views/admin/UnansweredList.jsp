@@ -13,7 +13,7 @@
   box-sizing: border-box;
 }
 
-body {
+#unansweredList {
   background: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
@@ -22,7 +22,7 @@ body {
   padding: 0 20px;
 }
 
-h2 {
+#unansweredList h2 {
   text-align: center;
   color: #d62828;
   margin-top: 30px;
@@ -66,8 +66,10 @@ a:hover {
 </style>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/fragments/header.jsp" />
-
+<c:if test="${!isAdmin}">
+	<jsp:include page="/WEB-INF/views/fragments/header.jsp" />
+</c:if>
+<section id="unansweredList">
 <h2>미답변 QnA 목록</h2>
 <table>
     <tr>
@@ -92,7 +94,7 @@ a:hover {
 
 <br>
 <a href="${pageContext.request.contextPath}/admin">← 관리자 메인</a>
-
+</section>
 <jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
 </body>
 </html>

@@ -13,7 +13,7 @@
   box-sizing: border-box;
 }
 
-body {
+#answersForm {
   background: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
@@ -22,7 +22,7 @@ body {
   padding: 0 20px;
 }
 
-h2 {
+#answersForm h2 {
   text-align: center;
   color: #d62828;
   margin-top: 30px;
@@ -76,7 +76,7 @@ button:hover, input[type="submit"]:hover {
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/fragments/header.jsp" />
-
+<section id="answersForm">
 <h2>답변 작성</h2> 
 <form action="${pageContext.request.contextPath}/admin/answers/AnswersInsert" method="post">
     <input type="hidden" name="qno" value="${qno}"/>
@@ -84,7 +84,7 @@ button:hover, input[type="submit"]:hover {
     <textarea name="content" placeholder="답변을 입력하세요" required></textarea>
     <input type="submit" value="등록"/>
 </form>
-
+</section>
 <jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
 </body>
 </html>
