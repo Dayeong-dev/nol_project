@@ -3,6 +3,7 @@ package com.example.nol_project.controller;
 import com.example.nol_project.dto.TicketDTO;
 import com.example.nol_project.dto.UserCouponDTO;
 import com.example.nol_project.dao.CouponDAO;
+import com.example.nol_project.dao.UserCouponDAO;
 import com.example.nol_project.dto.ReserveDTO;
 import com.example.nol_project.service.TicketService;
 
@@ -35,6 +36,9 @@ public class ReserveController {
     
     @Autowired
     private CouponService couponService;
+    
+    @Autowired
+    private UserCouponDAO userCouponDAO;
 
     // GET 예매 메인 페이지 - 티켓 목록 출력
     @GetMapping("/reserve")
@@ -94,6 +98,9 @@ public class ReserveController {
         int total = unitPrice * quantity;
         if (discount > 0) {
             total -= total * discount / 100;
+        }
+        if (dto.getUcno() != 0) {
+            userCouponDAO.updateCouponUsed(dto.getUcno());
         }
 
         dto.setTotalPrice(total); // 실제 결제 금액 저장

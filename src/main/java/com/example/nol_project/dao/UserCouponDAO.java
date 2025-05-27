@@ -17,4 +17,5 @@ public interface UserCouponDAO {
 	 
 	 UserCouponDTO selectUserCouponByCnoAndId(@Param("cno") int cno, @Param("id") String id);
 
+	 void updateCouponUsed(@Param("ucno") int ucno);
 }
