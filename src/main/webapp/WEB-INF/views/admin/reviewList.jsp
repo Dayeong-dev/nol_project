@@ -21,24 +21,39 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="review" items="${list }">
-					<tr>
-						<td>${review.rvno }</td>
-						<td>${review.content }</td>
-						<td>${review.rno }</td>
-						<td>${review.rvdate }</td>
-						<td>
-							<a href="reviewDetail.do?rvno=${review.rvno }" class="color">🔍상세 보기</a> | 
-							<form action="/admin/reviewDelete" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
-								<input type="hidden" name="rvno" value="${review.rvno }">
-								<button type="submit" class="color">🗑삭제</button>
-							</form>
-						</td>
-					</tr>
-					</c:forEach>
+					<c:choose>
+				      	<c:when test="${empty list}">
+				        <tr>
+				          <td colspan="5" style="text-align: center; padding: 20px; color: #999;">
+				            등록된 리뷰가 없습니다.
+				          </td>
+				        </tr>
+				      	</c:when>
+				      	<c:otherwise>
+					        <c:forEach var="review" items="${list }">
+								<tr>
+									<td>${review.rvno }</td>
+									<td>${review.content }</td>
+									<td>${review.rno }</td>
+									<td>${review.rvdate }</td>
+									<td>
+										<a href="reviewDetail.do?rvno=${review.rvno }" class="color">🔍상세 보기</a>&nbsp;&nbsp;&nbsp;
+										<button type="button" class="color" onclick="deleteReview(${review.rvno})">🗑삭제</button>
+									</td>
+								</tr>
+							</c:forEach>
+				      	</c:otherwise>
+				    </c:choose>
 				</tbody>
 			</table>
 		</div>
 	</section>
+	<script>
+		function deleteReview(rvno) {
+			if(confirm('정말 삭제하시겠습니까?')) {
+				location.href = "/admin/reviewDelete/" + rvno;
+			}
+		}
+	</script>
 </body>
 </html>

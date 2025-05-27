@@ -11,12 +11,28 @@
 	<jsp:include page="./fragments/aside.jsp"></jsp:include>
 	<section>
 		<jsp:include page="./fragments/header.jsp" />
-		<div class="admin-content">
-			<h2>리뷰 상세 보기</h2>
-			<p>리뷰 번호: ${review.rvno }</p>
-			<p>내용: ${review.content }</p>
-			<p>예매 번호: ${review.rno }</p>
-			<p>작성일: ${review.rvdate }</p>
+		<div id="reviewDetail" class="admin-content">
+		    <h2>리뷰 상세 보기</h2>
+		  	<div class="review-card">
+		    	<ul class="review-info">
+		      		<li>
+		        		<span class="label">리뷰 번호</span>
+		        		<span class="value">${review.rvno}</span>
+		      		</li>
+		      		<li>
+		        		<span class="label">예매 번호</span>
+		        		<span class="value">${review.rno}</span>
+		      		</li>
+		      		<li>
+		        		<span class="label">작성일</span>
+		        		<span class="value">${review.rvdate}</span>
+		      		</li>
+		      		<li>
+		        		<span class="label">내용</span>
+		        		<span class="value">${review.content}</span>
+		      		</li>
+		    	</ul>
+		  	</div>
 		</div>
 	</section>
 </body>

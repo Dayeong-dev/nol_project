@@ -44,7 +44,6 @@
 							</td>
 							<td>
 								<a href="/admin/attrctnDetail.do?atno=${at.atno }">🔍상세 보기/수정</a> | 
-								<a href="/admin/attrctnForm">+ 추가</a> | 
 								<a href="/admin/attrctnDelete.do?atno=${at.atno }" onclick="return confirm('정말 삭제하시겠습니끼?');">🗑삭제 </a>
 							</td>
 						</tr>

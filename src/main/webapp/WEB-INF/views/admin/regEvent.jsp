@@ -28,20 +28,28 @@
 				    <form action="/admin/regEvent" method="post">
 				</c:otherwise>
 			</c:choose>
-				<label>이벤트 명</label>
-				<input type="text" name="name" placeholder="이벤트 명을 입력하세요. " value="${event.name}" /><br/>
-				<label>이벤트 내용</label>
-				<input type="text" name="description" placeholder="이벤트 내용을 입력하세요. " value="${event.description}" /><br/>
-				
-				<label>이벤트 기간</label>
-				<input type="date" name="startDate" value="" onchange="setStartDate()" />
-				-
-				<input type="date" name="endDate" value="" onchange="setEndDate()" /><br/>
-				
-				<label>이벤트 썸네일 이미지 URL</label>
-				<input type="text" name="thumbnailURL" placeholder="이벤트 썸네일 이미지 주소를 입력하세요. " value="${event.thumbnailURL}" /><br/>
-				<label>이벤트 컨텐츠 이미지 URL</label>
-				<input type="text" name="contentImgURL" placeholder="이벤트 컨텐츠 이미지 주소를 입력하세요. " value="${event.contentImgURL}" /><br/>
+				<p>
+					<label>이벤트 명</label>
+					<input type="text" name="name" placeholder="이벤트 명을 입력하세요. " value="${event.name}" />
+				</p>
+				<p>
+					<label>이벤트 내용</label>
+					<textarea name="description" placeholder="이벤트 내용을 입력하세요. ">${event.description}</textarea>
+				</p>	
+				<p>
+					<label>이벤트 기간</label>
+					<input type="date" name="startDate" value="" onchange="setStartDate()" />
+					-
+					<input type="date" name="endDate" value="" onchange="setEndDate()" />
+				</p>
+				<p>
+					<label>이벤트 썸네일 이미지 URL</label>
+					<input type="text" name="thumbnailURL" placeholder="이벤트 썸네일 이미지 주소를 입력하세요. " value="${event.thumbnailURL}" />
+				</p>
+				<p>
+					<label>이벤트 컨텐츠 이미지 URL</label>
+					<input type="text" name="contentImgURL" placeholder="이벤트 컨텐츠 이미지 주소를 입력하세요. " value="${event.contentImgURL}" />
+				</p>
 				<input type="submit" value="${mode == 1 ? '수정' : '등록'}" />
 			</form>
 			<c:if test="${errorMsg != null}">
