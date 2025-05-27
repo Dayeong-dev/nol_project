@@ -5,43 +5,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>이벤트 목록</title>
-<style>
-	img {
-		width: 300px;
-	}
-	
-	.item {
-		display: inline-block;
-	}
-	
-	.item a {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 4px;
-	}
-</style>
+	<meta charset="UTF-8">
+	<title>이벤트 목록</title>
+	<link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
+	<jsp:include page="./fragments/aside.jsp"></jsp:include>
 	<section id="eventList">
-		<h2>이벤트 목록</h2>
-		<c:forEach var="event" items="${elist}" varStatus="status">
-			<c:if test="${!event.isPast()}">
-				<div class="item">
-					<a href="/admin/eventDetail?eno=${event.eno}">
-						<img src="${event.thumbnailURL}" />
-						<span>${event.name}</span>
-						<span>
-							<fmt:formatDate value="${event.startDate}" pattern="yyyy/MM/dd" />
-							-
-							<fmt:formatDate value="${event.endDate}" pattern="yyyy/MM/dd" />						
-						</span>
-					</a>
-				</div>
-			</c:if>
-		</c:forEach>
+		<jsp:include page="./fragments/header.jsp" />
+		<div class="admin-content">
+			<h2>이벤트 목록</h2>
+			<c:forEach var="event" items="${elist}" varStatus="status">
+				<c:if test="${!event.isPast()}">
+					<div class="item">
+						<a href="/admin/eventDetail?eno=${event.eno}">
+							<img src="${event.thumbnailURL}" />
+							<span>${event.name}</span>
+							<span>
+								<fmt:formatDate value="${event.startDate}" pattern="yyyy/MM/dd" />
+								-
+								<fmt:formatDate value="${event.endDate}" pattern="yyyy/MM/dd" />						
+							</span>
+						</a>
+					</div>
+				</c:if>
+			</c:forEach>
+		</div>
 	</section>
 </body>
 </html>

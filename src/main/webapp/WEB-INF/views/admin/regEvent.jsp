@@ -4,45 +4,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>이벤트 ${mode == 1 ? '수정' : '등록'}</title>
+	<meta charset="UTF-8">
+	<title>이벤트 ${mode == 1 ? '수정' : '등록'}</title>
+	<link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
+	<jsp:include page="./fragments/aside.jsp"></jsp:include>
 	<section id="regEvent">
-		<h2>
-			이벤트 
+		<jsp:include page="./fragments/header.jsp" />
+		<div class="admin-content">
+			<h2>
+				이벤트 
+				<c:choose>
+				    <c:when test="${mode == 1}">수정</c:when>
+				    <c:otherwise>등록</c:otherwise>
+				</c:choose>
+			</h2>
 			<c:choose>
-			    <c:when test="${mode == 1}">수정</c:when>
-			    <c:otherwise>등록</c:otherwise>
+				<c:when test="${mode == 1}">
+				    <form action="/admin/updateEvent/${eno}" method="post">
+				</c:when>
+				<c:otherwise>
+				    <form action="/admin/regEvent" method="post">
+				</c:otherwise>
 			</c:choose>
-		</h2>
-		<c:choose>
-			<c:when test="${mode == 1}">
-			    <form action="/admin/updateEvent/${eno}" method="post">
-			</c:when>
-			<c:otherwise>
-			    <form action="/admin/regEvent" method="post">
-			</c:otherwise>
-		</c:choose>
-			<label>이벤트 명</label>
-			<input type="text" name="name" placeholder="이벤트 명을 입력하세요. " value="${event.name}" /><br/>
-			<label>이벤트 내용</label>
-			<input type="text" name="description" placeholder="이벤트 내용을 입력하세요. " value="${event.description}" /><br/>
-			
-			<label>이벤트 기간</label>
-			<input type="date" name="startDate" value="" onchange="setStartDate()" />
-			-
-			<input type="date" name="endDate" value="" onchange="setEndDate()" /><br/>
-			
-			<label>이벤트 썸네일 이미지 URL</label>
-			<input type="text" name="thumbnailURL" placeholder="이벤트 썸네일 이미지 주소를 입력하세요. " value="${event.thumbnailURL}" /><br/>
-			<label>이벤트 컨텐츠 이미지 URL</label>
-			<input type="text" name="contentImgURL" placeholder="이벤트 컨텐츠 이미지 주소를 입력하세요. " value="${event.contentImgURL}" /><br/>
-			<input type="submit" value="${mode == 1 ? '수정' : '등록'}" />
-		</form>
-		<c:if test="${errorMsg != null}">
-			<p id="errorMsg">${errorMsg}</p>
-		</c:if>
+				<label>이벤트 명</label>
+				<input type="text" name="name" placeholder="이벤트 명을 입력하세요. " value="${event.name}" /><br/>
+				<label>이벤트 내용</label>
+				<input type="text" name="description" placeholder="이벤트 내용을 입력하세요. " value="${event.description}" /><br/>
+				
+				<label>이벤트 기간</label>
+				<input type="date" name="startDate" value="" onchange="setStartDate()" />
+				-
+				<input type="date" name="endDate" value="" onchange="setEndDate()" /><br/>
+				
+				<label>이벤트 썸네일 이미지 URL</label>
+				<input type="text" name="thumbnailURL" placeholder="이벤트 썸네일 이미지 주소를 입력하세요. " value="${event.thumbnailURL}" /><br/>
+				<label>이벤트 컨텐츠 이미지 URL</label>
+				<input type="text" name="contentImgURL" placeholder="이벤트 컨텐츠 이미지 주소를 입력하세요. " value="${event.contentImgURL}" /><br/>
+				<input type="submit" value="${mode == 1 ? '수정' : '등록'}" />
+			</form>
+			<c:if test="${errorMsg != null}">
+				<p id="errorMsg">${errorMsg}</p>
+			</c:if>
+		</div>
 	</section>
 	<script>
 		const $form = document.querySelector("form");
