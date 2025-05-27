@@ -13,7 +13,7 @@
   box-sizing: border-box;
 }
 
-body {
+#answeredList {
   background: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
@@ -22,7 +22,7 @@ body {
   padding: 0 20px;
 }
 
-h2 {
+#answeredList h2 {
   text-align: center;
   color: #d62828;
   margin-top: 30px;
@@ -68,8 +68,10 @@ a:hover {
 </style>
 </head>
 <body>
-<jsp:include page="../fragments/header.jsp" />
-
+<c:if test="${!isAdmin}">
+	<jsp:include page="../fragments/header.jsp" />
+</c:if>
+<section id="answeredList">
 <h2>답변 QnA 목록</h2>
 <table>
     <tr>
@@ -89,7 +91,9 @@ a:hover {
 </table>
 
 <a href="${pageContext.request.contextPath}/admin">← 관리자 메인</a>
-
-<jsp:include page="../fragments/footer.jsp" />
+</section>
+<c:if test="${!isAdmin}">
+	<jsp:include page="../fragments/footer.jsp" />
+</c:if>
 </body>
 </html>

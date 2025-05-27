@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>공지사항 상세</title>
-    <style>
-        body {
+<meta charset="UTF-8">
+<title>공지사항 상세</title>
+<style>
+        #noticeDetail {
             background: #fff;
             font-family: 'Segoe UI', sans-serif;
             color: #333;
@@ -15,7 +15,7 @@
             padding: 20px;
         }
 
-        h2 {
+        #noticeDetail h2 {
             color: #b30000;
             border-bottom: 3px solid #b30000;
             padding-bottom: 12px;
@@ -137,7 +137,7 @@
 </head>
 <body>
 <jsp:include page="fragments/header.jsp" />
-
+<section id="noticeDetail">
 <div class="container mt-4">
     <h2>공지사항 상세</h2>
     <p><strong>번호:</strong> ${notice.nno}</p>
@@ -199,7 +199,7 @@
         $('#customModal').hide();
     });
 </script>
-
+</section>
 <jsp:include page="fragments/footer.jsp" />
 </body>
 </html>

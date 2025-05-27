@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
   box-sizing: border-box;
 }
 
-body {
+#noticeForm {
   background: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
@@ -21,7 +22,7 @@ body {
   padding: 0 20px;
 }
 
-h2 {
+#noticeForm h2 {
   text-align: center;
   color: #d62828;
   margin-top: 30px;
@@ -101,8 +102,10 @@ a:hover {
 </style>
 </head>
 <body>
-<jsp:include page="fragments/header.jsp" />
-
+<c:if test="${!isAdmin}">
+	<jsp:include page="fragments/header.jsp" />
+</c:if>
+<section id="noticeForm">
 <h2>공지사항 등록</h2>
 <form action="${pageContext.request.contextPath}/notice/insert" method="post">
     <p>
@@ -131,7 +134,9 @@ a:hover {
 </form>
 
 <a href="/notice/NoticeList">← 목록으로 돌아가기</a>
-
-<jsp:include page="fragments/footer.jsp" />
+</section>
+<c:if test="${!isAdmin}">
+	<jsp:include page="fragments/footer.jsp" />
+</c:if>
 </body>
 </html>
