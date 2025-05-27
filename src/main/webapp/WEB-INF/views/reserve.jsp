@@ -115,14 +115,13 @@ h2 {
 				<p>★ 쿠폰을 받아서 할인된★</p>
 				<p>★ 가격으로 이용하세요 ★</p>
 				<p class="price">
-					<fmt:formatNumber value="${ticket.price}" pattern="#,###" />원~
+					<fmt:formatNumber value="${ticket.price}" pattern="#,###" />원
 				</p>
 				<button onclick="location.href='/reserveForm?tno=${ticket.tno}'">예매하기</button>
 			</div>
 		</c:forEach>
 	</div>
 </section>
-
 <jsp:include page="./fragments/footer.jsp" />
 
 </body>

@@ -69,7 +69,14 @@ public class ReserveController {
 
     // POST 예매 처리
     @PostMapping("/reserve")
-    public String processReserve(@ModelAttribute ReserveDTO dto, RedirectAttributes rttr) {
+    public String processReserve(@ModelAttribute ReserveDTO dto, RedirectAttributes rttr, HttpSession session) {
+    	 String id = (String) session.getAttribute("id");
+
+         if (id == null || id.trim().isEmpty()) {
+             rttr.addFlashAttribute("msg", "로그인 후 이용해주세요.");
+             return "redirect:/login"; // 로그인 페이지로 이동
+         }
+         
         int unitPrice = ticketService.getTicketByTno(dto.getTno()).getPrice();
         int quantity = dto.getQuantity();
         int discount = dto.getDiscountRate();
