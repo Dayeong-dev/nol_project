@@ -196,17 +196,17 @@ ul {
 		  resetAutoSlide();
 		}
 		
-		// 🔁 타이머 초기화 함수
+		// 타이머 초기화 함수
 		function resetAutoSlide() {
 		  clearInterval(autoSlideInterval);
-		  autoSlideInterval = setInterval(nextSlide, 3000);
+		  autoSlideInterval = setInterval(nextSlide, 5000);
 		}
 	
 		next.addEventListener('click', nextSlide);
 		prev.addEventListener('click', prevSlide);
 	
 		// 자동 슬라이드 타이머 ID
-		let autoSlideInterval = setInterval(nextSlide, 3000);
+		let autoSlideInterval = setInterval(nextSlide, 5000);
 	</script>
 </body>
 <jsp:include page="./fragments/footer.jsp"></jsp:include>

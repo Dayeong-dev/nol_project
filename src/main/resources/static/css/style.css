@@ -45,6 +45,10 @@ header {
 	height: 80px;
 }
 
+header a {
+	cursor: pointer;
+}
+
 /* 로고 */
 header .logo {
 	display: flex;
