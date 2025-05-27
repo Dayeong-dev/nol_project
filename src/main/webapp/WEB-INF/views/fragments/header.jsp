@@ -20,7 +20,6 @@
 	<nav>
 		<ul>
 			<li><a href="/reserve">예매</a></li>
-			<li><a href="/coupon">쿠폰</a></li>
 			<li><a href="/mypage">마이페이지</a></li>
 			<li><a href="/attrctn">어트랙션</a></li>
 			<li><a href="/notice/NoticeList">공지사항</a></li>
