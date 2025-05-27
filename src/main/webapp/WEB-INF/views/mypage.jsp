@@ -128,7 +128,7 @@ h2 {
 <body>
 <jsp:include page="./fragments/header.jsp"></jsp:include>
 
-<h2>🎟 예매 내역</h2>
+<h2>예매 내역</h2>
 
 <c:if test="${empty myReserveList}">
 	<p class="empty-message">예매 내역이 없습니다.</p>
