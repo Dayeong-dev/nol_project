@@ -84,7 +84,7 @@ public class ReserveController {
     // POST 예매 처리
     @PostMapping("/reserve")
     public String processReserve(@ModelAttribute ReserveDTO dto, RedirectAttributes rttr, HttpSession session) {
-    	 String id = (String) session.getAttribute("id");
+        String id = (String) session.getAttribute("id");
 
          if (id == null || id.trim().isEmpty()) {
              rttr.addFlashAttribute("msg", "로그인 후 이용해주세요.");

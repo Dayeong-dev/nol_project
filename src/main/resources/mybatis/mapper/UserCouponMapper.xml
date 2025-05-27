@@ -12,7 +12,7 @@
 		SELECT * FROM nol_user_coupon WHERE cno = #{cno}
 	</select>
 	
-	<select id="countByCnoAndId" resultType="int">
+	<select id="countByCnoAndId">
 	    SELECT COUNT(*) 
 	    FROM nol_user_coupon 
 	    WHERE cno = #{cno} AND id = #{id}

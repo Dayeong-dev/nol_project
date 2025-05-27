@@ -58,14 +58,10 @@ public class EventController {
 	        return "unauthorized";
 	    }
 
-	    // 발급 여부 먼저 확인
-	    if (eventService.hasCoupon(cno, id)) {
-	        return "exist";
-	    }
-
 	    // 그 다음 발급 시도
 	    try {
 	        boolean result = couponService.addUserCoupon(cno, id);
+
 	        return result ? "success" : "fail";
 	    } catch (RuntimeException e) {
 	        return e.getMessage(); // "exist", "fail" 등이 반환될 수 있음

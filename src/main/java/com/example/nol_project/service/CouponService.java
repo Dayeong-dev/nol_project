@@ -40,9 +40,9 @@ public class CouponService {
     @Transactional
 	public boolean addUserCoupon(int cno, String userId) {		
 		// 사용자의 해당 이벤트 쿠폰 발급 여부 확인
-		UserCouponDTO userCoupon = userCouponDAO.selectUserCoupon(cno);
+		int hasCoupon = userCouponDAO.countByCnoAndId(cno, userId);
 		
-		if(userCoupon != null) {
+		if(hasCoupon >= 1) {
 			System.out.println("이미 쿠폰 발급 받음");
 			throw new RuntimeException("exist");
 		}
