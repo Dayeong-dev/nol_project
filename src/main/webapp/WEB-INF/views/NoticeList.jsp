@@ -14,141 +14,136 @@
 }
 
 body {
-  background-color: #fff;
+  background: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #222;
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 0 20px;
+  color: #333;
+  max-width: 800px; /* 줄임 */
+  margin: 20px auto;
+  padding: 0 15px; /* 살짝 줄임 */
 }
 
 h2 {
-  margin: 40px 0 30px;
-  color: #b30000;
-  font-size: 2.4rem;
-  margin-bottom: 30px;
-  padding-bottom: 12px;
-  /* border-bottom 제거 */
-  border-bottom: none;
   text-align: center;
+  color: #d62828;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 1.8rem; /* 줄임 */
+  padding-bottom: 10px;
+  border-bottom: none;
 }
 
 form {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 30px;
-  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
   justify-content: center;
-}
-
-select {
-  padding: 10px 16px;
-  font-size: 1rem;
-  border: 2px solid #b30000;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-select:hover {
-  border-color: #800000;
-  box-shadow: 0 0 8px rgba(179, 0, 0, 0.4);
-}
-
-select:focus {
-  border-color: #800000;
-  box-shadow: 0 0 10px rgba(179, 0, 0, 0.6);
-  outline: none;
+  align-items: center;
 }
 
 select,
 input[type="text"] {
-  padding: 10px 16px;
-  font-size: 1rem;
-  border: 2px solid #b30000;
-  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  border: 1px solid #eee;
+  border-radius: 6px;
   outline: none;
-  transition: 0.3s ease;
-  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  background: #fafafa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
 }
 
 select:hover,
-input[type="text"]:hover {
-  border-color: #800000;
-  box-shadow: 0 0 8px rgba(179, 0, 0, 0.3);
+input[type="text"]:hover,
+select:focus,
+input[type="text"]:focus {
+  border-color: #a81e1e;
+  box-shadow: 0 0 6px rgba(168,30,30,0.4);
 }
 
 button {
-  background-color: #b30000;
+  background-color: #d62828;
   color: white;
-  font-weight: bold;
-  padding: 10px 20px;
-  font-size: 1rem;
   border: none;
-  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #800000;
+  background-color: #a81e1e;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 30px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+  margin-bottom: 25px;
 }
 
 th, td {
-  padding: 14px 12px;
-  border: 1px solid #f5c1c1;
-  font-size: 0.95rem;
+  border: 1px solid #ddd;
+  padding: 10px 8px;
   text-align: center;
+  font-size: 0.95rem;
+  color: #555;
 }
 
 th {
-  background-color: #ffe5e5;
-  color: #b30000;
+  background-color: #d62828;
+  color: white;
   font-weight: bold;
 }
 
 tr:nth-child(even) {
-  background-color: #fff5f5;
+  background-color: #fff7f7;
+}
+
+tr:hover {
+  background-color: #fff0f0;
+  cursor: pointer;
+}
+
+.notice-fixed span {
+  color: #d90429;
+  font-weight: 700;
 }
 
 .pagination {
   text-align: center;
-  margin: 20px 0 40px;
+  margin: 25px 0 30px;
 }
 
 .pagination a,
 .pagination strong {
   display: inline-block;
   margin: 0 4px;
-  padding: 8px 14px;
-  font-size: 1rem;
+  padding: 6px 10px;
+  font-size: 0.95rem;
   font-weight: bold;
-  color: #b30000;
-  border: 2px solid #b30000;
-  border-radius: 6px;
+  color: #d62828;
+  border: 2px solid #d62828;
+  border-radius: 5px;
   text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .pagination strong {
-  background-color: #b30000;
+  background-color: #d62828;
   color: white;
 }
 
 .pagination a:hover {
-  background-color: #800000;
+  background-color: #a81e1e;
   color: white;
 }
 
 a {
-  color: #b30000;
+  color: #d62828;
   text-decoration: none;
 }
 
@@ -156,39 +151,32 @@ a:hover {
   text-decoration: underline;
 }
 
-/* 관리자 버튼 스타일 */
 .btn-success {
-  display: inline-block;
-  background-color: #b30000;
+  background-color: #d62828;
   color: white;
-  padding: 10px 18px;
+  padding: 8px 14px;
   font-weight: bold;
   border-radius: 6px;
   text-decoration: none;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  margin-top: 12px;
 }
 
 .btn-success:hover {
-  background-color: #800000;
+  background-color: #a81e1e;
 }
 
 .admin-links {
+  color: #d62828;
   font-weight: bold;
-  color: #b30000;
-  margin-top: 12px;
+  margin-top: 10px;
   display: inline-block;
+  transition: color 0.3s ease;
 }
 
 .admin-links:hover {
-  color: #800000;
-}
-table tr {
-  transition: background-color 0.3s ease;
-  cursor: pointer;  /* 커서도 포인터로 변경 */
-}
-
-table tr:hover {
-  background-color: #fddede;  /* 연한 빨간색 배경 */
+  color: #a81e1e;
 }
 </style>
 </head>
