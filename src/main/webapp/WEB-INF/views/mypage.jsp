@@ -22,7 +22,7 @@
 
 body {
 	font-family: 'Segoe UI', sans-serif;
-	padding: 40px;
+
 	background-color: #fffdfd;
 	color: var(--text-color);
 }
@@ -106,8 +106,8 @@ h2 {
 </style>
 </head>
 <body>
-
 <jsp:include page="./fragments/header.jsp"></jsp:include>
+<section>
 
 <c:if test="${not empty msg}">
     <p class="notice">✅ ${msg}</p>
@@ -150,7 +150,7 @@ h2 {
 		}
 	}
 </script>
-
+</section>
 <jsp:include page="./fragments/footer.jsp"></jsp:include>
 </body>
 </html>
