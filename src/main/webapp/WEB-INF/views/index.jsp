@@ -41,7 +41,6 @@ ul {
 
 #popup {
 	width: 400px;
-	height: auto;
 	border: 2px solid #aaa;
 	background: #fff;
 	position: fixed;
@@ -49,62 +48,97 @@ ul {
 	left: 50%;
 	transform: translateX(-50%);
 	z-index: 9999;
-	padding: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	padding: 15px 20px;
+	box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+	border-radius: 12px;
 	text-align: center;
-	
+	font-family: 'Segoe UI', sans-serif;
 }
 
 #popup img {
-    max-width: 100%;
-    height: auto;
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+
+.popup-bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 14px;
+}
+
+.popup-bottom label {
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	color: #555;
+	cursor: pointer;
+}
+
+.popup-bottom input[type="checkbox"] {
+	margin-right: 6px;
+	cursor: pointer;
+}
+
+#closeBtn {
+	padding: 6px 14px;
+	background-color: #d62828;
+	color: white;
+	font-weight: bold;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+#closeBtn:hover {
+	background-color: #a81e1e;
 }
 
 #main .slider {
-  position: relative;
-  width: 100%;
-  height: 600px;
-  overflow: hidden;
-  margin: 0 auto;
-  border-radius: 10px;
+	position: relative;
+	width: 100%;
+	height: 600px;
+	overflow: hidden;
+	margin: 0 auto;
+	border-radius: 10px;
 }
 
 #main .slides {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
+	display: flex;
+	transition: transform 0.5s ease-in-out;
+	width: 100%;
 }
 
 #main .slide {
-  width: 100%;
-  height: 600px;
-  object-fit: cover;
-  flex-shrink: 0;
-  background-color: #000;
+	width: 100%;
+	height: 600px;
+	object-fit: cover;
+	flex-shrink: 0;
+	background-color: #000;
 }
 
-#main .prev,
-#main .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  z-index: 10;
+#main .prev, #main .next {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 2rem;
+	background: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: none;
+	cursor: pointer;
+	padding: 10px;
+	z-index: 10;
 }
 
 #main .prev {
-  left: 10px;
+	left: 10px;
 }
 
 #main .next {
-  right: 10px;
+	right: 10px;
 }
-
 </style>
 
 <script>
@@ -138,25 +172,27 @@ ul {
 		%>
 		<div id="popup">
 			<a href="/eventDetail?eno=1"> <img
-				src="/nol_image/summerEventThumb.png" alt="이벤트 배너" width="100%">
+				src="/nol_image/summerEventThumb.png" alt="이벤트 배너">
 			</a>
-			<div align="right" style="margin-top: 10px;">
-				<input type="checkbox" id="inactiveToday" value="1"> 하루 동안 열지
-				않음 <input type="button" value="닫기" id="closeBtn">
+			<div class="popup-bottom">
+				<label for="inactiveToday"> <input type="checkbox"
+					id="inactiveToday" value="1"> 하루 동안 열지 않음
+				</label>
+				<button id="closeBtn">닫기</button>
 			</div>
 		</div>
 		<%
 		}
 		%>
 		<div class="slider">
-		  	<div class="slides">
-		    	<img src="/nol_image/slider_img1.png" class="slide" />
-		    	<img src="/nol_image/slider_img2.png" class="slide" />
-		    	<img src="/nol_image/slider_img3.gif" class="slide" />
-		  	</div>
-		  	<div class="cover"></div>
-		  	<button class="prev">‹</button>
-		  	<button class="next">›</button>
+			<div class="slides">
+				<img src="/nol_image/slider_img1.png" class="slide" /> <img
+					src="/nol_image/slider_img2.png" class="slide" /> <img
+					src="/nol_image/slider_img3.gif" class="slide" />
+			</div>
+			<div class="cover"></div>
+			<button class="prev">‹</button>
+			<button class="next">›</button>
 		</div>
 		<h1>재미있고 즐거운 다양한 어트랙션</h1>
 		<ul id="attrctn">
@@ -176,35 +212,35 @@ ul {
 		const slideImages = document.querySelectorAll('.slide');
 		const prev = document.querySelector('.prev');
 		const next = document.querySelector('.next');
-	
+
 		let currentIndex = 0;
 		const totalSlides = slideImages.length;
-	
+
 		function showSlide(index) {
-		  slides.style.transform = `translateX(-\${100 * index}%)`;
+			slides.style.transform = `translateX(-\${100 * index}%)`;
 		}
-	
+
 		function nextSlide() {
-		  currentIndex = (currentIndex + 1) % totalSlides;
-		  showSlide(currentIndex);
-		  resetAutoSlide();
+			currentIndex = (currentIndex + 1) % totalSlides;
+			showSlide(currentIndex);
+			resetAutoSlide();
 		}
-	
+
 		function prevSlide() {
-		  currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-		  showSlide(currentIndex);
-		  resetAutoSlide();
+			currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+			showSlide(currentIndex);
+			resetAutoSlide();
 		}
-		
+
 		// 타이머 초기화 함수
 		function resetAutoSlide() {
-		  clearInterval(autoSlideInterval);
-		  autoSlideInterval = setInterval(nextSlide, 5000);
+			clearInterval(autoSlideInterval);
+			autoSlideInterval = setInterval(nextSlide, 5000);
 		}
-	
+
 		next.addEventListener('click', nextSlide);
 		prev.addEventListener('click', prevSlide);
-	
+
 		// 자동 슬라이드 타이머 ID
 		let autoSlideInterval = setInterval(nextSlide, 5000);
 	</script>
