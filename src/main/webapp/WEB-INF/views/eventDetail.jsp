@@ -122,9 +122,9 @@
 			.then(data => {
 				console.log(data);
 				if (data === "success") {
-					alert("쿠폰을 발급받았습니다.");
+					alert("쿠폰이 정상적으로 발급되었습니다!\n마이페이지 쿠폰함에서 확인해보세요.");
 				} else if (data === "exist") {
-					alert("쿠폰을 이미 발급받았습니다.");
+					alert("이미 해당 쿠폰을 발급받으셨습니다.\n중복 발급은 불가능합니다."");
 				} else {
 					alert("쿠폰 발급 중 문제가 발생했습니다.");
 				}
