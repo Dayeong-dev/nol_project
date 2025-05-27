@@ -16,6 +16,11 @@ public class ReviewsService {
 	private ReviewsDAO reviewsDao;
 
 	//사용자 페이지
+	public TicketDTO getReviewRno(int rno) {
+		return reviewsDao.getReviewRno(rno);
+	}
+	
+	//사용자 페이지
 	public void insertReview(ReviewsDTO reviews) {
 		reviewsDao.insertReview(reviews);
 	}
@@ -23,6 +28,18 @@ public class ReviewsService {
 	//사용자 페이지
 	public List<ReviewsDTO> getReviewsList() {
 		return reviewsDao.getReviewsList();
+	}
+	//사용자 페이지
+	public List<ReviewsDTO> getMyReview(String id) {
+		return reviewsDao.getMyReview(id);
+	}
+	//사용자 페이지
+	public void reviewUpdate(ReviewsDTO review) {
+		reviewsDao.reviewUpdate(review);
+	}
+	//사용자 페이지
+	public void myReviewDelete(int rvno) {
+		reviewsDao.myReviewDelete(rvno);
 	}
 
 	//관리자 페이지
@@ -39,6 +56,10 @@ public class ReviewsService {
 	public int getReviewDelete(int rvno) {
 		return reviewsDao.getReviewDelete(rvno);
 	}
+
+
+
+
 	
 	
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.example.nol_project.dto.ReviewsDTO;
 import com.example.nol_project.dto.TicketDTO;
@@ -20,6 +21,22 @@ public class ReviewsController {
 	@Autowired
 	private ReviewsService reviewsService;
 	
+	@GetMapping("/reviewWrite")
+	public String reviewWrite(Model model, @RequestParam("rno") int rno) {
+		TicketDTO dto = reviewsService.getReviewRno(rno);
+		model.addAttribute("rno", rno);
+		
+		return "reviewForm";
+	}
+	
+	@GetMapping("/reviewDetail")
+	public String reviewDetail(Model model, @SessionAttribute("id") String id) {
+		List<ReviewsDTO> list = reviewsService.getMyReview(id);
+		model.addAttribute("list", list);
+		
+		return "reviewDetail";
+	}
+	
 	@GetMapping("/reviews")
 	public String reviews(Model model) {
 		System.out.println("reviews.............");
@@ -30,20 +47,26 @@ public class ReviewsController {
 		return "reviews";
 	}
 	
-	@GetMapping("/reviewWrite")
-	public String reviewWrite(Model model,
-							  @RequestParam("rno") int rno) {
-//		List<TicketDTO> myReserveList = reviewsService.getTno(rno);
-		model.addAttribute("rno", rno);
-		
-		return "reviewForm";
-	}
 	
 	@PostMapping("/reviewForm")
 	public String insertReview(@ModelAttribute ReviewsDTO reviews) {
 		reviewsService.insertReview(reviews);
 		
 		return "redirect:/mypage";
+	}
+	
+	@PostMapping("/reviewUpdate")
+	public String reviewUpdate(@ModelAttribute ReviewsDTO review) {
+		reviewsService.reviewUpdate(review);
+		
+		return "redirect:/reviewDetail";
+	}
+	
+	@PostMapping("/reviewDelete")
+	public String myReviewDelete(@RequestParam("rvno")int rvno) {
+		reviewsService.myReviewDelete(rvno);
+		
+		return "redirect:/reviewDetail";
 	}
 	
 	//---------관리자----------
