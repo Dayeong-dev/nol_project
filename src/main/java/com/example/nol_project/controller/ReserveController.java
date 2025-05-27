@@ -38,7 +38,13 @@ public class ReserveController {
 
     // GET 예매 메인 페이지 - 티켓 목록 출력
     @GetMapping("/reserve")
-    public String showReservePage(Model model) {
+    public String showReservePage(Model model, HttpSession session, RedirectAttributes rttr) {
+    	 String id = (String) session.getAttribute("id");
+
+         if (id == null || id.trim().isEmpty()) {
+             rttr.addFlashAttribute("msg", "로그인 후 이용해주세요.");
+             return "redirect:/login"; // 로그인 페이지로 이동
+         }
         List<TicketDTO> ticketList = ticketService.getAllTickets();
         System.out.println("🎫 티켓 개수: " + ticketList.size());
         model.addAttribute("ticketList", ticketList);
@@ -47,11 +53,15 @@ public class ReserveController {
 
     // 티켓 선택 후 날짜/수량 입력 폼
     @GetMapping("/reserveForm")
-    public String showReserveForm(@RequestParam("tno") int tno, HttpSession session, Model model) {
+    public String showReserveForm(@RequestParam("tno") int tno, HttpSession session, Model model, RedirectAttributes rttr) {
         TicketDTO ticket = ticketService.getTicketByTno(tno);
         model.addAttribute("ticket", ticket);
 
         String id = (String) session.getAttribute("id");
+        if (id == null || id.trim().isEmpty()) {
+            rttr.addFlashAttribute("msg", "로그인 후 이용해주세요.");
+            return "redirect:/login"; // 로그인 페이지로 이동
+        }
         System.out.println("✅ 현재 로그인 ID: " + id);
 
         List<UserCouponDTO> userCoupons = couponService.getCouponsByUserId(id);
