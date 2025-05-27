@@ -10,10 +10,80 @@
 <script>
 	var isLoggedIn = "${sessionScope.id}" !== "";
 </script>
+<style>
+	#eventDetail {
+	  	max-width: 800px;
+	  	margin: 40px auto;
+	  	padding: 60px 40px;
+	  	background-color: #ffffff;
+	  	border-radius: 12px;
+	  	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+	  	font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	#eventDetail h2 {
+	  	margin: 0 auto 40px;
+	}
+	
+	#eventDetail table {
+	  	width: 100%;
+	  	border: none;
+	  	border-collapse: collapse;
+	  	border-top: 2px solid #000;
+	  	border-bottom: 2px solid #000;
+	}
+	
+	#eventDetail th,
+	#eventDetail td {
+	  	text-align: left;
+	  	padding: 12px 16px;
+	  	vertical-align: top;
+	  	border: none;
+	  	border-bottom: 1px solid #e0e0e0;
+	  	font-size: 15px;
+	}
+	
+	#eventDetail th {
+	  	width: 150px;
+	  	background-color: #f9f9f9;
+	  	color: #333;
+	  	font-weight: 600;
+	}
+	
+	#eventDetail img {
+	  	max-width: 100%;
+	  	height: auto;
+	  	display: block;
+	  	border-radius: 8px;
+	  	margin: 10px 0;
+	}
+	
+	#eventDetail .eventDescription td {
+		text-align: center;
+	}
+	
+	#eventDetail button {
+		display: block;
+  		margin: 0 auto;
+	  	background: linear-gradient(45deg, #d62828, #ff7f50);
+	  	color: #fff;
+	  	padding: 14px 32px;
+	  	font-size: 16px;
+	  	font-weight: 700;
+	  	border: none;
+	  	border-radius: 30px;
+	  	cursor: pointer;
+	}
+	
+	#eventDetail button:hover {
+	  	background: linear-gradient(45deg, #b71c1c, #ff5722);
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="./fragments/header.jsp"></jsp:include>
 	<section id="eventDetail">
+		<h2>이벤트 상세</h2>
 		<table border="1">
 			<tbody>
 				<tr>
@@ -26,9 +96,8 @@
 							pattern="yyyy/MM/dd" /> - <fmt:formatDate
 							value="${event.endDate}" pattern="yyyy/MM/dd" /></td>
 				</tr>
-				<tr>
-					<th>이벤트 설명</th>
-					<td>${event.description}</td>
+				<tr class="eventDescription">
+					<td colspan="2">${event.description}</td>
 				</tr>
 				<tr>
 					<td colspan="2"><img src="${event.contentImgURL}" /></td>
@@ -41,6 +110,7 @@
 			</tbody>
 		</table>
 	</section>
+	<jsp:include page="./fragments/footer.jsp"></jsp:include>
 	<script>
 	function addCoupon(cno) {
 		if (!isLoggedIn) {
