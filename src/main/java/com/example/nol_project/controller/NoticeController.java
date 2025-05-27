@@ -31,8 +31,9 @@ public class NoticeController {
         @RequestParam(name = "keyword", required = false) String keyword,
         Model model, HttpSession session) {
 
+    	String adminId = (String) session.getAttribute("adminId");
         String id = (String) session.getAttribute("id");
-        if (id == null) {
+        if (id == null && adminId == null) {
             model.addAttribute("loginMessage", "로그인이 필요합니다.");
             return "redirect:/login";
         }
@@ -48,7 +49,6 @@ public class NoticeController {
         model.addAttribute("selectedCategory", category);
         model.addAttribute("keyword", keyword);
 
-        String adminId = (String) session.getAttribute("adminId");
         model.addAttribute("isAdmin", "admin1234".equals(adminId));
 
         return "NoticeList";

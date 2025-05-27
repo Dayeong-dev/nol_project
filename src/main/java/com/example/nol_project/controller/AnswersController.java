@@ -30,9 +30,8 @@ public class AnswersController {
         String adminId = (String) session.getAttribute("adminId");
         if (adminId == null || !adminId.equals("admin1234")) {
             model.addAttribute("loginMessage", "관리자 로그인 필요합니다.");
-            return "redirect:/login";
+            return "redirect:/admin/login";
         }
-
         model.addAttribute("qno", qno); // 질문 번호 전달
 
         String memberName = questionsService.getMemberNameByQno(qno);
@@ -48,7 +47,7 @@ public class AnswersController {
 
         if (adminId == null || !adminId.equals("admin1234")) {
             model.addAttribute("loginMessage", "관리자 로그인 필요합니다.");
-            return "redirect:/login";
+            return "redirect:/admin/login";
         }
         
         answer.setAdminId(adminId);
@@ -65,7 +64,8 @@ public class AnswersController {
     public String answerDetail(@RequestParam("qno") int qno, Model model, HttpSession session) {
         AnswersDTO answer = answersService.getAnswerByQno(qno);
         String id = (String) session.getAttribute("id");
-        if (id == null) {
+        String adminId = (String) session.getAttribute("adminId"); 
+        if (id == null && adminId == null) {
             model.addAttribute("loginMessage", "로그인이 필요합니다.");
             return "redirect:/login";
         }
@@ -77,10 +77,10 @@ public class AnswersController {
     @GetMapping("/UnansweredList")
     public String unansweredList(HttpSession session, Model model) {
         String id = (String) session.getAttribute("id");
-
-        if (id == null) {
+        String adminId = (String) session.getAttribute("adminId"); 
+        if (id == null && adminId == null) {
             model.addAttribute("loginMessage", "로그인이 필요합니다.");
-            return "redirect:/login";
+            return "redirect:/admin/login";
         }
 
         model.addAttribute("questions", answersService.getUnansweredList()); 
@@ -91,10 +91,10 @@ public class AnswersController {
     @GetMapping("/AnsweredList")
     public String AnsweredList(HttpSession session, Model model) {
     	String id = (String) session.getAttribute("id");
-
-        if (id == null) {
+    	String adminId = (String) session.getAttribute("adminId"); 
+        if (id == null && adminId == null) {
             model.addAttribute("loginMessage", "로그인이 필요합니다.");
-            return "redirect:/login";
+            return "redirect:/admin/login";
         }
         // 답변 질문 목록을 가져와서 모델에 담기
         model.addAttribute("questions", answersService.getAnsweredList()); 
