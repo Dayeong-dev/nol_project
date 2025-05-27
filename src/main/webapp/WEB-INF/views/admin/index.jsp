@@ -18,8 +18,8 @@
 	<hr/>
 	<a href="/admin/event">이벤트/쿠폰 관리 페이지</a>
 	<a href="/admin/reservationList">예매 목록 페이지</a>
-	<a href="${pageContext.request.contextPath}/QuestionsList">전체 QnA 보기</a>
-	<a href="${pageContext.request.contextPath}/notice/NoticeList">공지사항 목록보기</a>
+	<a href="${pageContext.request.contextPath}/admin/QuestionsList">관리자 QnA</a>
+	<a href="${pageContext.request.contextPath}/notice/NoticeList">관리자 공지사항</a>
 	<a href="/admin/attrctnList">어트랙션 목록보기</a>
 	<a href="/admin/reviewList">리뷰 목록보기</a>
 	<section id="salesChart">

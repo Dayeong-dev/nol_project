@@ -78,7 +78,7 @@ button:hover, input[type="submit"]:hover {
 <jsp:include page="/WEB-INF/views/fragments/header.jsp" />
 <section id="answersForm">
 <h2>답변 작성</h2> 
-<form action="${pageContext.request.contextPath}/admin/answers/AnswersInsert" method="post">
+<form action="${pageContext.request.contextPath}/admin/AnswersInsert" method="post">
     <input type="hidden" name="qno" value="${qno}"/>
     <input type="hidden" name="memberName" value="${memberName}"/>
     <textarea name="content" placeholder="답변을 입력하세요" required></textarea>
