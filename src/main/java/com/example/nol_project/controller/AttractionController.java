@@ -39,6 +39,7 @@ public class AttractionController {
 		return "detail";
 	}
 	
+	//---------관리자----------
 	@GetMapping("/admin/attrctnList")
 	public String attrctnList(Model model) {
 		List<AttractionDTO> list = attrctnService.getAttrctnList();

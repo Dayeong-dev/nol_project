@@ -3,12 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.nol_project.dao.ReviewsDAO">
+	<select id="getReviewRno">
+		SELECT * FROM nol_review WHERE rno = #{rno}
+	</select>
 	<insert id="insertReview">
 		INSERT INTO nol_review (rvno, rno, content, rvdate) VALUES (seq_nol_review.nextval, #{rno}, #{content}, SYSDATE)
 	</insert>
 	<select id="getReviewsList">
 		SELECT * FROM nol_review
 	</select>
+	<select id="getMyReview">
+		SELECT r.rvno, r.rno, r.content, r.rvdate
+		FROM nol_review r
+		JOIN nol_reserve rs ON r.rno = rs.rno
+		WHERE rs.id = #{id}
+	</select>
+	<update id="reviewUpdate">
+		UPDATE nol_review
+		SET content = #{content, jdbcType=VARCHAR}
+		WHERE rvno = #{rvno}
+	</update>
+	<delete id="myReviewDelete">
+		DELETE FROM nol_review WHERE rvno = #{rvno}
+	</delete>
 	
 	<select id="getReviewList">
 		SELECT * FROM nol_review
