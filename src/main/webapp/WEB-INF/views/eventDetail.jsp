@@ -14,10 +14,8 @@
 	#eventDetail {
 	  	max-width: 800px;
 	  	margin: 40px auto;
-	  	padding: 60px 40px;
 	  	background-color: #ffffff;
 	  	border-radius: 12px;
-	  	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 	  	font-family: 'Nanum Gothic', sans-serif;
 	}
 	

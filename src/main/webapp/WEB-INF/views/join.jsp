@@ -10,15 +10,11 @@
 	#join {
 		display: flex;
       	justify-content: center;
-      	align-items: center;
       	padding-top: 40px;
 	}
 	
 	#join .join-box {
-	  	background-color: #ffffff;
-	  	padding: 60px 40px;
-	  	border-radius: 12px;
-	  	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+	  	padding: 60px 0;
 	  	width: 520px;
 	}
 		

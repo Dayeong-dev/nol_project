@@ -7,29 +7,18 @@
 <meta charset="UTF-8">
 <title>공지사항 목록</title>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
+#noticeList {
   background: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   max-width: 800px; /* 줄임 */
-  margin: 20px auto;
-  padding: 0 15px; /* 살짝 줄임 */
+  margin: 0 auto;
+  padding: 40px 15px; /* 살짝 줄임 */
 }
 
-h2 {
-  text-align: center;
-  color: #d62828;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 1.8rem; /* 줄임 */
-  padding-bottom: 10px;
-  border-bottom: none;
+#noticeList h2 {
+  	color: #d62828;
+  	font-size: 1.8rem; /* 줄임 */
 }
 
 form {
@@ -182,68 +171,70 @@ a:hover {
 </head>
 <body>
 <jsp:include page="fragments/header.jsp" />
-	<c:if test="${isAdmin}">
-		<th>관리자 전용</th>
-	</c:if>
+	<section id="noticeList">
+		<c:if test="${isAdmin}">
+			<th>관리자 전용</th>
+		</c:if>
+		
+		<h2>공지사항</h2>
+		
+		<form action="/notice/NoticeList" method="get">
+		
+		<select name="category">
+			<option value="" ${selectedCategory == null || selectedCategory == '' ? 'selected' : ''}>전체</option>
+			<option value="공지" ${selectedCategory == '공지' ? 'selected' : ''}>공지</option>
+			<option value="이벤트" ${selectedCategory == '이벤트' ? 'selected' : ''}>이벤트</option>
+			<option value="점검" ${selectedCategory == '점검' ? 'selected' : ''}>점검</option>
+		</select>
 	
-	<h2>공지사항</h2>
-	
-	<form action="/notice/NoticeList" method="get">
-	
-	<select name="category">
-		<option value="" ${selectedCategory == null || selectedCategory == '' ? 'selected' : ''}>전체</option>
-		<option value="공지" ${selectedCategory == '공지' ? 'selected' : ''}>공지</option>
-		<option value="이벤트" ${selectedCategory == '이벤트' ? 'selected' : ''}>이벤트</option>
-		<option value="점검" ${selectedCategory == '점검' ? 'selected' : ''}>점검</option>
-	</select>
-
-	<input type="text" name="keyword" value="${keyword}" placeholder="제목 검색">
-	
-	<button type="submit">검색</button>
-	</form>
-	
-	<table border="0">
-		<tr>
-			<th>번호</th>
-			<th>카테고리</th>
-			<th>제목</th>
-			<th>조회수</th>
-		</tr>
-		<c:forEach var="notice" items="${list}">
-			<tr class="${notice.isFixed == 1 ? 'notice-fixed' : ''}"
-			    onclick="location.href='/notice/NoticeDetail?nno=${notice.nno}'"
-			    style="cursor: pointer;">
-			  <td><a href="/notice/NoticeDetail?nno=${notice.nno}">${notice.nno}</a></td>
-			  <td><a href="/notice/NoticeDetail?nno=${notice.nno}">${notice.category}</a></td>
-			  <td>
-			    <c:if test="${notice.isFixed == 1}">
-			      <span style="color:#d90429; font-weight:700;">중요 공지 💡</span>
-			    </c:if>
-			    <a href="/notice/NoticeDetail?nno=${notice.nno}">${notice.title}</a>
-			  </td>
-			  <td>${notice.hit}</td>
+		<input type="text" name="keyword" value="${keyword}" placeholder="제목 검색">
+		
+		<button type="submit">검색</button>
+		</form>
+		
+		<table border="0">
+			<tr>
+				<th>번호</th>
+				<th>카테고리</th>
+				<th>제목</th>
+				<th>조회수</th>
 			</tr>
-		</c:forEach>
-	</table>
-
-	<c:if test="${isAdmin}">
-	    <a href="/notice/NoticeForm" class="btn btn-success mt-3">공지 등록</a><br><br>
-		<a href="/admin" class="admin-links">← 관리자 메인</a><br>
-	</c:if>
+			<c:forEach var="notice" items="${list}">
+				<tr class="${notice.isFixed == 1 ? 'notice-fixed' : ''}"
+				    onclick="location.href='/notice/NoticeDetail?nno=${notice.nno}'"
+				    style="cursor: pointer;">
+				  <td><a href="/notice/NoticeDetail?nno=${notice.nno}">${notice.nno}</a></td>
+				  <td><a href="/notice/NoticeDetail?nno=${notice.nno}">${notice.category}</a></td>
+				  <td>
+				    <c:if test="${notice.isFixed == 1}">
+				      <span style="color:#d90429; font-weight:700;">중요 공지 💡</span>
+				    </c:if>
+				    <a href="/notice/NoticeDetail?nno=${notice.nno}">${notice.title}</a>
+				  </td>
+				  <td>${notice.hit}</td>
+				</tr>
+			</c:forEach>
+		</table>
 	
-	<div class="pagination">
-	    <c:forEach var="i" begin="1" end="${totalPages}">
-	        <c:choose>
-	            <c:when test="${i == currentPage}">
-	                <strong>[${i}]</strong>
-	            </c:when>
-	            <c:otherwise>
-	                <a href="?page=${i}">[${i}]</a>
-	            </c:otherwise>
-	        </c:choose>
-	    </c:forEach>
-	</div>
-	<a href="/" style="color:#d90429; font-weight:700;">Home</a>
+		<c:if test="${isAdmin}">
+		    <a href="/notice/NoticeForm" class="btn btn-success mt-3">공지 등록</a><br><br>
+			<a href="/admin" class="admin-links">← 관리자 메인</a><br>
+		</c:if>
+		
+		<div class="pagination">
+		    <c:forEach var="i" begin="1" end="${totalPages}">
+		        <c:choose>
+		            <c:when test="${i == currentPage}">
+		                <strong>[${i}]</strong>
+		            </c:when>
+		            <c:otherwise>
+		                <a href="?page=${i}">[${i}]</a>
+		            </c:otherwise>
+		        </c:choose>
+		    </c:forEach>
+		</div>
+		<a href="/" style="color:#d90429; font-weight:700;">Home</a>
+	</section>
 <jsp:include page="fragments/footer.jsp" />
 </body>	
 </html>

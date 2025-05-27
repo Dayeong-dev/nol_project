@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>예매하기</title>
-<link rel="stylesheet" href="/css/style.css" />
 <style>
 h2 {
 	text-align: center;
@@ -25,7 +24,6 @@ h2 {
 
 .ticket-card {
 	width: 220px;
-	height: 360px;
 	background: linear-gradient(to bottom, #d62828, #a81e1e);
 	border-radius: 20px;
 	color: white;
@@ -66,10 +64,7 @@ h2 {
 }
 
 .ticket-card button {
-	position: absolute;
-	bottom: 16px;
-	left: 50%;
-	transform: translateX(-50%);
+
 	background: white;
 	color: #d62828;
 	font-weight: bold;
@@ -96,36 +91,37 @@ h2 {
 
 <jsp:include page="./fragments/header.jsp" />
 
-<h2>티켓 예매</h2>
-
-<div class="ticket-grid">
-	<c:forEach var="ticket" items="${ticketList}">
-		<div class="ticket-card">
-			<c:choose>
-				<c:when test="${ticket.name eq '오전 이용권'}">
-					<img src="/nol_image/morningpass.png" alt="오전 티켓">
-				</c:when>
-				<c:when test="${ticket.name eq '오후 이용권'}">
-					<img src="/nol_image/afternoonpass.png" alt="오후 티켓">
-				</c:when>
-				<c:when test="${ticket.name eq '종일 이용권'}">
-					<img src="/nol_image/alldaypass.png" alt="종일 티켓">
-				</c:when>
-				<c:otherwise>
-					<img src="/nol_image/default.png" alt="기본 티켓">
-				</c:otherwise>
-			</c:choose>
-
-			<h3>${ticket.name}</h3>
-			<p>★ 쿠폰을 받아서 할인된★</p>
-			<p>★ 가격으로 이용하세요 ★</p>
-			<p class="price">
-				<fmt:formatNumber value="${ticket.price}" pattern="#,###" />원~
-			</p>
-			<button onclick="location.href='/reserveForm?tno=${ticket.tno}'">예매하기</button>
-		</div>
-	</c:forEach>
-</div>
+<section>
+	<h2>티켓 예매</h2>
+	<div class="ticket-grid">
+		<c:forEach var="ticket" items="${ticketList}">
+			<div class="ticket-card">
+				<c:choose>
+					<c:when test="${ticket.name eq '오전 이용권'}">
+						<img src="/nol_image/morningpass.png" alt="오전 티켓">
+					</c:when>
+					<c:when test="${ticket.name eq '오후 이용권'}">
+						<img src="/nol_image/afternoonpass.png" alt="오후 티켓">
+					</c:when>
+					<c:when test="${ticket.name eq '종일 이용권'}">
+						<img src="/nol_image/alldaypass.png" alt="종일 티켓">
+					</c:when>
+					<c:otherwise>
+						<img src="/nol_image/default.png" alt="기본 티켓">
+					</c:otherwise>
+				</c:choose>
+	
+				<h3>${ticket.name}</h3>
+				<p>★ 쿠폰을 받아서 할인된★</p>
+				<p>★ 가격으로 이용하세요 ★</p>
+				<p class="price">
+					<fmt:formatNumber value="${ticket.price}" pattern="#,###" />원~
+				</p>
+				<button onclick="location.href='/reserveForm?tno=${ticket.tno}'">예매하기</button>
+			</div>
+		</c:forEach>
+	</div>
+</section>
 
 <jsp:include page="./fragments/footer.jsp" />
 
