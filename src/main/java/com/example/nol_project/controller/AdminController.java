@@ -110,7 +110,13 @@ public class AdminController {
 
 	@GetMapping("/reservationList")
 	public String showReservationList(@RequestParam(value = "page", defaultValue = "1") int page,
-	                                   Model model) {
+	                                   Model model,
+	                                   HttpSession session,
+	                                   RedirectAttributes rttr) {
+		if(session.getAttribute("adminId") == null) {
+			rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
+			return "redirect:/admin/login";
+		}
 	    int pageSize = 10;
 	    List<ReserveDTO> list = reserveService.getReservationPage(page, pageSize);
 	    int totalCount = reserveService.getReservationCount();
