@@ -50,10 +50,10 @@
 			.catch(error => console.log(error));
 		
 		// 올해 연간 매출 그래프 출력
-		setThisYearly(dateTime);
+		setYearlyGraph(dateTime);
 		
 		$radios.forEach(radio => {
-			radio.addEventListener("change", e => {
+			radio.addEventListener("change", async(e) => {
 				const value = e.currentTarget.value;
 				btnType = value;
 				
@@ -62,23 +62,23 @@
 				if(value === "1") {			// 연간
 					$prevBtn.innerText = "지난 해";
 					$nextBtn.innerText = "다음 해";
-					setThisYearly(dateTime);
+					setYearlyGraph(dateTime);
 				}
 				else if(value === "2") {		// 월간
 					$prevBtn.innerText = "지난 달";
 					$nextBtn.innerText = "다음 달";
-					setThisMonthly(dateTime);
+					setMonthlyGraph(dateTime);
 				}
 				else {							// 주간
 					$prevBtn.innerText = "지난 주";
 					$nextBtn.innerText = "다음 주";
-					setThisWeekly(dateTime);
+					const obj = setWeeklyGraph(dateTime);
 				}
 			})
 		})
 		
 		function prevPage() {
-			if(btnType === "1") {				// 연간
+			if(btnType === "1") {			// 연간
 				const year = dateTime.getFullYear();
 				if(salesRange.earliestYear === year.toString()) {
 					alert("첫 페이지 입니다.");
@@ -86,7 +86,7 @@
 				}
 				dateTime.setFullYear(dateTime.getFullYear() - 1);
 				
-				setThisYearly(dateTime);
+				setYearlyGraph(dateTime);
 			}
 			else if(btnType === "2") {		// 월간
 				const year = dateTime.getFullYear();
@@ -99,7 +99,7 @@
 				}
 				dateTime.setMonth(month - 1);
 				
-				setThisMonthly(dateTime);
+				setMonthlyGraph(dateTime);
 			}
 			else {							// 주간
 				const isoYear = getISOWeekYear(dateTime);
@@ -112,7 +112,7 @@
 				}
 				dateTime.setDate(dateTime.getDate() - 7);
 				
-				setThisWeekly(dateTime);
+				setWeeklyGraph(dateTime);
 			}
 		}
 		
@@ -126,7 +126,7 @@
 				
 				dateTime.setFullYear(dateTime.getFullYear() + 1);
 				
-				setThisYearly(dateTime);
+				setYearlyGraph(dateTime);
 			}
 			else if(btnType === "2") {		// 월간
 				const year = dateTime.getFullYear();
@@ -140,7 +140,7 @@
 				
 				dateTime.setMonth(month + 1);
 				
-				setThisMonthly(dateTime);
+				setMonthlyGraph(dateTime);
 			}
 			else {							// 주간
 				const isoYear = getISOWeekYear(dateTime);
@@ -153,7 +153,7 @@
 				}
 				dateTime.setDate(dateTime.getDate() + 7);
 				
-				setThisWeekly(dateTime);
+				setWeeklyGraph(dateTime);
 			}
 		}
 	</script>
