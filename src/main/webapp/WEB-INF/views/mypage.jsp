@@ -129,7 +129,7 @@ h2 {
 </head>
 <body>
 <jsp:include page="./fragments/header.jsp"></jsp:include>
-
+<section>
 <h2>예매 내역</h2>
 
 <c:if test="${empty myReserveList}">
@@ -172,8 +172,8 @@ h2 {
                <button type="submit">리뷰 작성</button>
             </form>
             <form action="reviewDetail" method="get" style="display:inline;">
-				<button type="submit">나의 리뷰 보기</button>
-			</form>
+            <button type="submit">나의 리뷰 보기</button>
+         </form>
          </div>
       </div>
    </div>
@@ -183,7 +183,7 @@ h2 {
    <a href="/reserve">🎟 다시 예매하러 가기</a>
    <a href="/mypage/couponList" onclick="requireLogin('/mypage/couponList')">🎁 내 쿠폰함 보기</a>
 </div>
-
+</section>
 <script>
    const isLoggedIn = "${sessionScope.id}" !== "";
    function requireLogin(targetUrl) {

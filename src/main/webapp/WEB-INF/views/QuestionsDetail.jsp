@@ -15,14 +15,14 @@
   --text-gray: #555;
 }
 
-body {
+#questionsDetail {
   font-family: 'Segoe UI', sans-serif;
   background: #fff;
   color: #333;
   margin: 20px;
 }
 
-h2 {
+#questionsDetail h2 {
   text-align: center;
   color: var(--main-color);
   margin-bottom: 30px;
@@ -119,7 +119,10 @@ h2 {
 </head>
 
 <body>
-<jsp:include page="fragments/header.jsp" />
+<c:if test="${!isAdmin}">
+	<jsp:include page="fragments/header.jsp" />
+</c:if>
+<section id="questionsDetail">
 <h2>QnA 상세</h2>
 
 <div class="detail-container">
@@ -159,7 +162,9 @@ h2 {
 <c:if test="${sessionScope.role eq 'admin'}">
     <a href="${pageContext.request.contextPath}/admin/answers/QuestionsForm?qno=${questions.qno}" class="admin-btn">답변 작성</a>
 </c:if>
-
-<jsp:include page="fragments/footer.jsp" />
+</section>
+<c:if test="${!isAdmin}">
+	<jsp:include page="fragments/footer.jsp" />
+</c:if>
 </body>
 </html>

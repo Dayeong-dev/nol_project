@@ -31,42 +31,65 @@ public class NoticeController {
         @RequestParam(name = "keyword", required = false) String keyword,
         Model model, HttpSession session) {
 
-    	int pageSize = 10;
-
-    	List<NoticeDTO> list = noticeService.getPagedNotices(page, pageSize, category, keyword);
-    	int totalPages = noticeService.getTotalPages(pageSize, category, keyword);
-
-    	model.addAttribute("list", list);
-    	model.addAttribute("currentPage", page);
-    	model.addAttribute("totalPages", totalPages);
-    	model.addAttribute("selectedCategory", category);
-    	model.addAttribute("keyword", keyword);
-
     	String adminId = (String) session.getAttribute("adminId");
-    	model.addAttribute("isAdmin", "admin1234".equals(adminId));
+        String id = (String) session.getAttribute("id");
+        if (id == null && adminId == null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "redirect:/login";
+        }
 
-    	return "NoticeList";
+        int pageSize = 10;
+
+        List<NoticeDTO> list = noticeService.getPagedNotices(page, pageSize, category, keyword);
+        int totalPages = noticeService.getTotalPages(pageSize, category, keyword);
+
+        model.addAttribute("list", list);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("selectedCategory", category);
+        model.addAttribute("keyword", keyword);
+
+        model.addAttribute("isAdmin", "admin1234".equals(adminId));
+
+        return "NoticeList";
     }
     
-    // 공지사항 상세보기
+ // 공지사항 상세보기
     @GetMapping("/NoticeDetail")
     public String NoticeDetail(@RequestParam("nno") int nno, Model model, HttpSession session) {
-    	noticeService.increaseHit(nno);
-    	
+        // 세션에서 사용자 정보 가져오기
+        String id = (String) session.getAttribute("id");
+        String adminId = (String) session.getAttribute("adminId");
+        
+        if (id == null && adminId == null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "login";
+        }
+
+        noticeService.increaseHit(nno);
+
         NoticeDTO notice = noticeService.getNoticeByNno(nno);
         model.addAttribute("notice", notice);
-        
-        //세션에서 사용자 정보 가져오기
-        String adminId = (String) session.getAttribute("adminId");
+
+        // 관리자 여부 확인
         boolean isAdmin = "admin1234".equals(adminId);
         model.addAttribute("isAdmin", isAdmin);
-        
+
         return "NoticeDetail";
     }
 
     // 공지사항 등록 폼
     @GetMapping("/NoticeForm")
-    public String form() {
+    public String noticeForm(HttpSession session, Model model) {
+        String id = (String) session.getAttribute("id");
+        String adminId = (String) session.getAttribute("adminId");
+        
+        if (id == null && adminId == null) {
+        	//System.out.println("로그인 안됨 → 로그인 페이지로 이동");
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "login";
+        }
+        //System.out.println("로그인 안됨 → 로그인 페이지로 이동");
         return "NoticeForm";
     }
     

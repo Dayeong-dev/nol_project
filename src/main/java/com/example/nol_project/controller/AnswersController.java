@@ -26,9 +26,14 @@ public class AnswersController {
     
     // 답변 등록 폼
     @GetMapping("/AnswersForm")
-    public String answerForm(@RequestParam("qno") int qno, Model model) {
-        model.addAttribute("qno", qno); // 질문 번호를 전달
-        
+    public String answerForm(@RequestParam("qno") int qno, Model model, HttpSession session) {
+        String adminId = (String) session.getAttribute("adminId");
+        if (adminId == null || !adminId.equals("admin1234")) {
+            model.addAttribute("loginMessage", "관리자 로그인 필요합니다.");
+            return "redirect:/admin/login";
+        }
+        model.addAttribute("qno", qno); // 질문 번호 전달
+
         String memberName = questionsService.getMemberNameByQno(qno);
         model.addAttribute("memberName", memberName);
 
@@ -37,34 +42,60 @@ public class AnswersController {
 
     // 답변 등록 처리
     @PostMapping("/AnswersInsert")
-    public String insertAnswer(HttpSession session, AnswersDTO answer) {
-        String adminId = (String) session.getAttribute("adminId"); // 세션에서 가져오기
+    public String insertAnswer(HttpSession session, AnswersDTO answer, Model model) {
+        String adminId = (String) session.getAttribute("adminId");
+
+        if (adminId == null || !adminId.equals("admin1234")) {
+            model.addAttribute("loginMessage", "관리자 로그인 필요합니다.");
+            return "redirect:/admin/login";
+        }
         
-        answer.setAdminId(adminId); // DTO에 주입
+        answer.setAdminId(adminId);
         
         answersService.insertAnswer(answer);
         answersService.updateIsAnswered(answer.getQno());
+
         System.out.println("insertAnswer 호출, adminId=" + adminId);
         return "redirect:/QuestionsDetail?qno=" + answer.getQno();
     }
 
     // 답변 상세 보기
     @GetMapping("/detail")
-    public String answerDetail(@RequestParam("qno") int qno, Model model) {
+    public String answerDetail(@RequestParam("qno") int qno, Model model, HttpSession session) {
         AnswersDTO answer = answersService.getAnswerByQno(qno);
+        String id = (String) session.getAttribute("id");
+        String adminId = (String) session.getAttribute("adminId"); 
+        if (id == null && adminId == null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "redirect:/login";
+        }
+        
         model.addAttribute("answer", answer);
         return "AnswersDetail";
     }
     
     @GetMapping("/UnansweredList")
-    public String unansweredList(Model model) {
-        // 미답변 질문 목록을 가져와서 모델에 담기
+    public String unansweredList(HttpSession session, Model model) {
+        String id = (String) session.getAttribute("id");
+        String adminId = (String) session.getAttribute("adminId"); 
+        if (id == null && adminId == null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "redirect:/admin/login";
+        }
+
         model.addAttribute("questions", answersService.getUnansweredList()); 
         return "admin/UnansweredList"; 
     }
+
     
     @GetMapping("/AnsweredList")
-    public String AnsweredList(Model model) {
+    public String AnsweredList(HttpSession session, Model model) {
+    	String id = (String) session.getAttribute("id");
+    	String adminId = (String) session.getAttribute("adminId"); 
+        if (id == null && adminId == null) {
+            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+            return "redirect:/admin/login";
+        }
         // 답변 질문 목록을 가져와서 모델에 담기
         model.addAttribute("questions", answersService.getAnsweredList()); 
         return "admin/AnsweredList"; 
