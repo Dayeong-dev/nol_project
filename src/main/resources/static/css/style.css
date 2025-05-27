@@ -17,7 +17,7 @@ html, body {
 }
 
 body {
-	font-family: "Nanum Gothic", sans-serif;
+
 	font-weight: 400;
 	font-style: normal;
 	min-height: 100vh;
@@ -42,18 +42,20 @@ header {
 	background-color: #fff;
 	border-bottom: 1px solid #ddd;
 	font-family: sans-serif;
-	height: 68px;
+	height: 80px;
 }
 
 /* 로고 */
 header .logo {
 	display: flex;
 	align-items: center;
+	
 }
 
 header .logo img {
-	height: 40px;
-	margin-right: 10px;
+	height: 150px;
+	margin-top: 10px;
+	
 }
 
 /* 메뉴 */
