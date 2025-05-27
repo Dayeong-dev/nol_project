@@ -19,12 +19,12 @@ li {
 a {
 	text-decoration: none;
 }
-
+/*
 ul {
 	display: flex;
 	gap: 20px;
 }
-
+*/
 body {
 	height: 100vh;
 	background-image:
@@ -41,7 +41,7 @@ body {
 /* 섹션 스타일 */
 .at-section {
 	/*padding: 60px 20px;*/
-	max-width: 1200px;
+	max-width: 1080px;
 	margin: 0 auto;
 }
 
@@ -86,16 +86,18 @@ form input[type="submit"] {
 }
 /* 어트랙션 카드 리스트 */
 .at-list ul {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
-  max-width: 1200px;
-  margin: 0 auto;
-  /*
-  justify-content: center;
-  */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* 또는 'flex-start' 로 왼쪽 정렬 */
   gap: 30px;
   list-style: none;
   padding: 0;
+  margin-left: 20px;
+  /*
+  padding: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  */
 }
 
 .at-list li {
@@ -108,15 +110,20 @@ form input[type="submit"] {
 
 /* 개별 카드 스타일 */
 .at-list ul li {
-  background: rgba(255, 255, 255, 0.8); /* 반투명 */
+	width: 300px;
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(5px);
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  width: 280px;
   overflow: hidden;
   transition: transform 0.3s;
   /*
+  margin: 0 auto;
   */
+}
+.at-list ul li:hover{
+	transform: translateY(-5px);
 }
 .at-list ul li img {
   width: 100%;
@@ -184,8 +191,8 @@ form input[type="submit"] {
 				</c:forEach>
 			</ul>
 		</div>
-
 	</section>
+<jsp:include page="./fragments/footer.jsp"></jsp:include>
 </body>
 </html>
 
