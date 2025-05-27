@@ -10,6 +10,7 @@
 </head>
 
 <body>
+<jsp:include page="fragments/header.jsp" />
     <h2>QnA 상세</h2>
     <hr>
     카테고리: ${questions.category}<br>
@@ -39,7 +40,7 @@
 	<c:if test="${sessionScope.role eq 'admin'}">
 	    <a href="${pageContext.request.contextPath}/admin/answers/QuestionsForm?qno=${questions.qno}">답변 작성</a>
 	</c:if>
-	
+<jsp:include page="fragments/footer.jsp" />
 </body>
 
 </html>

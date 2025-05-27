@@ -14,123 +14,163 @@
 	--text-color: #333;
 }
 
-* {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
-}
-
 body {
 	font-family: 'Segoe UI', sans-serif;
-	padding: 40px;
 	background-color: #fffdfd;
 	color: var(--text-color);
+	line-height: 1.6;
 }
 
 h2 {
-	margin-bottom: 24px;
+	text-align: center;
 	color: var(--main-color);
-	text-align: center;
+	font-size: 28px;
+	margin: 40px 0 30px;
 }
 
-.notice {
-	color: green;
-	text-align: center;
-	margin-bottom: 20px;
-	font-weight: bold;
-}
-
-.empty-message {
-	color: #aaa;
-	text-align: center;
-	margin-bottom: 30px;
-	font-size: 16px;
-}
-
-.ticket-box {
+/* 📦 예약 내역 컨테이너 */
+.reservation-box {
+	display: flex;
 	border: 2px solid var(--main-color);
-	padding: 20px;
-	margin: 20px auto;
-	width: 80%;
 	border-radius: 10px;
+	overflow: hidden;
+	margin: 30px auto;
+	max-width: 900px;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+	background: #fffdfd;
+}
+
+/* 🎫 왼쪽 티켓 이미지 */
+.reservation-image {
+	flex: 0 0 200px;
 	background-color: var(--light-bg);
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
 }
 
-.ticket-box p {
-	margin: 10px 0;
-	font-size: 15px;
+.reservation-image img {
+	max-height: 180px;
 }
 
-.ticket-box strong {
-	color: var(--main-color);
+/* 📝 오른쪽 정보 테이블 */
+.reservation-info {
+	flex: 1;
+	background-color: #fff;
 }
 
-.ticket-box button {
-	margin-top: 10px;
-	padding: 8px 16px;
+.reservation-info table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.reservation-info th,
+.reservation-info td {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.reservation-info th {
+  background-color: #fff; /* 🔴 왼쪽 배경 흰색으로 통일 */
+  color: var(--text-color); /* 🔴 글자색 기본 검정 */
+  width: 120px;
+  font-weight: bold;
+}
+
+.review-button {
+	text-align: right;
+	padding: 16px;
+}
+
+.review-button button {
+	padding: 8px 20px;
 	background-color: var(--main-color);
 	border: none;
 	color: white;
+	font-weight: bold;
 	border-radius: 5px;
 	cursor: pointer;
-	transition: background-color 0.2s ease;
 }
 
-.ticket-box button:hover {
+.review-button button:hover {
 	background-color: var(--hover-color);
 }
 
-/* 하단 버튼 */
+.empty-message {
+	text-align: center;
+	color: #aaa;
+	font-size: 16px;
+	margin-top: 30px;
+}
+
 .bottom-buttons {
 	display: flex;
 	justify-content: center;
 	gap: 20px;
-	margin-top: 40px;
+	margin: 50px auto;
 }
-
 .bottom-buttons a {
-	display: inline-block;
-	padding: 10px 24px;
 	background-color: var(--main-color);
-	color: #fff;
+	color: white;
 	text-decoration: none;
+	padding: 10px 24px;
 	border-radius: 6px;
 	font-weight: bold;
-	transition: background-color 0.2s ease;
 }
-
 .bottom-buttons a:hover {
 	background-color: var(--hover-color);
 }
 </style>
 </head>
 <body>
-
 <jsp:include page="./fragments/header.jsp"></jsp:include>
-
-<c:if test="${not empty msg}">
-    <p class="notice">✅ ${msg}</p>
-</c:if>
 
 <h2>예매 내역</h2>
 
 <c:if test="${empty myReserveList}">
-    <p class="empty-message">예매 내역이 없습니다.</p>
+	<p class="empty-message">예매 내역이 없습니다.</p>
 </c:if>
 
 <c:forEach var="reservelist" items="${myReserveList}">
-	<div class="ticket-box">
-		<p>🎫 <strong>티켓명:</strong> ${reservelist.TICKETNAME}</p>
-		<p>📅 <strong>이용일:</strong> <fmt:formatDate value="${reservelist.RESERVEDATE}" pattern="yyyy-MM-dd" /></p>
-		<p>👥 <strong>수량:</strong> ${reservelist.QUANTITY}장</p>
-		<p>💰 <strong>단가:</strong> <fmt:formatNumber value="${reservelist.UNITPRICE}" pattern="#,##0" />원</p>
-		<p>💳 <strong>총 금액:</strong> <fmt:formatNumber value="${reservelist.TOTALPRICE}" pattern="#,##0" />원</p>
-		
-		<form action="reviewWrite" method="get">
-			<input type="hidden" name="rno" value="${reservelist.RNO}">
-			<button type="submit">리뷰 작성</button>
-		</form>
+	<div class="reservation-box">
+
+		<!-- 🎫 티켓 이미지 -->
+		<div class="reservation-image">
+			<c:choose>
+				<c:when test="${reservelist.TICKETNAME.contains('오전')}">
+					<img src="/nol_image/morningpass.png" alt="오전권">
+				</c:when>
+				<c:when test="${reservelist.TICKETNAME.contains('오후')}">
+					<img src="/nol_image/afternoonpass.png" alt="오후권">
+				</c:when>
+				<c:when test="${reservelist.TICKETNAME.contains('종일')}">
+					<img src="/nol_image/alldaypass.png" alt="종일권">
+				</c:when>
+				<c:otherwise>
+					<img src="/nol_image/logo.png" alt="기본 로고">
+				</c:otherwise>
+			</c:choose>
+		</div>
+
+		<!-- 📝 예매 정보 -->
+		<div class="reservation-info">
+			<table>
+				<tr><th>티켓명</th><td>${reservelist.TICKETNAME}</td></tr>
+				<tr><th>이용일</th><td><fmt:formatDate value="${reservelist.RESERVEDATE}" pattern="yyyy-MM-dd" /></td></tr>
+				<tr><th>수량</th><td>${reservelist.QUANTITY}장</td></tr>
+				<tr><th>1장 단가</th><td><fmt:formatNumber value="${reservelist.UNITPRICE}" pattern="#,##0" />원</td></tr>
+				<tr><th>총 금액</th><td><fmt:formatNumber value="${reservelist.TOTALPRICE}" pattern="#,##0" />원</td></tr>
+			</table>
+			<div class="review-button">
+				<form action="reviewWrite" method="get">
+					<input type="hidden" name="rno" value="${reservelist.RNO}">
+					<button type="submit">리뷰 작성</button>
+				</form>
+			</div>
+		</div>
 	</div>
 </c:forEach>
 

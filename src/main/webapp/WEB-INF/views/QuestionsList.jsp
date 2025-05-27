@@ -5,8 +5,156 @@
 <head>
 <meta charset="UTF-8">
 <title>QnA 목록</title>
+<style>
+:root {
+  --main-color: #d62828;
+  --hover-color: #a81e1e;
+  --bg-light: #fff7f7;
+  --text-gray: #555;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  color: #333;
+}
+
+h2 {
+  text-align: center;
+  color: var(--main-color);
+  margin-bottom: 30px;
+  font-size: 26px;
+  margin-top: 30px;
+}
+
+/* 🔄 검색 + 등록 버튼 전체 감싸는 컨테이너 */
+.filter-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+/* 🔍 검색 박스 */
+.filter-box {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 800px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+}
+
+.filter-box select,
+.filter-box input[type="text"] {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.filter-box button {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filter-box button:hover {
+  background-color: var(--hover-color);
+}
+
+/* ➕ 질문 등록 버튼 */
+.register-btn a {
+  background-color: var(--main-color);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.register-btn a:hover {
+  background-color: var(--hover-color);
+}
+
+/* 📋 QnA 테이블 */
+.qna-table {
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.qna-table th, .qna-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.qna-table th {
+  background-color: var(--main-color);
+  color: white;
+}
+
+.qna-table tr:hover {
+  background-color: #fff0f0;
+}
+
+/* 페이지네이션 & 기타 버튼들 */
+.action-bar {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.action-bar a {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--main-color);
+  color: white;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.action-bar a:hover {
+  background-color: var(--hover-color);
+}
+
+.admin-links {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.admin-links a {
+  color: var(--main-color);
+  margin: 0 8px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.admin-links a:hover {
+  text-decoration: underline;
+}
+</style>
 </head>
 <body>
+<jsp:include page="fragments/header.jsp" />
 	<c:if test="${isAdmin}">
 		<th>관리자 전용</th>
 	</c:if>
@@ -25,8 +173,6 @@
 		<input type="text" name="keyword" value="${keyword}" placeholder="제목 또는 내용 검색">
 		<button type="submit">검색</button>
 	</form>
-
-	<a href="QuestionsForm">질문 등록하기</a>
 
 	<table border="1">
 		<tr>
@@ -81,6 +227,10 @@
 		<a href="${pageContext.request.contextPath}/admin/answers/AnsweredList">답변된 QnA 보기</a><br>
 	</c:if>
 
-	<a href="/">Home</a>
+	<a href="QuestionsForm">QnA 질문하기</a><br>
+	<a href="/">Home Page</a>
+<jsp:include page="fragments/footer.jsp" />
+
+<jsp:include page="./fragments/header.jsp"></jsp:include>
 </body>
 </html>
