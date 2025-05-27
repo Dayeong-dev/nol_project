@@ -4,6 +4,7 @@
 * {
 	padding: 0;
 	margin: 0;
+	box-sizing: border-box;
 }
 
 a {
@@ -19,6 +20,12 @@ body {
 	font-family: "Nanum Gothic", sans-serif;
 	font-weight: 400;
 	font-style: normal;
+	background-color: #f0f2f5;
+	min-height: 100vh;
+}
+
+section {
+	min-height: calc(100vh - 160px);
 }
 
 /* 헤더 전체 */
@@ -30,6 +37,7 @@ header {
 	background-color: #fff;
 	border-bottom: 1px solid #ddd;
 	font-family: sans-serif;
+	height: 66px;
 }
 
 /* 로고 */
@@ -76,9 +84,6 @@ header .user-section a {
 }
 
 footer {
-  position: fixed;         /* 위치 고정 */
-  bottom: 0;               /* 하단에 붙임 */
-  left: 0;
   width: 100%;             /* 전체 너비 */
   background-color: #f5f5f5;
   color: #444;
@@ -87,6 +92,7 @@ footer {
   text-align: center;
   border-top: 1px solid #ccc;
   z-index: 1000;
+  height: 86px;
 }
 
 footer a {
