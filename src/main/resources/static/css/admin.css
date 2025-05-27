@@ -1,0 +1,685 @@
+@charset "UTF-8";
+
+/*
+	main-color: #2c3e50
+	sub-color: #34495e
+	hover-color: #526473
+*/
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body, html {
+	min-width: 1300px;
+  	height: 100%;
+}
+
+body {
+	display: flex;
+  	font-size: 16px;
+}
+
+
+ul, ol {
+	list-style: none;
+}
+
+
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+textArea {
+	resize: none;
+}
+
+section {
+  flex: 1;
+  background: #f5f5f5;
+  box-sizing: border-box;
+  overflow: hidden; /* 내부에서만 스크롤 */
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+	display: flex;
+}
+
+/* table 요소 */
+table.list-table {
+  width: 90%;
+  margin: 0 auto 28px;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table.list-table thead {
+  background-color: #2c3e50;
+  color: white;
+}
+
+table.list-table thead th {
+  padding: 14px 16px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+table.list-table tbody td {
+  padding: 12px 16px;
+  font-size: 14px;
+  border-top: 1px solid #e0e0e0;
+}
+
+table.list-table tbody tr:hover {
+  background-color: #f2f6fc;
+}
+
+table.list-table td a {
+  color: #526473;
+  text-decoration: underline;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+table.list-table td a:hover {
+  background-color: #ecf6fd;
+}
+
+table.list-table input[type="button"], 
+table.list-table button {
+  color: white;
+  background-color: #2c3e50;
+  border: none;
+  padding: 4px 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+table.list-table input[type="button"]:hover,
+table.list-table button:hover {
+  background-color: #526473;
+}
+
+/* form 요소 */
+form {
+	text-align: left;
+  	max-width: 500px;
+  	background-color: #ffffff;
+  	padding: 32px;
+  	margin: 0 auto;
+  	border-radius: 12px;
+  	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+form p {
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+form input[type="text"],
+form input[type="date"], 
+form input[type="number"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: border 0.2s ease;
+}
+
+form input[type="date"] {
+	width: 48%;
+}
+
+form textarea {
+  height: 100px; /* 적당한 높이 지정 */
+  line-height: 1.5;
+}
+
+form input[type="text"]:focus, 
+form input[type="date"]:focus, 
+form input[type="number"]:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #2980b9;
+  outline: none;
+}
+
+form input[type="submit"] {
+  margin-top: 12px;
+  width: 100%;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+form input[type="submit"]:hover {
+  background-color: #526473;
+}
+
+/* 사이드바 스타일 */
+#admin-sidebar {
+	min-width: 240px;
+    width: 240px;
+    background-color: #2c3e50;
+    color: white;
+  	padding: 24px;
+  	box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+#admin-sidebar h1 {
+  	font-size: 24px;
+  	margin-bottom: 30px;
+  	text-align: center;
+  	color: #ecf0f1;
+}
+
+#admin-sidebar li {
+  margin-bottom: 8px;
+}
+
+/* 토글 메뉴 스타일 */
+#admin-sidebar .menu-toggle {
+  cursor: pointer;
+  padding: 10px 16px;
+  display: block;
+  font-weight: bold;
+  color: #ecf0f1;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+#admin-sidebar .menu-toggle:hover {
+  background-color: #34495e;
+}
+
+/* 하위 메뉴 스타일 */
+#admin-sidebar .submenu {
+  display: none;
+  margin-top: 6px;
+  background-color: #526473;
+}
+
+#admin-sidebar .menu-group.active .submenu {
+  display: block;
+}
+
+#admin-sidebar .submenu a {
+  color: white;
+  display: block;
+  padding: 8px 20px;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+#admin-sidebar .submenu a:hover {
+  background-color: #3d566e;
+}
+
+/* 일반 메뉴 */
+#admin-sidebar li a {
+  display: block;
+  padding: 10px 16px;
+  text-decoration: none;
+  color: #ecf0f1;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+#admin-sidebar li a:hover {
+  background-color: #34495e;
+}
+
+/* section 내부의 상단 헤더 */
+#admin-header {
+  height: 60px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+}
+
+/* 환영 메시지 */
+.welcome-message {
+  font-size: 16px;
+  color: #333;
+}
+
+/* 로그아웃 버튼 */
+.logout-btn {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: #526473;
+}
+
+/* 내부 콘텐츠 영역 (스크롤 생기는 부분) */
+.admin-content {
+  flex: 1;
+  padding: 24px;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.admin-content h2 {
+  flex: 1;
+  text-align: center;
+  overflow-y: auto;
+  margin-bottom: 28px;
+}
+
+/* 어트랙션 상세 */
+#attrctnDetail p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+#attrctnDetail img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#attrctnDetail h3 {
+  font-size: 20px;
+  margin: 16px 0;
+  color: #2c3e50;
+}
+
+#attrctnDetail .flex-row {
+  justify-content: center;
+  flex-wrap: wrap; /* 화면 좁을 경우 세로로 배치됨 */
+}
+
+#attrctnDetail .flex-row > div {
+	flex: 1;
+	min-width: 300px;
+}
+
+#attrctnDetail .flex-row > div:first-child {
+	border-right: 1px solid #ddd;
+}
+
+/* 리뷰 상세 전체 영역 */
+#reviewDetail .review-card {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+#reviewDetail .review-card h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 24px;
+  color: #2c3e50;
+}
+
+#reviewDetail .review-info {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#reviewDetail .review-info li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+#reviewDetail .review-info li:last-child {
+  border-bottom: none;
+}
+
+#reviewDetail .review-info .label {
+  font-weight: 600;
+  color: #34495e;
+  min-width: 100px;
+}
+
+#reviewDetail .review-info .value {
+  color: #2d2d2d;
+  text-align: right;
+  flex: 1;
+  padding-left: 16px;
+  word-break: break-word;
+}
+
+/* QnA 목록 스타일 */
+#questionList h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+#questionList .filter-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+#questionList .filter-box {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#questionList .filter-box select,
+#questionList .filter-box input[type="text"] {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 120px;
+}
+
+/* form 공통 스타일을 무시 */
+#questionList .filter-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  box-shadow: none;
+  background: none;
+  max-width: none;
+  margin: 0;
+}
+
+#questionList .filter-box select,
+#questionList .filter-box input[type="text"],
+#questionList .filter-box button {
+  all: unset; /* 기본 form 스타일 초기화 */
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  background-color: white;
+  box-sizing: border-box;
+  min-width: 100px;
+}
+
+#questionList .filter-box button {
+  	background-color: #2c3e50;
+  	color: white;
+  	cursor: pointer;
+  	transition: background-color 0.2s ease;
+  	text-align: center;
+}
+
+#questionList .filter-box button:hover {
+  background-color: #526473;
+}
+
+
+#questionList .action-bar {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+#questionList .action-bar a {
+  display: inline-block;
+  margin: 0 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+#questionList .action-bar a:hover {
+  background-color: #d0d7dd;
+}
+
+#questionList .action-bar b {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* 질문 상세 */
+#questionsDetail .admin-content h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#questionsDetail .detail-container {
+  max-width: 800px;
+  margin: 0 auto 32px;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+#questionsDetail .detail-row {
+  display: flex;
+  margin-bottom: 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  align-items: flex-start;
+}
+
+#questionsDetail .detail-label {
+  width: 140px;
+  font-weight: 600;
+  color: #34495e;
+  flex-shrink: 0;
+  text-align: left;
+}
+
+#questionsDetail .content-box {
+  flex: 1;
+  background-color: #f3f9ff;
+  border: 1px solid #cde2f5;
+  padding: 14px 16px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.6;
+  font-size: 14px;
+  color: #2c3e50;
+  margin-top: 4px;
+}
+
+#questionsDetail .answer-section {
+  margin-top: 32px;
+  background-color: #ecf6ff;
+  border: 1px solid #cce0f5;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#questionsDetail .answer-section h3 {
+  margin-bottom: 4px;
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+#questionsDetail .admin-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #2c3e50;
+  color: white;
+  text-decoration: none;
+  font-weight: 600ㄿ;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  margin-top: 24px;
+}
+
+#questionsDetail .admin-btn:hover {
+  background-color: #526473;
+}
+
+#questionsDetail .answer-section {
+  margin-top: 32px;
+  padding: 24px;
+  background-color: #f3f9ff;
+  border: 1px solid #cde2f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+#questionsDetail .answer-meta {
+  font-size: 12px;
+  color: #7f8c8d;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #dceaf6;
+}
+
+#questionsDetail .answer-content {
+  	color: #2c3e50;
+  	font-size: 16px;
+  	line-height: 1.6;
+  	text-align: center;
+	margin: 16px;
+}
+
+/* 이벤트 상세 */
+#eventDetail .event-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+#eventDetail .event-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+
+#eventDetail .event-content th,
+#eventDetail .event-content td {
+  padding: 14px 16px;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+  vertical-align: top;
+  font-size: 15px;
+}
+
+#eventDetail .event-content th {
+  width: 160px;
+  background-color: #f9f9f9;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#eventDetail .event-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  margin: 12px 0;
+}
+
+#eventDetail .event-content button {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+#eventDetail .event-content .event-actions {
+  text-align: center;
+}
+
+#eventDetail .event-content button:hover {
+  background-color: #526473;
+}
+
+#eventDetail .event-content .coupon-table {
+  margin-top: 24px;
+}
+
+/* 쿠폰 등록 */
+#regCoupon .event-info-table {
+	width: 500px;
+  	margin: 0 auto 30px;
+  	border-collapse: collapse;
+  	background: #fff;
+  	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  	border-radius: 8px;
+  	overflow: hidden;
+}
+
+#regCoupon .event-info-table th,
+#regCoupon .event-info-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #eaeaea;
+  text-align: left;
+}
+
+#regCoupon .event-info-table th {
+  width: 150px;
+  background: #f5f6f8;
+  color: #333;
+  font-weight: 600;
+}

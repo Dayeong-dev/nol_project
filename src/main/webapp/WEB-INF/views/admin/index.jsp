@@ -7,35 +7,27 @@
 	<title>관리자 메인</title>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="/js/salesGraphFunc.js"></script>
-  <style>
-    a {
-      margin: 10px;
-    }
-  </style>
+	<link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-	<h1>Admin Main</h1>
-	<hr/>
-	<a href="/admin/event">이벤트/쿠폰 관리 페이지</a>
-	<a href="/admin/reservationList">예매 목록 페이지</a>
-	<a href="${pageContext.request.contextPath}/admin/QuestionsList">관리자 QnA</a>
-	<a href="${pageContext.request.contextPath}/notice/NoticeList">관리자 공지사항</a>
-	<a href="/admin/attrctnList">어트랙션 목록보기</a>
-	<a href="/admin/reviewList">리뷰 목록보기</a>
+	<jsp:include page="./fragments/aside.jsp"></jsp:include>
 	<section id="salesChart">
-		<label>
-			<input type="radio" name="chartType" value="1" checked />
-			<span>연간</span>
-		</label>
-		<label>
-			<input type="radio" name="chartType" value="2" />
-			<span>월간</span>
-		</label>
-		<label>
-			<input type="radio" name="chartType" value="3" />
-			<span>주간</span>
-		</label>
-	  	<canvas id="myChart" width="1200" height="400"></canvas>
+		<jsp:include page="./fragments/header.jsp"></jsp:include>
+		<div class="admin-content">
+			<label>
+				<input type="radio" name="chartType" value="1" checked />
+				<span>연간</span>
+			</label>
+			<label>
+				<input type="radio" name="chartType" value="2" />
+				<span>월간</span>
+			</label>
+			<label>
+				<input type="radio" name="chartType" value="3" />
+				<span>주간</span>
+			</label>
+		  	<canvas id="myChart" width="1200" height="400"></canvas>
+		</div>
 	</section>
 	<script>
 		const $ctx = document.getElementById('myChart');

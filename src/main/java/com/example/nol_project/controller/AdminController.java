@@ -76,6 +76,16 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		if(session != null) {
+			session.removeAttribute("adminId");
+			session.removeAttribute("adminName");
+		}
+		
+		return "redirect:/admin/login";
+	}
+	
 	@GetMapping("/regCoupon/{eno}")
 	public String regCouponForm(@PathVariable("eno") int eno, Model model) {
 	    EventDTO event = eventService.getEventByEno(eno); // 이벤트 정보 가져오기

@@ -5,43 +5,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>이벤트 목록</title>
-<style>
-	img {
-		width: 300px;
-	}
-	
-	.item {
-		display: inline-block;
-	}
-	
-	.item a {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 4px;
-	}
-</style>
+	<meta charset="UTF-8">
+	<title>이벤트 목록</title>
+	<link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
+	<jsp:include page="./fragments/aside.jsp"></jsp:include>
 	<section id="eventList">
-		<h2>이벤트 목록</h2>
-		<c:forEach var="event" items="${elist}" varStatus="status">
-			<c:if test="${!event.isPast()}">
-				<div class="item">
-					<a href="/admin/eventDetail?eno=${event.eno}">
-						<img src="${event.thumbnailURL}" />
-						<span>${event.name}</span>
-						<span>
-							<fmt:formatDate value="${event.startDate}" pattern="yyyy/MM/dd" />
-							-
-							<fmt:formatDate value="${event.endDate}" pattern="yyyy/MM/dd" />						
-						</span>
-					</a>
-				</div>
-			</c:if>
-		</c:forEach>
+		<jsp:include page="./fragments/header.jsp" />
+		<div class="admin-content">
+			<h2>이벤트 목록</h2>
+			<table class="list-table" border="1">
+				<thead>
+					<tr>
+						<th>이벤트 번호</th>
+						<th>이벤트 명</th>
+						<th>이벤트 기간</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<c:choose>
+				      	<c:when test="${empty elist}">
+				        <tr>
+				          <td colspan="5" style="text-align: center; padding: 20px; color: #999;">
+				            등록된 이벤트가 없습니다.
+				          </td>
+				        </tr>
+				      	</c:when>
+				      	<c:otherwise>
+					        <c:forEach var="event" items="${elist}" varStatus="status">
+								<tr>
+									<td>${event.eno}</td>
+									<td><a href="/admin/eventDetail?eno=${event.eno}">${event.name}</a></td>
+									<td>
+										<span>
+											<fmt:formatDate value="${event.startDate}" pattern="yyyy/MM/dd" />
+											-
+											<fmt:formatDate value="${event.endDate}" pattern="yyyy/MM/dd" />						
+										</span>
+									</td>
+								</tr>
+							</c:forEach>
+				      	</c:otherwise>
+				    </c:choose>
+				</tbody>
+			</table>
+		</div>
 	</section>
 </body>
 </html>

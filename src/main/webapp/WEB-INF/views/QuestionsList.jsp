@@ -20,11 +20,7 @@
 }
 
 #questionsList h2 {
-  text-align: center;
   color: var(--main-color);
-  margin-bottom: 30px;
-  font-size: 26px;
-  margin-top: 30px;
 }
 
 /* 🔄 검색 + 등록 버튼 전체 감싸는 컨테이너 */
@@ -154,9 +150,7 @@
 </style>
 </head>
 <body>
-	<c:if test="${!isAdmin}">
-		<jsp:include page="./fragments/header.jsp"></jsp:include>
-	</c:if>
+	<jsp:include page="./fragments/header.jsp"></jsp:include>
 <section id="questionsList">
 <%-- <c:if test="${isAdmin}">
   <div class="action-bar"><span style="color: var(--main-color); font-weight: bold;">※ 관리자 전용</span></div>
@@ -178,11 +172,9 @@
     <button type="submit">검색</button>
   </form>
   
-<c:if test="${!isAdmin}">
   <div class="register-btn">
     <a href="QuestionsForm">➕ 질문 등록하기</a>
   </div>
-</c:if>
 
 </div>
 
@@ -238,20 +230,8 @@
     <a href="QuestionsList?page=${currentPage + 1}">다음</a>
   </c:if>
 </div>
-
-<!-- 🔐 관리자 링크 -->
-<c:if test="${isAdmin}">
-  <div class="admin-links">
-    <a href="${pageContext.request.contextPath}/admin/answers/UnansweredList">미답변 QnA 보기</a> |
-    <a href="${pageContext.request.contextPath}/admin/answers/AnsweredList">답변된 QnA 보기</a> |
-    <a href="/admin" class="admin-links">관리자 메인</a><br>
-  </div>
-</c:if>
 </section>
-
-<c:if test="${!isAdmin}">
-	<jsp:include page="./fragments/footer.jsp"></jsp:include>
-</c:if>
+<jsp:include page="./fragments/footer.jsp"></jsp:include>
 
 </body>
 </html>

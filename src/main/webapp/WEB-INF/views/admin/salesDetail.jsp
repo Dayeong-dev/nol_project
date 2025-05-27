@@ -7,27 +7,32 @@
 	<title>매출 상세</title>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="/js/salesGraphFunc.js"></script>
+	<link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
+	<jsp:include page="./fragments/aside.jsp"></jsp:include>
 	<section id="salesDetail">
-		<h2>매출 상세</h2>
-		<div id="btnList">
-			<button id="prevBtn" onclick="prevPage()">지난 해</button>
-			<button id="nextBtn" onclick="nextPage()">다음 해</button>
+		<jsp:include page="./fragments/header.jsp" />
+		<div class="admin-content">
+			<h2>매출 상세</h2>
+			<div id="btnList">
+				<button id="prevBtn" onclick="prevPage()">지난 해</button>
+				<button id="nextBtn" onclick="nextPage()">다음 해</button>
+			</div>
+			<label>
+				<input type="radio" name="chartType" value="1" checked />
+				<span>연간</span>
+			</label>
+			<label>
+				<input type="radio" name="chartType" value="2" />
+				<span>월간</span>
+			</label>
+			<label>
+				<input type="radio" name="chartType" value="3" />
+				<span>주간</span>
+			</label>
+		  	<canvas id="myChart" width="1200" height="400"></canvas>
 		</div>
-		<label>
-			<input type="radio" name="chartType" value="1" checked />
-			<span>연간</span>
-		</label>
-		<label>
-			<input type="radio" name="chartType" value="2" />
-			<span>월간</span>
-		</label>
-		<label>
-			<input type="radio" name="chartType" value="3" />
-			<span>주간</span>
-		</label>
-	  	<canvas id="myChart" width="1200" height="400"></canvas>
 	</section>
 	<script>
 		const $ctx = document.getElementById('myChart');

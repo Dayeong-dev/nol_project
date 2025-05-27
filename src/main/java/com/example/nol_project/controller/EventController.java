@@ -53,6 +53,8 @@ public class EventController {
 	@ResponseBody
 	public String addCoupon(@RequestParam("cno") int cno, HttpSession session) {
 	    String id = (String) session.getAttribute("id");
+	    
+	    System.out.println(id);
 
 	    if (id == null) {
 	        return "unauthorized";

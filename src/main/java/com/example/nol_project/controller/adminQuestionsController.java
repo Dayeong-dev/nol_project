@@ -36,7 +36,8 @@ public class adminQuestionsController {
                             Model model) {
 
         String adminId = (String) session.getAttribute("adminId");
-        if (adminId == null || !"admin1234".equals(adminId)) {
+        
+        if (adminId == null) {
             model.addAttribute("loginMessage", "관리자 로그인 필요합니다.");
             return "redirect:/admin/login";
         }
@@ -57,7 +58,8 @@ public class adminQuestionsController {
     @GetMapping("/QuestionsDetail")
     public String adminDetail(@RequestParam("qno") int qno, HttpSession session, Model model) {
         String adminId = (String) session.getAttribute("adminId");
-        if (adminId == null || !"admin1234".equals(adminId)) {
+        
+        if (adminId == null) {
             model.addAttribute("loginMessage", "관리자 로그인 필요합니다.");
             return "redirect:/admin/login";
         }
@@ -125,7 +127,7 @@ public class adminQuestionsController {
         answersService.insertAnswer(answer);
         answersService.updateIsAnswered(answer.getQno());
         
-        return "redirect:/admin/AnsweredList";
+        return "redirect:/admin/QuestionsDetail?qno="+answer.getQno();
     }
     
     
