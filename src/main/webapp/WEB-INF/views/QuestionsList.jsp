@@ -231,6 +231,6 @@ h2 {
 	<a href="/">Home Page</a>
 <jsp:include page="fragments/footer.jsp" />
 
-<jsp:include page="./fragments/header.jsp"></jsp:include>
+<jsp:include page="./fragments/footer.jsp"></jsp:include>
 </body>
 </html>
