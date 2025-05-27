@@ -22,4 +22,11 @@
 		SELECT * FROM nol_user_coupon 
 		WHERE cno = #{cno} AND id = #{id}
 	</select>
+	
+	
+	<update id="updateCouponUsed" parameterType="int">
+	  UPDATE nol_user_coupon
+	  SET used = 1
+	  WHERE ucno = #{ucno}
+	</update>
 </mapper>
