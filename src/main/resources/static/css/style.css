@@ -20,12 +20,17 @@ body {
 	font-family: "Nanum Gothic", sans-serif;
 	font-weight: 400;
 	font-style: normal;
-	background-color: #f0f2f5;
 	min-height: 100vh;
 }
 
-section {
-	min-height: calc(100vh - 160px);
+body > section {
+	min-height: calc(100vh - 150px);
+	padding: 40px;
+}
+
+body > section h2 {
+	margin: 0 auto 40px;
+	text-align: center;
 }
 
 /* 헤더 전체 */
@@ -37,7 +42,7 @@ header {
 	background-color: #fff;
 	border-bottom: 1px solid #ddd;
 	font-family: sans-serif;
-	height: 66px;
+	height: 68px;
 }
 
 /* 로고 */
@@ -92,7 +97,7 @@ footer {
   text-align: center;
   border-top: 1px solid #ccc;
   z-index: 1000;
-  height: 86px;
+  height: 82px;
 }
 
 footer a {
@@ -107,13 +112,4 @@ footer a:hover {
 
 footer .footer-links {
   margin-bottom: 10px;
-}
-
-section {
-	padding: 0 0 86.5px; 
-}
-
-section h2 {
-	margin: 40px auto;
-	text-align: center;
 }
