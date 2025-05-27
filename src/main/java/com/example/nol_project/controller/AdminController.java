@@ -198,4 +198,10 @@ public class AdminController {
 		
 		return "redirect:/admin/eventList";
 	}
+	
+	@GetMapping("/admin/dashboard")
+	public String adminDashboard() {
+		
+	    return "admin/dashboard"; 
+	}
 }

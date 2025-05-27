@@ -7,6 +7,7 @@
 <title>QnA 목록</title>
 </head>
 <body>
+<jsp:include page="fragments/header.jsp" />
 	<c:if test="${isAdmin}">
 		<th>관리자 전용</th>
 	</c:if>
@@ -25,8 +26,6 @@
 		<input type="text" name="keyword" value="${keyword}" placeholder="제목 또는 내용 검색">
 		<button type="submit">검색</button>
 	</form>
-
-	<a href="QuestionsForm">질문 등록하기</a>
 
 	<table border="1">
 		<tr>
@@ -81,6 +80,8 @@
 		<a href="${pageContext.request.contextPath}/admin/answers/AnsweredList">답변된 QnA 보기</a><br>
 	</c:if>
 
-	<a href="/">Home</a>
+	<a href="QuestionsForm">QnA 질문하기</a><br>
+	<a href="/">Home Page</a>
+<jsp:include page="fragments/footer.jsp" />
 </body>
 </html>

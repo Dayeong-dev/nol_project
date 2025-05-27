@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="fragments/header.jsp" />
 	<h2>공지사항 등록</h2>
 	<form action="${pageContext.request.contextPath}/notice/insert" method="post">
 	    <p>
@@ -27,5 +28,6 @@
 	    <button type="submit">등록</button>
 	</form>
 	<a href="/notice/NoticeList">목록</a>
+<jsp:include page="fragments/footer.jsp" />
 </body>
 </html>
