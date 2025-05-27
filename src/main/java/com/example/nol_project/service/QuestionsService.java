@@ -38,17 +38,6 @@ public class QuestionsService {
 	    return questionsDAO.getQuestionDetail(qno);
 	}
 
-//	public List<QuestionsDTO> getPagedQuestions(int page, int size) {
-//	    int startRow = (page - 1) * size + 1;
-//	    int endRow = page * size;
-//	    return questionsDAO.getPagedQuestions(startRow, endRow);
-//	}
-//
-//	public int getTotalPages(int size) {
-//	    int totalCount = questionsDAO.getTotalQuestionCount();
-//	    return (int) Math.ceil((double) totalCount / size);
-//	}
-
 	 public List<QuestionsDTO> getFilteredQuestions(String category, String keyword, int page) {
 	        int startRow = (page - 1) * pageSize + 1;
 	        int endRow = page * pageSize;
@@ -63,5 +52,9 @@ public class QuestionsService {
 	    public String getMemberNameByQno(int qno) {
 	        return answersDAO.getMemberNameByQno(qno);
 	    }
+
+		public List<QuestionsDTO> getAnsweredQuestions() {
+			return answersDAO.selectAnsweredList();
+		}
     
 }

@@ -12,7 +12,7 @@ import com.example.nol_project.dto.QuestionsDTO;
 
 @Mapper
 public interface IAnswersDAO {
-	
+
 	// 답변 등록
 	@Insert("""
 		    INSERT INTO nol_answers (ano, qno, adminId, content, memberName)

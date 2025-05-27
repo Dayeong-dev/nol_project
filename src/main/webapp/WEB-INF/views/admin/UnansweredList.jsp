@@ -66,9 +66,7 @@ a:hover {
 </style>
 </head>
 <body>
-<c:if test="${!isAdmin}">
-	<jsp:include page="/WEB-INF/views/fragments/header.jsp" />
-</c:if>
+
 <section id="unansweredList">
 <h2>미답변 QnA 목록</h2>
 <table>
@@ -86,7 +84,7 @@ a:hover {
         <td>${q.memberName}</td>
         <td>${q.createDate}</td>
         <td>
-            <a href="/admin/answers/AnswersForm?qno=${q.qno}">답변 작성</a>
+            <a href="/admin/AnswersForm?qno=${q.qno}">답변 작성</a>
         </td>
     </tr>
     </c:forEach>
@@ -95,6 +93,6 @@ a:hover {
 <br>
 <a href="${pageContext.request.contextPath}/admin">← 관리자 메인</a>
 </section>
-<jsp:include page="/WEB-INF/views/fragments/footer.jsp" />
+
 </body>
 </html>
