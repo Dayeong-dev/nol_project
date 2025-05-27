@@ -1,0 +1,109 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+html, body {
+	min-width: 1100px;
+}
+
+body {
+	font-family: "Nanum Gothic", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+
+/* 헤더 전체 */
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 40px;
+	background-color: #fff;
+	border-bottom: 1px solid #ddd;
+	font-family: sans-serif;
+}
+
+/* 로고 */
+header .logo {
+	display: flex;
+	align-items: center;
+}
+
+header .logo img {
+	height: 40px;
+	margin-right: 10px;
+}
+
+/* 메뉴 */
+header nav {
+	flex: 1;
+	text-align: center;
+}
+
+header nav ul {
+	list-style: none;
+	display: inline-flex;
+	gap: 40px;
+	padding: 0;
+	margin: 0;
+}
+
+header nav ul li a {
+	text-decoration: none;
+	color: #222;
+	font-weight: bold;
+}
+
+/* 로그인/유저정보 */
+header .user-section {
+	text-align: right;
+	font-size: 14px;
+}
+
+header .user-section a {
+	text-decoration: none;
+	color: #0077cc;
+	margin-left: 10px;
+}
+
+footer {
+  position: fixed;         /* 위치 고정 */
+  bottom: 0;               /* 하단에 붙임 */
+  left: 0;
+  width: 100%;             /* 전체 너비 */
+  background-color: #f5f5f5;
+  color: #444;
+  font-size: 13px;
+  padding: 20px 40px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  z-index: 1000;
+}
+
+footer a {
+  color: #0077cc;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer .footer-links {
+  margin-bottom: 10px;
+}
+
+section h2 {
+	margin: 40px auto;
+	text-align: center;
+}
