@@ -14,11 +14,11 @@
 		<jsp:include page="./fragments/header.jsp" />
 		<div class="admin-content">
 			<h2>답변 작성</h2> 
-			<form action="${pageContext.request.contextPath}/admin/answers/AnswersInsert" method="post">
-			    <input type="hidden" name="qno" value="${qno}"/>
-			    <input type="hidden" name="memberName" value="${memberName}"/>
-			    <textarea name="content" placeholder="답변을 입력하세요" required></textarea>
-			    <input type="submit" value="등록"/>
+			<form action="${pageContext.request.contextPath}/admin/AnswersInsert" method="post">
+				<input type="hidden" name="qno" value="${qno}"/>
+				<input type="hidden" name="memberName" value="${memberName}"/>
+				<textarea name="content" placeholder="답변을 입력하세요" required></textarea>
+				<input type="submit" value="등록"/>
 			</form>
 		</div>
 	</section>
