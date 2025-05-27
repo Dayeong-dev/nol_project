@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.nol_project.dao.IAnswersDAO;
 import com.example.nol_project.dao.IQuestionsDAO;
 import com.example.nol_project.dto.QuestionsDTO;
 
@@ -13,6 +14,10 @@ public class QuestionsService {
 
     @Autowired
     private IQuestionsDAO questionsDAO;
+    
+    @Autowired
+    private IAnswersDAO answersDAO;
+    
 
     private final int pageSize = 10;
     
@@ -53,6 +58,10 @@ public class QuestionsService {
 	    public int getTotalPages(String category, String keyword) {
 	        int totalCount = questionsDAO.getFilteredQuestionsCount(category, keyword);
 	        return (int) Math.ceil((double) totalCount / pageSize);
+	    }
+
+	    public String getMemberNameByQno(int qno) {
+	        return answersDAO.getMemberNameByQno(qno);
 	    }
     
 }

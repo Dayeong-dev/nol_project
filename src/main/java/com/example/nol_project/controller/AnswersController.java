@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.nol_project.dto.AnswersDTO;
 import com.example.nol_project.service.AnswersService;
+import com.example.nol_project.service.QuestionsService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -19,11 +20,18 @@ public class AnswersController {
 
     @Autowired
     private AnswersService answersService;
-
+    
+    @Autowired
+    private QuestionsService questionsService;
+    
     // 답변 등록 폼
     @GetMapping("/AnswersForm")
     public String answerForm(@RequestParam("qno") int qno, Model model) {
         model.addAttribute("qno", qno); // 질문 번호를 전달
+        
+        String memberName = questionsService.getMemberNameByQno(qno);
+        model.addAttribute("memberName", memberName);
+
         return "admin/AnswersForm";
     }
 
@@ -31,9 +39,12 @@ public class AnswersController {
     @PostMapping("/AnswersInsert")
     public String insertAnswer(HttpSession session, AnswersDTO answer) {
         String adminId = (String) session.getAttribute("adminId"); // 세션에서 가져오기
+        
         answer.setAdminId(adminId); // DTO에 주입
+        
         answersService.insertAnswer(answer);
         answersService.updateIsAnswered(answer.getQno());
+        System.out.println("insertAnswer 호출, adminId=" + adminId);
         return "redirect:/QuestionsDetail?qno=" + answer.getQno();
     }
 

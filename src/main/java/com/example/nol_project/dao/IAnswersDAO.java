@@ -19,7 +19,7 @@ public interface IAnswersDAO {
 		    VALUES (
 		        seq_nol_answers.NEXTVAL,
 		        #{qno},
-		        #{adminId},
+		        #{adminId, jdbcType=VARCHAR},
 		        #{content},
 		        #{memberName}
 		    )
@@ -64,4 +64,12 @@ public interface IAnswersDAO {
 		    ORDER BY q.createDate DESC
 		""")
 	List<QuestionsDTO> selectAnsweredList();
+	
+	@Select("""
+		    SELECT m.name 
+		    FROM nol_questions q
+		    JOIN nol_member m ON q.id = m.id
+		    WHERE q.qno = #{qno}
+		""")
+		String getMemberNameByQno(int qno);
 }
