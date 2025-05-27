@@ -14,7 +14,7 @@
 		<jsp:include page="./fragments/header.jsp" />
 		<div class="admin-content">
 			<h2>리뷰 목록</h2>
-			<table border="1">
+			<table class="list-table" border="1">
 				<thead>
 					<tr>
 						<th>번호</th><th>리뷰내용</th><th>예매번호</th><th>작성일</th><th>관리</th>

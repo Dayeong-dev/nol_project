@@ -3,7 +3,7 @@
 /*
 	main-color: #2c3e50
 	sub-color: #34495e
-	hover-color: #34495e
+	hover-color: #526473
 */
 
 * {
@@ -55,54 +55,53 @@ section {
 }
 
 /* table 요소 */
-table {
+table.list-table {
   width: 90%;
   margin: 0 auto 28px;
   border-collapse: collapse;
-  font-family: 'Segoe UI', sans-serif;
   background-color: #fff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   overflow: hidden;
 }
 
-table thead {
+table.list-table thead {
   background-color: #2c3e50;
   color: white;
 }
 
-table thead th {
+table.list-table thead th {
   padding: 14px 16px;
   text-align: center;
   font-size: 15px;
   font-weight: 600;
 }
 
-table tbody td {
+table.list-table tbody td {
   padding: 12px 16px;
   font-size: 14px;
   border-top: 1px solid #e0e0e0;
 }
 
-table tbody tr:hover {
+table.list-table tbody tr:hover {
   background-color: #f2f6fc;
 }
 
-table td a {
-  color: #3498db;
-  text-decoration: none;
+table.list-table td a {
+  color: #526473;
+  text-decoration: underline;
   font-weight: 500;
   padding: 4px 8px;
   border-radius: 4px;
   transition: background 0.2s ease;
 }
 
-table td a:hover {
+table.list-table td a:hover {
   background-color: #ecf6fd;
 }
 
-table input[type="button"], 
-table button {
+table.list-table input[type="button"], 
+table.list-table button {
   color: white;
   background-color: #2c3e50;
   border: none;
@@ -113,9 +112,9 @@ table button {
   transition: background-color 0.2s ease;
 }
 
-table input[type="button"]:hover,
-table button:hover {
-  background-color: #34495e;
+table.list-table input[type="button"]:hover,
+table.list-table button:hover {
+  background-color: #526473;
 }
 
 /* form 요소 */
@@ -127,7 +126,6 @@ form {
   	margin: 0 auto;
   	border-radius: 12px;
   	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-  	font-family: 'Segoe UI', sans-serif;
 }
 
 form p {
@@ -143,6 +141,7 @@ form label {
 
 form input[type="text"],
 form input[type="date"], 
+form input[type="number"],
 form select,
 form textarea {
   width: 100%;
@@ -164,6 +163,7 @@ form textarea {
 
 form input[type="text"]:focus, 
 form input[type="date"]:focus, 
+form input[type="number"]:focus,
 form select:focus,
 form textarea:focus {
   border-color: #2980b9;
@@ -185,7 +185,7 @@ form input[type="submit"] {
 }
 
 form input[type="submit"]:hover {
-  background-color: #34495e;
+  background-color: #526473;
 }
 
 /* 사이드바 스타일 */
@@ -397,4 +397,289 @@ form input[type="submit"]:hover {
   flex: 1;
   padding-left: 16px;
   word-break: break-word;
+}
+
+/* QnA 목록 스타일 */
+#questionList h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+#questionList .filter-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+#questionList .filter-box {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#questionList .filter-box select,
+#questionList .filter-box input[type="text"] {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 120px;
+}
+
+/* form 공통 스타일을 무시 */
+#questionList .filter-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  box-shadow: none;
+  background: none;
+  max-width: none;
+  margin: 0;
+}
+
+#questionList .filter-box select,
+#questionList .filter-box input[type="text"],
+#questionList .filter-box button {
+  all: unset; /* 기본 form 스타일 초기화 */
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  background-color: white;
+  box-sizing: border-box;
+  min-width: 100px;
+}
+
+#questionList .filter-box button {
+  	background-color: #2c3e50;
+  	color: white;
+  	cursor: pointer;
+  	transition: background-color 0.2s ease;
+  	text-align: center;
+}
+
+#questionList .filter-box button:hover {
+  background-color: #526473;
+}
+
+
+#questionList .action-bar {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+#questionList .action-bar a {
+  display: inline-block;
+  margin: 0 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+#questionList .action-bar a:hover {
+  background-color: #d0d7dd;
+}
+
+#questionList .action-bar b {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* 질문 상세 */
+#questionsDetail .admin-content h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#questionsDetail .detail-container {
+  max-width: 800px;
+  margin: 0 auto 32px;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+#questionsDetail .detail-row {
+  display: flex;
+  margin-bottom: 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+  align-items: flex-start;
+}
+
+#questionsDetail .detail-label {
+  width: 140px;
+  font-weight: 600;
+  color: #34495e;
+  flex-shrink: 0;
+  text-align: left;
+}
+
+#questionsDetail .content-box {
+  flex: 1;
+  background-color: #f3f9ff;
+  border: 1px solid #cde2f5;
+  padding: 14px 16px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.6;
+  font-size: 14px;
+  color: #2c3e50;
+  margin-top: 4px;
+}
+
+#questionsDetail .answer-section {
+  margin-top: 32px;
+  background-color: #ecf6ff;
+  border: 1px solid #cce0f5;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#questionsDetail .answer-section h3 {
+  margin-bottom: 4px;
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+#questionsDetail .admin-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #2c3e50;
+  color: white;
+  text-decoration: none;
+  font-weight: 600ㄿ;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  margin-top: 24px;
+}
+
+#questionsDetail .admin-btn:hover {
+  background-color: #526473;
+}
+
+#questionsDetail .answer-section {
+  margin-top: 32px;
+  padding: 24px;
+  background-color: #f3f9ff;
+  border: 1px solid #cde2f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+#questionsDetail .answer-meta {
+  font-size: 12px;
+  color: #7f8c8d;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #dceaf6;
+}
+
+#questionsDetail .answer-content {
+  	color: #2c3e50;
+  	font-size: 16px;
+  	line-height: 1.6;
+  	text-align: center;
+	margin: 16px;
+}
+
+/* 이벤트 상세 */
+#eventDetail .event-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+#eventDetail .event-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+
+#eventDetail .event-content th,
+#eventDetail .event-content td {
+  padding: 14px 16px;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+  vertical-align: top;
+  font-size: 15px;
+}
+
+#eventDetail .event-content th {
+  width: 160px;
+  background-color: #f9f9f9;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#eventDetail .event-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  margin: 12px 0;
+}
+
+#eventDetail .event-content button {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+#eventDetail .event-content .event-actions {
+  text-align: center;
+}
+
+#eventDetail .event-content button:hover {
+  background-color: #526473;
+}
+
+#eventDetail .event-content .coupon-table {
+  margin-top: 24px;
+}
+
+/* 쿠폰 등록 */
+#regCoupon .event-info-table {
+	width: 500px;
+  	margin: 0 auto 30px;
+  	border-collapse: collapse;
+  	background: #fff;
+  	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  	border-radius: 8px;
+  	overflow: hidden;
+}
+
+#regCoupon .event-info-table th,
+#regCoupon .event-info-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #eaeaea;
+  text-align: left;
+}
+
+#regCoupon .event-info-table th {
+  width: 150px;
+  background: #f5f6f8;
+  color: #333;
+  font-weight: 600;
 }

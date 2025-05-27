@@ -20,7 +20,6 @@
       <ul class="submenu">
         <li><a href="/admin/eventList">이벤트 목록</a></li>
         <li><a href="/admin/regEvent">이벤트 작성</a></li>
-        <li><a href="/admin/couponForm">쿠폰 등록</a></li>
       </ul>
     </li>
     <li class="menu-group">
@@ -33,8 +32,7 @@
     <li class="menu-group">
     	<span class="menu-toggle">QnA 관리</span>
     	<ul class="submenu">
-    		<li><a href="">QnA 목록</a></li>
-    		<li><a href="">답변 작성</a></li>
+    		<li><a href="/admin/QuestionsList">QnA 목록</a></li>
     	</ul>
     </li>
     <li class="menu-group">

@@ -14,7 +14,7 @@
 		<jsp:include page="./fragments/header.jsp" />
 		<div class="admin-content">
 			<h2>미답변 QnA 목록</h2>
-			<table>
+			<table class="list-table">
 				<tr>
 					<th>번호</th>
 					<th>제목</th>

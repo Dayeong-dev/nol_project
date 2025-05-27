@@ -15,7 +15,7 @@
 		<jsp:include page="./fragments/header.jsp" />
 		<div class="admin-content">
 			<h2>🎟 예매 목록 조회</h2>
-			<table border="1">
+			<table class="list-table" border="1">
 			  <thead>
 			    <tr>
 			      <th>예매번호</th>

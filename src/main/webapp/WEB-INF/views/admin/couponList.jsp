@@ -14,7 +14,7 @@
 		<jsp:include page="./fragments/header.jsp" />
 		<div class="admin-content">
 	    	<h2>관리자 - 전체 사용자 쿠폰 목록</h2>
-		    <table>
+		    <table class="list-table">
 		        <thead>
 		            <tr>
 		                <th>UCNO</th>
