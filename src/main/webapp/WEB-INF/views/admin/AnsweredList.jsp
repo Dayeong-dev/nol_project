@@ -8,6 +8,7 @@
 <title>UnansweredList Page</title>
 </head>
 <body>
+<jsp:include page="../fragments/header.jsp" />
     <h2>답변 QnA 목록</h2>
     <table border="1">
         <tr>
@@ -27,5 +28,6 @@
     </table>
     <br>
     <a href="${pageContext.request.contextPath}/admin">← 관리자 메인</a>
+<jsp:include page="../fragments/footer.jsp" />
 </body>
 </html>

@@ -7,7 +7,7 @@
     <a href="/eventList">이벤트</a> |
     <a href="/QuestionsList">Q&A</a> |
     <a href="/faq">FAQ</a> |
-    <a href="/NoticeList">공지사항</a>
+    <a href="/notice/NoticeList">공지사항</a>
   </div>
   <div>
     ⓒ 2025 Easy World Adventure. All rights reserved.

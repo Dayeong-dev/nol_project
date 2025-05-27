@@ -8,9 +8,9 @@
 <title>QuestionsForm Page</title>
 </head>
 <body>
+<jsp:include page="fragments/header.jsp" />
 <h2>QnA Form Page</h2>
 <hr>
-	
 <c:if test="${not empty sessionScope.id}">
 	<form action="insertQuestion" method="post">
 		카테고리:<select name="category" required>
@@ -27,5 +27,6 @@
 	    <input type="submit" value="등록">
 	</form>
 </c:if>
+<jsp:include page="fragments/footer.jsp" />
 </body>
 </html>
