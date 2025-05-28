@@ -85,32 +85,6 @@
 				          	</div>
 						</a>
 					</div>
-					<div class="event-item">
-						<a href="/eventDetail?eno=${event.eno}">
-							<img src="${event.thumbnailURL}" />
-							<div class="event-info">
-				            	<h3>${event.name}</h3>
-				            	<p class="date">
-				              		<fmt:formatDate value="${event.startDate}" pattern="yyyy/MM/dd" />
-				              		-
-				              		<fmt:formatDate value="${event.endDate}" pattern="yyyy/MM/dd" />
-				            	</p>
-				          	</div>
-						</a>
-					</div>
-					<div class="event-item">
-						<a href="/eventDetail?eno=${event.eno}">
-							<img src="${event.thumbnailURL}" />
-							<div class="event-info">
-				            	<h3>${event.name}</h3>
-				            	<p class="date">
-				              		<fmt:formatDate value="${event.startDate}" pattern="yyyy/MM/dd" />
-				              		-
-				              		<fmt:formatDate value="${event.endDate}" pattern="yyyy/MM/dd" />
-				            	</p>
-				          	</div>
-						</a>
-					</div>
 				</c:if>
 			</c:forEach>
 		</div>
