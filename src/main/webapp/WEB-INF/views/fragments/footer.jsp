@@ -10,6 +10,7 @@
     <a href="/notice/NoticeList">공지사항</a>
   </div>
   <div>
-    ⓒ 2025 Easy World Adventure. All rights reserved.
+    ⓒ 2025 Easy World Adventure. All rights reserved.<br>
+    문의전화 : 010-9999-9999 | 대표: 정재윤
   </div>
 </footer>
