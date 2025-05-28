@@ -38,8 +38,8 @@
     <li class="menu-group">
     	<span class="menu-toggle">공지사항 관리</span>
     	<ul class="submenu">
-    		<li><a href="">공지사항 목록</a></li>
-    		<li><a href="">공지사항 작성</a></li>
+    		<li><a href="/admin/NoticeList">공지사항 목록</a></li>
+    		<li><a href="/admin/NoticeForm">공지사항 작성</a></li>
     	</ul>
     </li>
     <li class="menu-group">
