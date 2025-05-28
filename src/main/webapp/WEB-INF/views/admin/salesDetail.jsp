@@ -11,27 +11,31 @@
 </head>
 <body>
 	<jsp:include page="./fragments/aside.jsp"></jsp:include>
-	<section id="salesDetail">
+	<section>
 		<jsp:include page="./fragments/header.jsp" />
 		<div class="admin-content">
 			<h2>매출 상세</h2>
-			<div id="btnList">
-				<button id="prevBtn" onclick="prevPage()">지난 해</button>
-				<button id="nextBtn" onclick="nextPage()">다음 해</button>
+			<div id="salesDetail">
+				<div class="chartHeader">
+					<div id="btn-area">
+						<button id="prevBtn" onclick="prevPage()">지난 해</button>
+						<button id="nextBtn" onclick="nextPage()">다음 해</button>
+					</div>
+					<div class="radio-area">
+						<div class="radio-area">
+						  	<input type="radio" name="chartType" value="1" id="yearly" checked>
+						  	<label for="yearly">연간</label>
+						
+						  	<input type="radio" name="chartType" value="2" id="monthly">
+						  	<label for="monthly">월간</label>
+						
+						  	<input type="radio" name="chartType" value="3" id="weekly">
+						  	<label for="weekly">주간</label>
+						</div>
+					</div>			
+				</div>
+			  	<canvas id="myChart" width="1200" height="400"></canvas>
 			</div>
-			<label>
-				<input type="radio" name="chartType" value="1" checked />
-				<span>연간</span>
-			</label>
-			<label>
-				<input type="radio" name="chartType" value="2" />
-				<span>월간</span>
-			</label>
-			<label>
-				<input type="radio" name="chartType" value="3" />
-				<span>주간</span>
-			</label>
-		  	<canvas id="myChart" width="1200" height="400"></canvas>
 		</div>
 	</section>
 	<script>
