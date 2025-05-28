@@ -84,17 +84,16 @@ public class EventController {
 	    return "couponList"; // ⬅ JSP 파일 경로
 	}
 	
-	 @GetMapping("/popupCookie")
-	    @ResponseBody
-	    public String popupCookie(@RequestParam(required = false) String inactiveToday,
-	                              HttpServletResponse response) {
-
-	        if ("1".equals(inactiveToday)) {
-	            Cookie cookie = new Cookie("PopupClose", "off");
-	            cookie.setPath("/"); // 모든 경로에서 적용
-	            cookie.setMaxAge(60 * 60 * 24); // 1일 
-	            response.addCookie(cookie);
-	        }
-	        return "하루 동안 열지 않음";
+	@GetMapping("/popupCookie")
+	@ResponseBody
+	public String popupCookie(@RequestParam("inactiveToday") String inactiveToday,
+	                          HttpServletResponse response) {
+	    if ("1".equals(inactiveToday)) {
+	        Cookie cookie = new Cookie("PopupClose", "off");
+	        cookie.setPath("/");
+	        cookie.setMaxAge(60 * 60 * 24); // 1일
+	        response.addCookie(cookie);
 	    }
+	    return "하루 동안 열지 않음";
+	}
 }
