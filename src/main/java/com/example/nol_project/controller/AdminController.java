@@ -17,11 +17,13 @@ import com.example.nol_project.dto.AdminDTO;
 import com.example.nol_project.dto.CouponDTO;
 import com.example.nol_project.dto.EventCouponDTO;
 import com.example.nol_project.dto.EventDTO;
+import com.example.nol_project.dto.QuestionsDTO;
 import com.example.nol_project.dto.ReserveDTO;
 import com.example.nol_project.dto.UserCouponDTO;
 import com.example.nol_project.service.AdminService;
 import com.example.nol_project.service.CouponService;
 import com.example.nol_project.service.EventService;
+import com.example.nol_project.service.QuestionsService;
 import com.example.nol_project.service.ReserveService;
 
 import jakarta.servlet.http.HttpSession;
@@ -33,24 +35,33 @@ public class AdminController {
 	private final CouponService couponService;
 	private final ReserveService reserveService;
 	private final EventService eventService;
+	private final QuestionsService questionsService;
 	
 	public AdminController(AdminService adminService, 
 						   CouponService couponService, 
 						   ReserveService reserveService, 
-						   EventService eventService) {
+						   EventService eventService, 
+						   QuestionsService questionsService) {
 		this.adminService = adminService;
 		this.couponService = couponService;
 		this.reserveService = reserveService;
 		this.eventService = eventService;
+		this.questionsService = questionsService;
 	}
 	
 	
 	@GetMapping({"", "/"})
-	public String root(HttpSession session, RedirectAttributes rttr) {
-		if(session.getAttribute("adminId") == null) {
+	public String root(HttpSession session, RedirectAttributes rttr, Model model) {
+		String adminId = (String) session.getAttribute("adminId"); 
+		
+		if(adminId == null) {
 			rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
 			return "redirect:/admin/login";
 		}
+		
+        List<QuestionsDTO> unanswered = questionsService.getUnansweredList();
+        model.addAttribute("questions", unanswered);
+        model.addAttribute("isAdmin", true);
 		
 		return "admin/index";
 	}
