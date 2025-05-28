@@ -11,22 +11,22 @@
 </head>
 <body>
 	<jsp:include page="./fragments/aside.jsp"></jsp:include>
-	<section id="salesChart">
+	<section>
 		<jsp:include page="./fragments/header.jsp"></jsp:include>
 		<div class="admin-content">
-			<label>
-				<input type="radio" name="chartType" value="1" checked />
-				<span>연간</span>
-			</label>
-			<label>
-				<input type="radio" name="chartType" value="2" />
-				<span>월간</span>
-			</label>
-			<label>
-				<input type="radio" name="chartType" value="3" />
-				<span>주간</span>
-			</label>
-		  	<canvas id="myChart" width="1200" height="400"></canvas>
+			<div id="salesChart">
+				<div class="radio-area">
+				  <input type="radio" name="chartType" value="1" id="yearly" checked>
+				  <label for="yearly">연간</label>
+				
+				  <input type="radio" name="chartType" value="2" id="monthly">
+				  <label for="monthly">월간</label>
+				
+				  <input type="radio" name="chartType" value="3" id="weekly">
+				  <label for="weekly">주간</label>
+				</div>
+			  	<canvas id="myChart" width="1200" height="400"></canvas>
+			</div>
 		</div>
 	</section>
 	<script>

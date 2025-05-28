@@ -32,7 +32,8 @@
     <li class="menu-group">
     	<span class="menu-toggle">QnA 관리</span>
     	<ul class="submenu">
-    		<li><a href="/admin/QuestionsList">QnA 목록</a></li>
+    		<li><a href="/admin/QuestionsList">QnA 전체 목록</a></li>
+    		<li><a href="/admin/UnansweredList">QnA 미답변 목록</a></li>
     	</ul>
     </li>
     <li class="menu-group">
