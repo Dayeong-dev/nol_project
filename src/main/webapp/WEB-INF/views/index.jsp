@@ -243,7 +243,7 @@ ul {
 		%>
 		<div id="popup">
 			<a href="/eventDetail?eno=1"> <img
-				src="/nol_image/summerEventThumb.png" alt="이벤트 배너">
+				src="/nol_image/event/2/content.png" alt="이벤트 배너">
 			</a>
 			<div class="popup-bottom">
 				<label for="inactiveToday"> <input type="checkbox"
@@ -257,9 +257,9 @@ ul {
 		%>
 		<div class="slider">
 			<div class="slides">
-				<img src="/nol_image/slider_img1.png" class="slide" /> <img
-					src="/nol_image/slider_img2.png" class="slide" /> <img
-					src="/nol_image/slider_img3.gif" class="slide" />
+				<img src="/nol_image/slider/slider_img1.png" class="slide" /> <img
+					src="/nol_image/slider/slider_img2.png" class="slide" /> <img
+					src="/nol_image/slider/slider_img3.gif" class="slide" />
 			</div>
 			<div class="cover"></div>
 			<button class="prev">‹</button>
