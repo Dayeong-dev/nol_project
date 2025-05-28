@@ -44,6 +44,11 @@ public class ReserveService {
         public int getReservationCount() {
             return reserveDAO.getReservationCount();
         }
+        
+        public int deleteReservation(int rno, String id) {
+            return reserveDAO.deleteReservation(rno, id);
+        }
+
 
         
         

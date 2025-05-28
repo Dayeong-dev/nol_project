@@ -17,6 +17,8 @@ public interface ReserveDAO {
     
     List<ReserveDTO> getReservationPage(@Param("offset") int offset, @Param("pageSize") int pageSize); // 페이지네이션
     int getReservationCount();
+    
+    int deleteReservation(@Param("rno") int rno, @Param("id") String id);//예매 삭제기능
 
 
 }
