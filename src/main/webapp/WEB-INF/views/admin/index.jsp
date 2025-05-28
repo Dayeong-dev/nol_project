@@ -58,7 +58,7 @@
 												<td>${q.memberName}</td>
 												<td>${q.createDate}</td>
 												<td>
-													<a href="/admin/answers/QuestionsForm?qno=${q.qno}">작성</a>
+													<a href="/admin/AnswersForm?qno=${q.qno}">작성</a>
 												</td>
 											</tr>
 										</c:if>
