@@ -132,7 +132,7 @@ h2 {
 <c:if test="${not empty msg}">
    <script>alert("${msg}");</script>
 </c:if>
-
+<section>
 <h2>예매 내역</h2>
 
 <c:if test="${empty myReserveList}">
@@ -191,7 +191,7 @@ h2 {
    <a href="/reserve">🎟 다시 예매하러 가기</a>
    <a href="/mypage/couponList" onclick="requireLogin('/mypage/couponList')">🎁 내 쿠폰함 보기</a>
 </div>
-
+</section>
 <script>
    const isLoggedIn = "${sessionScope.id}" !== "";
    function requireLogin(targetUrl) {

@@ -14,7 +14,7 @@
   --text-gray: #555;
 }
 
-body {
+#questionsForm {
   font-family: 'Segoe UI', sans-serif;
   background: #fff;
   color: #333;
@@ -22,7 +22,7 @@ body {
   padding: 0 20px 40px;
 }
 
-h2 {
+#questionsForm h2 {
   text-align: center;
   color: var(--main-color);
   margin-top: 30px;
@@ -88,6 +88,7 @@ input[type="submit"]:hover {
 </head>
 <body>
 <jsp:include page="fragments/header.jsp" />
+<section id="questionsForm">
 <h2>QnA 질문 등록</h2>
 
 <c:if test="${not empty sessionScope.id}">
@@ -116,7 +117,7 @@ input[type="submit"]:hover {
     로그인 후 질문 등록이 가능합니다.
   </div>
 </c:if>
-
+</section>
 <jsp:include page="fragments/footer.jsp" />
 </body>
 </html>

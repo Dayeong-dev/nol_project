@@ -170,14 +170,17 @@ a:hover {
 </style>
 </head>
 <body>
-<jsp:include page="fragments/header.jsp" />
+
+<c:if test="${!isAdmin}">
+	<jsp:include page="fragments/header.jsp" />
+</c:if>
+
 	<section id="noticeList">
-		<c:if test="${isAdmin}">
+		<%-- <c:if test="${isAdmin}">
 			<th>관리자 전용</th>
-		</c:if>
+		</c:if> --%>
 		
 		<h2>공지사항</h2>
-		
 		<form action="/notice/NoticeList" method="get">
 		
 		<select name="category">
@@ -215,11 +218,6 @@ a:hover {
 				</tr>
 			</c:forEach>
 		</table>
-	
-		<c:if test="${isAdmin}">
-		    <a href="/notice/NoticeForm" class="btn btn-success mt-3">공지 등록</a><br><br>
-			<a href="/admin" class="admin-links">← 관리자 메인</a><br>
-		</c:if>
 		
 		<div class="pagination">
 		    <c:forEach var="i" begin="1" end="${totalPages}">
@@ -233,8 +231,17 @@ a:hover {
 		        </c:choose>
 		    </c:forEach>
 		</div>
-		<a href="/" style="color:#d90429; font-weight:700;">Home</a>
+		<c:if test="${isAdmin}">
+		    <a href="/notice/NoticeForm" class="btn btn-success mt-3">공지 등록</a><br><br>
+			<a href="/admin" class="admin-links">← 관리자 메인</a><br>
+		</c:if>
+		<c:if test="${!isAdmin}">
+			<a href="/" style="color:#d90429; font-weight:700;">Home</a>
+		</c:if>
 	</section>
-<jsp:include page="fragments/footer.jsp" />
+	
+	<c:if test="${!isAdmin}">
+		<jsp:include page="fragments/footer.jsp" />
+	</c:if>
 </body>	
 </html>
