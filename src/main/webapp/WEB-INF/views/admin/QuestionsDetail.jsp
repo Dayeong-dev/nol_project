@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
+
 	<jsp:include page="./fragments/aside.jsp"></jsp:include>
 	<section>
 		<jsp:include page="./fragments/header.jsp"></jsp:include>
@@ -53,8 +54,8 @@
 					</c:otherwise>
 			    </c:choose>
 			</div>
-	
 		</div>
+		
 	</section>
 </body>
 </html>

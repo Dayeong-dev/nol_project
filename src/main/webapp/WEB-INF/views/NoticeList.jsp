@@ -171,14 +171,9 @@ a:hover {
 </head>
 <body>
 
-<c:if test="${!isAdmin}">
 	<jsp:include page="fragments/header.jsp" />
-</c:if>
 
 	<section id="noticeList">
-		<%-- <c:if test="${isAdmin}">
-			<th>관리자 전용</th>
-		</c:if> --%>
 		
 		<h2>공지사항</h2>
 		<form action="/notice/NoticeList" method="get">
@@ -231,17 +226,9 @@ a:hover {
 		        </c:choose>
 		    </c:forEach>
 		</div>
-		<c:if test="${isAdmin}">
-		    <a href="/notice/NoticeForm" class="btn btn-success mt-3">공지 등록</a><br><br>
-			<a href="/admin" class="admin-links">← 관리자 메인</a><br>
-		</c:if>
-		<c:if test="${!isAdmin}">
 			<a href="/" style="color:#d90429; font-weight:700;">Home</a>
-		</c:if>
 	</section>
 	
-	<c:if test="${!isAdmin}">
-		<jsp:include page="fragments/footer.jsp" />
-	</c:if>
+	<jsp:include page="fragments/footer.jsp" />
 </body>	
 </html>

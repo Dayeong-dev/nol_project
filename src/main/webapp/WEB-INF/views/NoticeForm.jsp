@@ -102,9 +102,7 @@ a:hover {
 </style>
 </head>
 <body>
-<c:if test="${!isAdmin}">
 	<jsp:include page="fragments/header.jsp" />
-</c:if>
 <section id="noticeForm">
 <h2>공지사항 등록</h2>
 <form action="${pageContext.request.contextPath}/notice/insert" method="post">
@@ -135,8 +133,6 @@ a:hover {
 
 <a href="/notice/NoticeList">← 목록으로 돌아가기</a>
 </section>
-<c:if test="${!isAdmin}">
 	<jsp:include page="fragments/footer.jsp" />
-</c:if>
 </body>
 </html>
