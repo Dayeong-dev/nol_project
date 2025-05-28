@@ -13,24 +13,51 @@
 .at-title {
   text-align: center;
   margin-bottom: 50px;
-  margin-right: 15px;
+  margin-right: 10px;
 }
 .at-title h1 {
-  font-size: 40px;
+/*
   font-weight: 800;
   margin-bottom: 20px;
+  color: #d62828;
+*/
+  font-size: 30px;
+  display: inline-block;
+  background-color: #d62828; /* 빨간 버튼 배경 */
+  color: #fff;                /* 흰 글자 */
+  padding: 10px 30px;
+  border-radius: 15px;
+  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  text-align: center;
 }
 .at-p {
   font-size: 18px;
-  color: #6b7280;
   margin-left: 5px;
+  margin-top: 50px;
+  margin-bottom: 40px;
 }
-.at-section img {
+.image-container {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.at-img{
+  width: 50%;
+  max-height: 300px;
+  object-fit: contain;
+  
+  margin: 25px 0px;
+}
+.at-map{
   width: 100%;
   max-height: 600px;
-  object-fit: cover;
+  object-fit: contain;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  margin: 25px 0px;
+  margin: 25px 0;
+  margin-top: 100px;
 }
 
 .tag {
@@ -45,7 +72,8 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s ease;
   margin-right: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+  margin-top: 20px;
   
 }
 a[href="attrctn"] {
@@ -61,6 +89,7 @@ a[href="attrctn"] {
   margin-top: 40px;
   margin-right: 5px;
   font-size: 20px;
+  margin-bottom: 50px;
 }
 a[href="attrctn"]:hover {
   background-color: #a61b1b;
@@ -74,6 +103,10 @@ a[href="attrctn"]:hover {
 		<div class="at-title">
 			<h1>${attrctn.name }</h1>
 			<p class="at-p">"모험과 스릴이 가득한 롯데월드의 인기 어트랙션을 만나보세요!"</p>
+		</div>
+			<p class="at-p">${attrctn.description }</p>
+		<div class="img-container">
+			<img src="${attrctn.imageURL }" alt="${attrctn.name }" class="at-img">
 		</div>
 		<p class="at-info">
 			<span class="tag">
@@ -89,8 +122,11 @@ a[href="attrctn"]:hover {
 				</c:choose>
 			</span>
 		</p>
-		<img src="https://adventure.lotteworld.com/image/2020/6/202006010126067402_1350.jpg" alt="${attrctn.name }">
-			<p class="at-p">${attrctn.description }</p>
+		<div class="img-container">
+			<img src="/nol_image/map.png" alt="지도" class="at-map">
+		</div>
+		<!-- 
+		 -->
 	</c:forEach>
 	<a href="attrctn">목록</a>
 </section>
