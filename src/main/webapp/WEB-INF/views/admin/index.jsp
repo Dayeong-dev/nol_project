@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +27,47 @@
 				  <label for="weekly">주간</label>
 				</div>
 			  	<canvas id="myChart" width="1200" height="400"></canvas>
+			</div>
+			<div id="unAnsweredList">
+				<h3>미답변 QnA 미리보기</h3>
+			
+				<a class="plusBtn" href="/admin/UnansweredList"><button>더보기</button></a>
+			
+				<div>
+					<c:choose>
+						<c:when test="${empty questions}">
+							<p class="empty-message">현재 미답변 QnA가 없습니다.</p>
+						</c:when>
+						<c:otherwise>
+							<table class="list-table">
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>작성일</th>
+										<th>답변 작성</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="q" items="${questions}" varStatus="status">
+										<c:if test="${status.index < 4}">
+											<tr>
+												<td>${q.qno}</td>
+												<td>${q.title}</td>
+												<td>${q.memberName}</td>
+												<td>${q.createDate}</td>
+												<td>
+													<a href="/admin/answers/QuestionsForm?qno=${q.qno}">작성</a>
+												</td>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</tbody>
+							</table>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 		</div>
 	</section>
