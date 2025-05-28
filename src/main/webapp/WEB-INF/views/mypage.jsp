@@ -129,6 +129,9 @@ h2 {
 </head>
 <body>
 <jsp:include page="./fragments/header.jsp"></jsp:include>
+<c:if test="${not empty msg}">
+   <script>alert("${msg}");</script>
+</c:if>
 <section>
 <h2>예매 내역</h2>
 
@@ -172,8 +175,13 @@ h2 {
                <button type="submit">리뷰 작성</button>
             </form>
             <form action="reviewDetail" method="get" style="display:inline;">
-            <button type="submit">나의 리뷰 보기</button>
-         </form>
+				<button type="submit">나의 리뷰 보기</button>
+			</form>
+			<form action="deleteReservation" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+			   <input type="hidden" name="rno" value="${reservelist.RNO}">
+			   <input type="hidden" name="id" value="${sessionScope.id}">
+			   <button type="submit">삭제</button>
+			</form>
          </div>
       </div>
    </div>

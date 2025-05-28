@@ -3,6 +3,7 @@ package com.example.nol_project.controller;
 import com.example.nol_project.dto.TicketDTO;
 import com.example.nol_project.dto.UserCouponDTO;
 import com.example.nol_project.dao.CouponDAO;
+import com.example.nol_project.dao.ReserveDAO;
 import com.example.nol_project.dao.UserCouponDAO;
 import com.example.nol_project.dto.ReserveDTO;
 import com.example.nol_project.service.TicketService;
@@ -14,6 +15,7 @@ import com.example.nol_project.service.MyPageService;
 import com.example.nol_project.service.ReserveService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +41,9 @@ public class ReserveController {
     
     @Autowired
     private UserCouponDAO userCouponDAO;
+    
+    @Autowired
+    private ReserveDAO reserveDao;
 
     // GET 예매 메인 페이지 - 티켓 목록 출력
     @GetMapping("/reserve")
@@ -134,5 +139,24 @@ public class ReserveController {
         model.addAttribute("myReserveList", list);
         return "mypage";
     }
+    
+    @PostMapping("/deleteReservation")
+    public String deleteReservation(@RequestParam("rno") int rno,
+                                    @RequestParam("id") String id,
+                                    RedirectAttributes rttr) {
+        try {
+            int result = reserveDao.deleteReservation(rno, id);
 
-}
+            if (result > 0) {
+                rttr.addFlashAttribute("msg", "예매가 삭제되었습니다.");
+            } else {
+                rttr.addFlashAttribute("msg", "예매 삭제에 실패했습니다.");
+            }
+
+        } catch (DataIntegrityViolationException e) {
+            rttr.addFlashAttribute("msg", "❗ 리뷰가 작성된 예매는 삭제할 수 없습니다.");
+        }
+
+        return "redirect:/mypage";
+    }
+}    

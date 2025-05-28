@@ -89,5 +89,11 @@
 	<select id="getReservationCount" resultType="int">
 		SELECT COUNT(*) FROM nol_reserve
 	</select>
+	
+	<delete id="deleteReservation">
+	    DELETE FROM nol_reserve
+	    WHERE rno = #{rno}
+	    AND id = #{id}
+	</delete>
 
 </mapper>
