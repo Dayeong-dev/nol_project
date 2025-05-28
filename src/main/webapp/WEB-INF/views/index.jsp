@@ -139,6 +139,77 @@ ul {
 #main .next {
 	right: 10px;
 }
+
+#attrctn {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+	margin: 0 auto;
+	max-width: 1300px;
+}
+/* 각 어트랙션 항목 */
+#attrctn li {
+	width: 250px;
+	margin: 20px;
+	text-align: center;
+	border-radius: 8px;
+	overflow: hidden;
+	background: rgba(255, 255, 255, 0.25); /* 반투명 흰색 */
+	backdrop-filter: blur(10px); /* 배경 블러 처리 */
+	-webkit-backdrop-filter: blur(10px); /* Safari 지원 */
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s;
+}
+/* 어트랙션 이미지 */
+#attrctn li img {
+	width: 100%;
+	height: 180px;
+	object-fit: cover;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	transition: transform 0.3s ease;
+}
+
+#attrctn li:hover {
+	transform: scale(1.05);
+}
+/* 어트랙션 제목 */
+#attrctn li h2 {
+	font-size: 1.2rem;
+	margin-top: 10px;
+	color: #333;
+}
+
+.at-h1 {
+	text-align: center;
+	padding: 40px 20px;
+	font-size: 30px;
+	background-color: #d32f2f;
+	border-radius: 12px;
+	color: white;
+}
+/* 더 보러가기 링크 */
+.more-link {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 28px;
+  background-color: #d32f2f; /* 진한 빨강 */
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.more-link:hover {
+  background-color: #b71c1c;
+}
+.more-wrap{
+	text-align: center;
+ 	margin-top: 30px;
+}
 </style>
 
 <script>
@@ -194,7 +265,8 @@ ul {
 			<button class="prev">‹</button>
 			<button class="next">›</button>
 		</div>
-		<h1>재미있고 즐거운 다양한 어트랙션</h1>
+
+		<h1 class="at-h1">재미있고 즐거운 다양한 어트랙션</h1>
 		<ul id="attrctn">
 			<c:forEach var="attrctn" items="${list }" varStatus="status">
 				<c:if test="${status.index < 4 }">
@@ -205,7 +277,9 @@ ul {
 				</c:if>
 			</c:forEach>
 		</ul>
-		<a href="attrctn">더 보러가기</a>
+		<div class="more-wrap">
+			<a href="attrctn" class="more-link">더 보러가기</a>
+		</div>
 	</section>
 	<script>
 		const slides = document.querySelector('.slides');

@@ -26,7 +26,7 @@
 
 .rv-li textarea {
   width: 100%;
-  height: 280px;
+  height: 260px;
   margin-top: 8px;
   margin-bottom: 12px;
   padding: 10px;
