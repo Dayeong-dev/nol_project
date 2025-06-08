@@ -17,14 +17,13 @@ html, body {
 }
 
 body {
-
 	font-weight: 400;
 	font-style: normal;
 	min-height: 100vh;
 }
 
 body > section {
-	min-height: calc(100vh - 150px);
+	min-height: calc(100vh - 162px);
 	padding: 40px;
 }
 

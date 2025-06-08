@@ -14,13 +14,12 @@
 		}
 
 		.event-container {
-		  	display: flex;
-		  	flex-wrap: wrap;
+		  	display: grid;
 		  	gap: 32px;
+		  	grid-template-columns: repeat(3, 1fr);
 		}
 
 		.event-item {
-		  	width: calc((100% - 96px) / 3); /* 4칸 기준, 32px * 3 간격 */
 		  	background: #fff;
 		  	border-radius: 16px;
 		  	overflow: hidden;
