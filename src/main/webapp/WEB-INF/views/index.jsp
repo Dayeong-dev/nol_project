@@ -114,9 +114,14 @@ ul {
 #main .slide {
 	width: 100%;
 	height: 600px;
-	object-fit: cover;
 	flex-shrink: 0;
 	background-color: #000;
+}
+
+#main .slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 #main .prev, #main .next {
@@ -257,9 +262,15 @@ ul {
 		%>
 		<div class="slider">
 			<div class="slides">
-				<img src="/nol_image/slider/slider_img1.png" class="slide" /> 
-				<img src="/nol_image/slider/slider_img2.png" class="slide" />
-				<img src="/nol_image/slider/slider_img3.gif" class="slide" />
+				<a href="/eventDetail?eno=1" class="slide">
+					<img src="/nol_image/slider/slider_img1.png" />
+				</a>
+				<a href="/eventDetail?eno=2" class="slide">
+					<img src="/nol_image/slider/slider_img2.png" />
+				</a>
+				<a class="slide">
+					<img src="/nol_image/slider/slider_img3.gif" />
+				</a>
 			</div>
 			<div class="cover"></div>
 			<button class="prev">‹</button>
