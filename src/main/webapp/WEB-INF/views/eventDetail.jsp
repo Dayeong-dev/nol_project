@@ -98,11 +98,13 @@
 				<tr>
 					<td colspan="2"><img src="${event.contentImgURL}" /></td>
 				</tr>
-				<tr>
-					<td colspan="2">
-						<button onclick="addCoupon(${event.cno})">쿠폰 받기</button>
-					</td>
-				</tr>
+				<c:if test="${!event.isPast()}">
+					<tr>
+						<td colspan="2">
+							<button onclick="addCoupon(${event.cno})">쿠폰 받기</button>
+						</td>
+					</tr>
+				</c:if>
 			</tbody>
 		</table>
 	</section>

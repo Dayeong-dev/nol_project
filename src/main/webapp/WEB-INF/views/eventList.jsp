@@ -71,7 +71,7 @@
 		<h2>이벤트 목록</h2>
 		<div class="event-container">
 			<c:forEach var="event" items="${elist}" varStatus="status">
-				<c:if test="${!event.isPast()}">
+				<%-- <c:if test="${!event.isPast()}"> --%>
 					<div class="event-item">
 						<a href="/eventDetail?eno=${event.eno}">
 							<img src="${event.thumbnailURL}" />
@@ -85,7 +85,7 @@
 				          	</div>
 						</a>
 					</div>
-				</c:if>
+				<%-- </c:if> --%>
 			</c:forEach>
 		</div>
 	</section>
