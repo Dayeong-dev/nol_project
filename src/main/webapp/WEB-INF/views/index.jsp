@@ -193,6 +193,7 @@ ul {
 	background-color: #d32f2f;
 	border-radius: 12px;
 	color: white;
+	margin: 60px auto 20px;
 }
 /* 더 보러가기 링크 */
 .more-link {
