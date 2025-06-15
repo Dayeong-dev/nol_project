@@ -26,16 +26,18 @@ function getISOWeek(tmpDate) {
 }
 
 // 올해 연간 매출
-function setYearlyGraph(curr_date) {
+async function setYearlyGraph(curr_date) {
+	let labels = [];
+	let dataObj = {};
+	
 	const year = curr_date.getFullYear();
 	
-	fetch("/yearlySales?year=" + year)
+	await fetch("/yearlySales?year=" + year)
 		.then(response => response.json())
 		.then(data => {
 			const month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-			let labels = month.map(v => v + '월');
+			labels = month.map(v => v + '월');
 			
-			let dataObj = {};
 			for(let ticket of tickets) {
 				dataObj[ticket.name] = Array(labels.length).fill(0);				
 			}
@@ -52,22 +54,27 @@ function setYearlyGraph(curr_date) {
 			setChart(labels, dataObj, year + "년 연간 매출");
 		})
 		.catch(error => console.log(error));
+	
+	return {labels: labels, dataObj: dataObj};
 }
 
 // 이번 달 월간 매출
-function setMonthlyGraph(curr_date) {
+async function setMonthlyGraph(curr_date) {
+	let labels = [];
+	let dataObj = {};
+		
 	const year = curr_date.getFullYear();
 	const month = curr_date.getMonth() + 1;
 
-	fetch("/monthlySales?year=" + year + "&month=" + month.toString().padStart(2, '0'))
+	await fetch("/monthlySales?year=" + year + "&month=" + month.toString().padStart(2, '0'))
 		.then(response => response.json())
 		.then(data => {
 			const lastDay = new Date(year, month, 0).getDate(); 
 			const days = Array(lastDay).fill(1).map((v, i) => v + i);
 			
-			let labels = days.map(v => year + "-" + month.toString().padStart(2, '0') + "-" + v.toString().padStart(2, '0'));
-			// let labels = days.map(v => v + "일");
-			let dataObj = {};
+			labels = days.map(v => year + "-" + month.toString().padStart(2, '0') + "-" + v.toString().padStart(2, '0'));
+			// labels = days.map(v => v + "일");
+
 			for(let ticket of tickets) {
 				dataObj[ticket.name] = Array(labels.length).fill(0);				
 			}
@@ -85,10 +92,12 @@ function setMonthlyGraph(curr_date) {
 			setChart(labels, dataObj, year + "년 " + (curr_date.getMonth() + 1) + "월 매출");
 		})
 		.catch(error => console.log(error));
+	
+	return {labels: labels, dataObj: dataObj};
 }
 
 // 이번 주 주간 매출
-function setWeeklyGraph(curr_date) {
+async function setWeeklyGraph(curr_date) {
 	let labels = [];
 	let dataObj = {};
 	
@@ -101,7 +110,7 @@ function setWeeklyGraph(curr_date) {
 	
 	const dateStr = year + month.toString().padStart(2, '0') + date.toString().padStart(2, '0');
 	
-	fetch("/weeklySales?date=" + dateStr)
+	await fetch("/weeklySales?date=" + dateStr)
 		.then(response => response.json())
 		.then(data => {
 			const day = curr_date.getDay();
@@ -141,6 +150,8 @@ function setWeeklyGraph(curr_date) {
 			setChart(labels, dataObj, isoYear + "년 " + isoWeek + "주차 매출");
 		})
 		.catch(error => console.log(error));
+		
+	return {labels: labels, dataObj: dataObj};
 }
 
 function setChart(labels, dataObj, title) {	
