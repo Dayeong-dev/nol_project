@@ -38,52 +38,6 @@ public class AttractionController {
 		
 		return "detail";
 	}
-	
-	//---------관리자----------
-	@GetMapping("/admin/attrctnList")
-	public String attrctnList(Model model) {
-		List<AttractionDTO> list = attrctnService.getAttrctnList();
-		model.addAttribute("list", list);
-		
-		return "admin/attrctnList";
-	}
-	
-	@GetMapping("/admin/attrctnDetail.do")
-	public String attrctnDetail(@RequestParam("atno")int atno, Model model) {
-		AttractionDTO attrctn = attrctnService.attrctnDetail(atno);
-		model.addAttribute("at", attrctn);
-		
-		return "admin/attrctnDetail";
-	}
-	
-	@GetMapping("/admin/attrctnDelete.do")
-	public String attrctnDelete(@RequestParam("atno")int atno) {
-		attrctnService.attrctnDelete(atno);
-		
-		return "redirect:/admin/attrctnList";
-	}
-	
-	@PostMapping("/admin/attrctnUpdate.do")
-	public String attrctnUpdate(AttractionDTO atDto, RedirectAttributes rdab) {
-		attrctnService.attrctnUpdate(atDto);
-		rdab.addFlashAttribute("message", "수정되었습니다.");
-		
-		return "redirect:/admin/attrctnDetail.do?atno=" + atDto.getAtno();
-	}
-	
-	@PostMapping("/admin/attrctnForm")
-	public String attrctnInsert(AttractionDTO atDto ,Model model) {
-		attrctnService.attrctnInsert(atDto);
-		
-		return "redirect:/admin/attrctnList";
-	}
-	
-	@GetMapping("/admin/attrctnForm")
-	public String attrctnForm() {
-		System.out.println("attrctnForm..........");
-		return "admin/attrctnForm";
-	}
-	
 }
 
 

@@ -14,7 +14,7 @@
 
 body, html {
 	min-width: 1300px;
-  	height: 100%;
+	height: 100%;
 }
 
 body {
@@ -303,6 +303,7 @@ form input[type="submit"]:hover {
   flex: 1;
   padding: 24px;
   text-align: center;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
@@ -356,9 +357,7 @@ form input[type="submit"]:hover {
 
 /* 차트 스타일 (canvas) */
 #salesChart #myChart {
-  width: 1200px !important;
-  height: auto !important;
-  max-height: 500px;
+  max-height: 400px;
   display: block;
   margin: 0 auto;
   max-width: 100%;
@@ -428,7 +427,7 @@ form input[type="submit"]:hover {
   padding: 32px;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-  max-width: 1200px;
+  width: 1000px;
   margin: 0 auto 40px;
 }
 

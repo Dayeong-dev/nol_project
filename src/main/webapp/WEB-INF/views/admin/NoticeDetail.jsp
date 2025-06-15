@@ -120,15 +120,20 @@
     margin: 0 10px;
     min-width: 100px;
   }
-  .btn-primary {
-	  background-color: #001f4d !important; /* 진한 남색 */
-	  border-color: #001f4d !important;
-	  color: white !important;
-	}
 	
-	.btn-primary:hover {
-	  background-color: #003366 !important;
-	  border-color: #003366 !important;
+	button {
+	  background-color: #2c3e50;
+	  color: white;
+	  border: none;
+	  padding: 10px 18px;
+	  font-size: 15px;
+	  border-radius: 6px;
+	  cursor: pointer;
+	  margin-right: 10px;
+	}
+
+	button:hover {
+	  background-color: #526473;
 	}
 </style>
 </head>
@@ -176,32 +181,52 @@
     <a href="/admin/NoticeList" class="btn btn-secondary">← 목록으로</a>
   </div>
 </div>
+<!-- 수정 모달 -->
+<div class="modal-overlay" id="customModal">
+    <div class="modal-box">
+        <span class="modal-close" id="modalCloseBtn">&times;</span>
+        <form id="updateForm" method="post" action="/admin/NoticeUpdate">
+            <input type="hidden" name="nno" id="modalNno" />
+            <p>
+                <label>
+                    <input type="checkbox" name="isFixed" id="modalIsFixed" value="1"> 상단 고정
+                </label>
+            </p>
+            <input type="text" name="title" id="modalTitle" placeholder="제목" class="form-control" required>
+            <textarea name="content" id="modalContent" placeholder="내용" class="form-control" rows="4" required></textarea>
+            <div style="text-align:right;">
+                <button type="submit" class="btn btn-success">저장</button>
+                <button type="button" class="btn btn-secondary" id="modalCancelBtn">닫기</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-    <!-- JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).on('click', '.btn-update', function () {
-            var nno = $(this).data('nno');
-            $.ajax({
-                url: '/notice/getNotice',
-                data: { nno: nno },
-                success: function (data) {
-                    $('#modalNno').val(data.nno);
-                    $('#modalTitle').val(data.title);
-                    $('#modalContent').val(data.content);
-                    $('#modalIsFixed').prop('checked', data.isFixed === 1);
-                    $('#customModal').css('display', 'flex');
-                },
-                error: function () {
-                    alert("공지사항 정보를 불러오는데 실패했습니다.");
-                }
-            });
+<!-- jQuery 스크립트 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on('click', '.btn-update', function () {
+        var nno = $(this).data('nno');
+        $.ajax({
+            url: '/notice/getNotice',
+            data: { nno: nno },
+            success: function (data) {
+                $('#modalNno').val(data.nno);
+                $('#modalTitle').val(data.title);
+                $('#modalContent').val(data.content);
+                $('#modalIsFixed').prop('checked', data.isFixed === 1);
+                $('#customModal').css('display', 'flex');
+            },
+            error: function () {
+                alert("공지사항 정보를 불러오는데 실패했습니다.");
+            }
         });
+    });
 
-        $('#modalCloseBtn, #modalCancelBtn').on('click', function () {
-            $('#customModal').hide();
-        });
-    </script>
+    $('#modalCloseBtn, #modalCancelBtn').on('click', function () {
+        $('#customModal').hide();
+    });
+</script>
 </section>
 </body>
 </html>

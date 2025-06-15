@@ -182,6 +182,10 @@ function setChart(labels, dataObj, title) {
 		          	beginAtZero: true
 		        }
 		    }, 
+			interaction: {
+			  mode: 'nearest',
+			  intersect: true
+			},
 		    plugins: {
 		        legend: {
 		          	position: 'top',
@@ -189,8 +193,16 @@ function setChart(labels, dataObj, title) {
 		        title: {
 		          	display: true,
 		          	text: title
-		        }
-		     }
+		        }, 
+				tooltip: {
+			    	mode: 'nearest',
+			    	intersect: true
+			 	}
+		    }, 
+			hover: {
+				mode: 'nearest',
+				intersect: true
+			}
 		}
 	});	
 }
