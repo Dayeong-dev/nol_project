@@ -369,7 +369,7 @@ public class AdminController {
 	
 	
 	/* 관리자 리뷰 관리 */
-	@GetMapping("/admin/reviewList")
+	@GetMapping("/reviewList")
 	public String reviewList(Model model, RedirectAttributes rttr) {
 		if(session.getAttribute("adminId") == null) {
 			rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
@@ -382,7 +382,7 @@ public class AdminController {
 		return "admin/reviewList";
 	}
 	
-	@GetMapping("/admin/reviewDetail.do")
+	@GetMapping("/reviewDetail.do")
 	public String reviewDetail(@RequestParam("rvno")int rvno, Model model, RedirectAttributes rttr) {
 		if(session.getAttribute("adminId") == null) {
 			rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
@@ -395,7 +395,7 @@ public class AdminController {
 		return "admin/reviewDetail";
 	}
 	
-	@GetMapping("/admin/reviewDelete/{rvno}")
+	@GetMapping("/reviewDelete/{rvno}")
 	public String reviewDelete(@PathVariable("rvno")int rvno, RedirectAttributes rttr) {
 		if(session.getAttribute("adminId") == null) {
 			rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
