@@ -36,6 +36,14 @@
 				</div>
 			  	<canvas id="myChart" width="1200" height="400"></canvas>
 			</div>
+			<div id="salesDetail">
+				<div class="scrollx-wrap">
+					<table>
+						<thead></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</section>
 	<script>
@@ -43,6 +51,8 @@
 		const $radios = document.querySelectorAll('input[name="chartType"]');
 		const $prevBtn = document.getElementById('prevBtn');
 		const $nextBtn = document.getElementById('nextBtn');
+		
+		const $table = document.querySelector('table');
 		
 		// 오늘 날짜 문자열 포맷
 		let dateTime = new Date();
@@ -59,7 +69,11 @@
 			.catch(error => console.log(error));
 		
 		// 올해 연간 매출 그래프 출력
-		setYearlyGraph(dateTime);
+		(async () => {
+			const graphData = await setYearlyGraph(dateTime);
+			setTable(graphData.labels, graphData.dataObj, $table);
+		})();
+		
 		
 		$radios.forEach(radio => {
 			radio.addEventListener("change", async(e) => {
@@ -67,26 +81,31 @@
 				btnType = value;
 				
 				dateTime = new Date();
+				let graphData;
 				
 				if(value === "1") {			// 연간
 					$prevBtn.innerText = "지난 해";
 					$nextBtn.innerText = "다음 해";
-					setYearlyGraph(dateTime);
+					graphData = await setYearlyGraph(dateTime);
 				}
 				else if(value === "2") {		// 월간
 					$prevBtn.innerText = "지난 달";
 					$nextBtn.innerText = "다음 달";
-					setMonthlyGraph(dateTime);
+					graphData = await setMonthlyGraph(dateTime);
 				}
 				else {							// 주간
 					$prevBtn.innerText = "지난 주";
 					$nextBtn.innerText = "다음 주";
-					const obj = setWeeklyGraph(dateTime);
+					graphData = await setWeeklyGraph(dateTime);
 				}
+				
+				setTable(graphData.labels, graphData.dataObj, $table);
 			})
 		})
 		
-		function prevPage() {
+		async function prevPage() {
+			let graphData;
+			
 			if(btnType === "1") {			// 연간
 				const year = dateTime.getFullYear();
 				if(salesRange.earliestYear === year.toString()) {
@@ -95,7 +114,7 @@
 				}
 				dateTime.setFullYear(dateTime.getFullYear() - 1);
 				
-				setYearlyGraph(dateTime);
+				graphData = await setYearlyGraph(dateTime);
 			}
 			else if(btnType === "2") {		// 월간
 				const year = dateTime.getFullYear();
@@ -108,7 +127,7 @@
 				}
 				dateTime.setMonth(month - 1);
 				
-				setMonthlyGraph(dateTime);
+				graphData = await setMonthlyGraph(dateTime);
 			}
 			else {							// 주간
 				const isoYear = getISOWeekYear(dateTime);
@@ -121,48 +140,122 @@
 				}
 				dateTime.setDate(dateTime.getDate() - 7);
 				
-				setWeeklyGraph(dateTime);
+				graphData = await setWeeklyGraph(dateTime);
 			}
+			
+			setTable(graphData.labels, graphData.dataObj, $table);
 		}
 		
-		function nextPage() {
+		async function nextPage() {
+			const today = new Date();
+			let graphData;
+			
 			if(btnType === "1") {				// 연간
-				const year = dateTime.getFullYear();
-				if(salesRange.latestYear === year.toString()) {
+				const currYear = dateTime.getFullYear();
+				const latestYear = today.getFullYear();
+				
+				if(latestYear <= currYear) {
 					alert("마지막 페이지 입니다.");
 					return;
 				}
 				
 				dateTime.setFullYear(dateTime.getFullYear() + 1);
 				
-				setYearlyGraph(dateTime);
+				graphData = await setYearlyGraph(dateTime);
 			}
 			else if(btnType === "2") {		// 월간
-				const year = dateTime.getFullYear();
-				const month = dateTime.getMonth();
+				const currYear = dateTime.getFullYear();
+				const currMonth = dateTime.getMonth();
 				
-				if(salesRange.latestYear === year.toString() 
-						&& salesRange.latestMonth === (month + 1).toString().padStart(2, '0')) {
+				const latestYear = today.getFullYear();
+				const latestMonth = today.getMonth();
+				
+				
+				if(latestYear <= currYear 
+						&& latestMonth <= currMonth) {
 					alert("마지막 페이지 입니다.");
 					return;
 				}
 				
-				dateTime.setMonth(month + 1);
-				
-				setMonthlyGraph(dateTime);
+				dateTime.setMonth(currMonth + 1);
+				graphData = await setMonthlyGraph(dateTime);
 			}
 			else {							// 주간
 				const isoYear = getISOWeekYear(dateTime);
 				const isoWeek = getISOWeek(dateTime);
 				
-				if(salesRange.latestIsoYear === isoYear.toString() 
-						&& salesRange.latestIsoWeek === isoWeek.toString()) {
+				const latestIsoYear = getISOWeekYear(today);
+				const latestIsoWeek = getISOWeek(today);
+				
+				if(latestIsoYear <= isoYear 
+						&& latestIsoWeek <= isoWeek) {
 					alert("마지막 페이지 입니다.");
 					return;
 				}
 				dateTime.setDate(dateTime.getDate() + 7);
 				
-				setWeeklyGraph(dateTime);
+				graphData = await setWeeklyGraph(dateTime);
+			}
+			setTable(graphData.labels, graphData.dataObj, $table);
+		}
+		
+		function setTable(labels, dataObj, $table) {
+			const $thead = $table.querySelector('thead');
+			const $tbody = $table.querySelector('tbody');
+			
+			$thead.innerHTML = "";
+			$tbody.innerHTML = "";
+			
+			const tr = document.createElement("tr");
+			$thead.appendChild(tr);
+			
+			const keys = Object.keys(labels);
+			let idx = 0;
+			
+			for(let i = 0; i < keys.length + 2; i++) {
+				const th = document.createElement("th");
+				tr.appendChild(th);
+				
+				if(i === 0) {
+					th.innerText = "티켓 종류";	// 첫 번째 열
+					th.setAttribute("class", "sticky-left");
+				} 
+				else if(idx === keys.length) {
+					th.innerText = "총합";		// 마지막 열
+					th.setAttribute("class", "sticky-right");
+				} 
+				else {
+					th.innerText = labels[keys[idx++]];
+				}
+			}
+			
+			for(let ticket in dataObj) {
+				const tr = document.createElement("tr");
+				$tbody.appendChild(tr);
+				
+				// 첫 번째 열
+				const td1 = document.createElement("td");
+				tr.appendChild(td1);
+				
+				td1.innerText = ticket;
+				td1.setAttribute("class", "sticky-left");
+				
+				// 중간 열
+				let sum = 0;
+				for(let cnt of dataObj[ticket]) {
+					const td = document.createElement("td");
+					tr.appendChild(td);
+					
+					td.innerText = cnt.toLocaleString() + "원";
+					sum += cnt;
+				}
+				
+				// 마지막 열
+				const td2 = document.createElement("td");
+				tr.appendChild(td2);
+				
+				td2.innerText = sum.toLocaleString() + "원";
+				td2.setAttribute("class", "sticky-right");
 			}
 		}
 	</script>

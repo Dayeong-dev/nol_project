@@ -429,7 +429,7 @@ form input[type="submit"]:hover {
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 40px;
 }
 
 #salesDetail h2 {
@@ -487,6 +487,76 @@ form input[type="submit"]:hover {
   width: 100% !important;
   height: auto !important;
   max-height: 500px;
+}
+
+/* 전체 테이블 영역 스크롤 적용을 위한 래퍼 */
+#salesDetail .scrollx-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+  border: 1px solid #ccc;
+}
+
+/* 테이블 기본 스타일 */
+#salesDetail .scrollx-wrap table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content;
+  min-width: 100%;
+  margin: 0 auto;
+}
+
+/* 헤더 스타일 */
+#salesDetail .scrollx-wrap th {
+  color: #333;
+  background-color: #f1f3f5;
+  font-weight: 600;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+}
+
+/* 바디 셀 스타일 */
+#salesDetail .scrollx-wrap td {
+  border: 1px solid #ccc;
+  white-space: nowrap;
+}
+
+#salesDetail .scrollx-wrap th, 
+#salesDetail .scrollx-wrap td {
+	padding: 8px 8px;
+	text-align: center;
+}
+
+/* 첫 열 고정 */
+#salesDetail .sticky-left {
+  position: sticky;
+  left: 0;
+  background: #fff;
+  z-index: 1;
+  text-align: left;
+  font-weight: 500;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+}
+
+/* 마지막 열 고정 */
+#salesDetail .sticky-right {
+  position: sticky;
+  right: 0;
+  background: #fff;
+  z-index: 1;
+  font-weight: 600;
+  background-color: #f9f9f9;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
+}
+
+#salesDetail .scrollx-wrap td:first-child {
+  width: 100px;
+}
+
+/* 숫자 강조 (선택사항) */
+#salesDetail .scrollx-wrap td:last-child {
+  color: #222;
+  font-weight: bold;
+  min-width: 100px;
 }
 
 /* 어트랙션 상세 */
