@@ -1,8 +1,8 @@
 # Easy World - 놀이공원 온라인 티켓 예매 시스템
 
-- 구분: 팀 프로젝트(4인)
+- 유형: 팀 프로젝트(4인)
 - 기간: 2025.05.21 ~ 2025.05.27
-- Spring Boot 기반 웹 애플리케이션
+- 개발 환경: Spring Boot 기반 웹 애플리케이션
 
 ## 📌 프로젝트 개요
 - 놀이공원 'Easy World'의 온라인 티켓 예매 및 관리 시스템
@@ -38,8 +38,9 @@
 - 어트랙션/공지사항/리뷰 관리
 
 ## 📚 DB 설계
-- [ERD 보기 (링크)](images/easyworld_erd.png)
 <img src="images/easyworld_erd.png" alt="ERD 다이어그램" width="500"/>
+
+> ERD 이미지 원본: [images/easyworld_erd.png](images/easyworld_erd.png)
 
 ## ⚙️ 환경 설정
 > 아래 내용을 참고하여 `src/main/resources/application.properties` 파일을 생성한 후 실행해주세요.
@@ -63,6 +64,9 @@ mybatis.mapper-locations=classpath:mybatis/mapper/**/**.xml
 mybatis.type-aliases-package=com.example.nol_project.dto
 ```
 
-## 🖥️ 접속 경로 안내
+> 사용자 페이지, 관리자 페이지 접속 링크는 아래를 참고해주세요. 
 - 사용자 페이지: [http://localhost:8090](http://localhost:8090)
 - 관리자 페이지: [http://localhost:8090/admin](http://localhost:8090/admin)
+
+## 🔗 참고 링크
+- 노션: [https://succulent-nation-72b.notion.site/EASY-WORLD-1fb7abaf641680318d4dd25fd75f19e7?source=copy_link](https://succulent-nation-72b.notion.site/EASY-WORLD-1fb7abaf641680318d4dd25fd75f19e7?source=copy_link)
