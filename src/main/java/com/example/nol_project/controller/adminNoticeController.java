@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.nol_project.dto.NoticeDTO;
 import com.example.nol_project.service.NoticeService;
@@ -23,17 +24,21 @@ public class adminNoticeController {
 
     @Autowired
     private NoticeService noticeService;
+    
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/NoticeList")
     public String NoticeList(
         @RequestParam(name = "page", defaultValue = "1") int page,
         @RequestParam(name = "category", required = false) String category,
         @RequestParam(name = "keyword", required = false) String keyword,
-        Model model, HttpSession session) {
+        RedirectAttributes rttr,
+        Model model) {
 
     	String adminId = (String) session.getAttribute("adminId");
         if (adminId == null) {
-            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+        	rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
             return "redirect:/admin/login";
         }
 
@@ -55,13 +60,13 @@ public class adminNoticeController {
     
  // 공지사항 상세보기
     @GetMapping("/NoticeDetail")
-    public String NoticeDetail(@RequestParam("nno") int nno, Model model, HttpSession session) {
+    public String NoticeDetail(@RequestParam("nno") int nno, RedirectAttributes rttr, Model model) {
         // 세션에서 사용자 정보 가져오기
         String adminId = (String) session.getAttribute("adminId");
         
         if (adminId == null) {
-            model.addAttribute("loginMessage", "로그인이 필요합니다.");
-            return "/admin/login";
+        	rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
+            return "redirect:/admin/login";
         }
 
         noticeService.increaseHit(nno);
@@ -78,14 +83,14 @@ public class adminNoticeController {
 
     // 공지사항 등록 폼
     @GetMapping("/NoticeForm")
-    public String noticeForm(HttpSession session, Model model) {
+    public String noticeForm(RedirectAttributes rttr, Model model) {
 
         String adminId = (String) session.getAttribute("adminId");
         
         if (adminId == null) {
         	//System.out.println("로그인 안됨 → 로그인 페이지로 이동");
-            model.addAttribute("loginMessage", "로그인이 필요합니다.");
-            return "/admin/login";
+        	rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
+            return "redirect:/admin/login";
         }
         //System.out.println("로그인 안됨 → 로그인 페이지로 이동");
         return "/admin/NoticeForm";

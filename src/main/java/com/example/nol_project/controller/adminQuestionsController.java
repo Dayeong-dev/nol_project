@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.nol_project.dto.AnswersDTO;
 import com.example.nol_project.dto.QuestionsDTO;
@@ -27,18 +28,21 @@ public class adminQuestionsController {
 
     @Autowired
     private AnswersService answersService;
+    
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/QuestionsList")
     public String adminList(@RequestParam(value = "category", required = false) String category,
                             @RequestParam(value = "keyword", required = false) String keyword,
                             @RequestParam(value = "page", defaultValue = "1") int page,
-                            HttpSession session,
+                            RedirectAttributes rttr, 
                             Model model) {
 
         String adminId = (String) session.getAttribute("adminId");
         
         if (adminId == null) {
-            model.addAttribute("loginMessage", "관리자 로그인 필요합니다.");
+        	rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
             return "redirect:/admin/login";
         }
 
@@ -56,11 +60,11 @@ public class adminQuestionsController {
     }
 
     @GetMapping("/QuestionsDetail")
-    public String adminDetail(@RequestParam("qno") int qno, HttpSession session, Model model) {
+    public String adminDetail(@RequestParam("qno") int qno, RedirectAttributes rttr, Model model) {
         String adminId = (String) session.getAttribute("adminId");
         
         if (adminId == null) {
-            model.addAttribute("loginMessage", "관리자 로그인 필요합니다.");
+        	rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
             return "redirect:/admin/login";
         }
 
@@ -75,10 +79,10 @@ public class adminQuestionsController {
     }
     
     @GetMapping("/UnansweredList")
-    public String unansweredList(HttpSession session, Model model) {
+    public String unansweredList(RedirectAttributes rttr, Model model) {
         String adminId = (String) session.getAttribute("adminId"); 
-        if (adminId == null || !"admin1234".equals(adminId)) {
-            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+        if (adminId == null) {
+        	rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
             return "redirect:/admin/login";
         }
 
@@ -89,10 +93,10 @@ public class adminQuestionsController {
     }
     
     @GetMapping("/AnsweredList")
-    public String AnsweredList(HttpSession session, Model model) {
+    public String AnsweredList(RedirectAttributes rttr, Model model) {
     	String adminId = (String) session.getAttribute("adminId"); 
-        if (adminId == null || !"admin1234".equals(adminId)) {
-            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+        if (adminId == null) {
+        	rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
             return "redirect:/admin/login";
         }
         // 답변 질문 목록을 가져와서 모델에 담기
@@ -103,10 +107,10 @@ public class adminQuestionsController {
     }
     
     @GetMapping("/AnswersForm")
-    public String showAnswerForm(@RequestParam("qno") int qno, HttpSession session, Model model) {
+    public String showAnswerForm(@RequestParam("qno") int qno, RedirectAttributes rttr, Model model) {
         String adminId = (String) session.getAttribute("adminId");
-        if (adminId == null || !"admin1234".equals(adminId)) {
-            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+        if (adminId == null) {
+        	rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
             return "redirect:/admin/login";
         }
 
@@ -117,10 +121,10 @@ public class adminQuestionsController {
     }
     
     @PostMapping("/AnswersInsert")
-    public String insertAnswer(@ModelAttribute AnswersDTO answer, HttpSession session, Model model) {
+    public String insertAnswer(@ModelAttribute AnswersDTO answer, RedirectAttributes rttr, Model model) {
         String adminId = (String) session.getAttribute("adminId");
-        if (adminId == null || !"admin1234".equals(adminId)) {
-        	model.addAttribute("loginMessage", "관리자 로그인 필요합니다.");
+        if (adminId == null) {
+        	rttr.addFlashAttribute("message", "관리자 전용 페이지 입니다. 로그인 후 진행해주세요. ");
             return "redirect:/admin/login";
         }
         answer.setAdminId(adminId);

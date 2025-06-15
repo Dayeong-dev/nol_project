@@ -87,32 +87,6 @@ public class ReviewsController {
 		
 		return "redirect:/reviewDetail";
 	}
-	
-	//---------관리자----------
-	@GetMapping("/admin/reviewList")
-	public String reviewList(Model model) {
-		
-		List<ReviewsDTO> list = reviewsService.getReviewList();
-		model.addAttribute("list", list);
-		
-		return "admin/reviewList";
-	}
-	
-	@GetMapping("/admin/reviewDetail.do")
-	public String reviewDetail(@RequestParam("rvno")int rvno, Model model) {
-		ReviewsDTO review = reviewsService.getReviewNO(rvno);
-		model.addAttribute("review", review);
-		
-		return "admin/reviewDetail";
-	}
-	
-	@GetMapping("/admin/reviewDelete/{rvno}")
-	public String reviewDelete(@PathVariable("rvno")int rvno) {
-		reviewsService.getReviewDelete(rvno);
-		
-		return "redirect:/admin/reviewList";
-	}
-	
 }
 
 

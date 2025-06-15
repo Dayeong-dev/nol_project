@@ -91,45 +91,6 @@
 	  font-size: 14px;
 	  cursor: pointer;
 	}
-	.admin-buttons .btn {
-	  background-color: #003366; /* 남색 */
-	  color: white;
-	  border: none;
-	  padding: 8px 16px;
-	  border-radius: 5px;
-	  text-decoration: none;
-	  font-weight: 600;
-	  transition: background-color 0.3s ease;
-	  display: inline-block;
-	  margin-right: 10px;
-	}
-	
-	.admin-buttons .btn:hover {
-	  background-color: #002244;
-	  color: white;
-	}
-	
-	.admin-buttons {
-	  margin-top: 30px; /* 위쪽 여백 (페이징과 간격) */
-	}
-	
-	.admin-buttons .btn {
-	  background-color: #336699; /* 연한 남색 */
-	  color: white;
-	  border: none;
-	  padding: 8px 16px;
-	  border-radius: 5px;
-	  text-decoration: none;
-	  font-weight: 600;
-	  transition: background-color 0.3s ease;
-	  display: inline-block;
-	  margin-right: 15px; /* 버튼 간 간격 */
-	}
-	
-	.admin-buttons .btn:hover {
-	  background-color: #254f7d; /* 약간 더 진한 색, 호버용 */
-	  color: white;
-	}
 </style>
 </head>
 <body>
@@ -193,14 +154,6 @@
           </c:choose>
         </c:forEach>
       </div>
-
-      <!-- ➕ 등록 버튼 -->
-      <c:if test="${isAdmin}">
-        <div class="admin-buttons">
-        	<a href="/admin" class="btn btn-secondary">← 관리자 메인</a>
-          	<a href="/admin/NoticeForm" class="btn btn-success">공지 등록</a>
-        </div>
-      </c:if>
     </div>
   </section>
 </body>

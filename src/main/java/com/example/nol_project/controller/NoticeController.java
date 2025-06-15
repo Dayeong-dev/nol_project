@@ -31,13 +31,6 @@ public class NoticeController {
         @RequestParam(name = "keyword", required = false) String keyword,
         Model model, HttpSession session) {
 
-    	String adminId = (String) session.getAttribute("adminId");
-        String id = (String) session.getAttribute("id");
-        if (id == null && adminId == null) {
-            model.addAttribute("loginMessage", "로그인이 필요합니다.");
-            return "redirect:/login";
-        }
-
         int pageSize = 10;
 
         List<NoticeDTO> list = noticeService.getPagedNotices(page, pageSize, category, keyword);
@@ -49,8 +42,6 @@ public class NoticeController {
         model.addAttribute("selectedCategory", category);
         model.addAttribute("keyword", keyword);
 
-        model.addAttribute("isAdmin", "admin1234".equals(adminId));
-
         return "NoticeList";
     }
     
@@ -58,62 +49,52 @@ public class NoticeController {
     @GetMapping("/NoticeDetail")
     public String NoticeDetail(@RequestParam("nno") int nno, Model model, HttpSession session) {
         // 세션에서 사용자 정보 가져오기
-        String id = (String) session.getAttribute("id");
-        String adminId = (String) session.getAttribute("adminId");
-        
-        if (id == null && adminId == null) {
-            model.addAttribute("loginMessage", "로그인이 필요합니다.");
-            return "login";
-        }
 
         noticeService.increaseHit(nno);
 
         NoticeDTO notice = noticeService.getNoticeByNno(nno);
         model.addAttribute("notice", notice);
 
-        // 관리자 여부 확인
-        boolean isAdmin = "admin1234".equals(adminId);
-        model.addAttribute("isAdmin", isAdmin);
 
         return "NoticeDetail";
     }
 
     // 공지사항 등록 폼
-    @GetMapping("/NoticeForm")
-    public String noticeForm(HttpSession session, Model model) {
-        String id = (String) session.getAttribute("id");
-        String adminId = (String) session.getAttribute("adminId");
-        
-        if (id == null && adminId == null) {
-        	//System.out.println("로그인 안됨 → 로그인 페이지로 이동");
-            model.addAttribute("loginMessage", "로그인이 필요합니다.");
-            return "login";
-        }
-        //System.out.println("로그인 안됨 → 로그인 페이지로 이동");
-        return "NoticeForm";
-    }
+//    @GetMapping("/NoticeForm")
+//    public String noticeForm(HttpSession session, Model model) {
+//        String id = (String) session.getAttribute("id");
+//        String adminId = (String) session.getAttribute("adminId");
+//        
+//        if (id == null && adminId == null) {
+//        	//System.out.println("로그인 안됨 → 로그인 페이지로 이동");
+//            model.addAttribute("loginMessage", "로그인이 필요합니다.");
+//            return "login";
+//        }
+//        //System.out.println("로그인 안됨 → 로그인 페이지로 이동");
+//        return "NoticeForm";
+//    }
     
-    @PostMapping("/insert")
-    public String insert(@ModelAttribute NoticeDTO notice) {
-        notice.setAdminId("admin1234");
+//    @PostMapping("/insert")
+//    public String insert(@ModelAttribute NoticeDTO notice) {
+//        notice.setAdminId("admin1234");
+//
+//        if (notice.getIsFixed() != 1) {
+//            notice.setIsFixed(0);
+//        }
+//
+//        noticeService.insert(notice);
+//        return "redirect:/notice/NoticeList";
+//    }
 
-        if (notice.getIsFixed() != 1) {
-            notice.setIsFixed(0);
-        }
-
-        noticeService.insert(notice);
-        return "redirect:/notice/NoticeList";
-    }
-
-    @PostMapping("/NoticeUpdate")
-    public String NoticeUpdate(@ModelAttribute NoticeDTO notice) {
-        if (notice.getIsFixed() != 1) {
-            notice.setIsFixed(0);
-        }
-
-        noticeService.NoticeUpdate(notice);
-        return "redirect:/notice/NoticeDetail?nno=" + notice.getNno();
-    }
+//    @PostMapping("/NoticeUpdate")
+//    public String NoticeUpdate(@ModelAttribute NoticeDTO notice) {
+//        if (notice.getIsFixed() != 1) {
+//            notice.setIsFixed(0);
+//        }
+//
+//        noticeService.NoticeUpdate(notice);
+//        return "redirect:/notice/NoticeDetail?nno=" + notice.getNno();
+//    }
     
     // 공지사항 정보 JSON으로 반환 (모달 수정을 위한 API)
     @GetMapping("/getNotice")
@@ -123,10 +104,10 @@ public class NoticeController {
     }
 
     // 공지사항 삭제
-    @GetMapping("/delete")
-    public String delete(@RequestParam("nno") int nno) {
-        noticeService.delete(nno);
-        return "redirect:/notice/NoticeList";
-    }
+//    @GetMapping("/delete")
+//    public String delete(@RequestParam("nno") int nno) {
+//        noticeService.delete(nno);
+//        return "redirect:/notice/NoticeList";
+//    }
     
 }
