@@ -34,7 +34,7 @@
 						</div>
 					</div>			
 				</div>
-			  	<canvas id="myChart" width="1200" height="400"></canvas>
+			  	<canvas id="myChart" width="930" height="400"></canvas>
 			</div>
 			<div id="salesDetail">
 				<div class="scrollx-wrap">
