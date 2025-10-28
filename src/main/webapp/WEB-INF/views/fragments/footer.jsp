@@ -11,6 +11,6 @@
   </div>
   <div>
     ⓒ 2025 Easy World Adventure. All rights reserved.<br>
-    문의전화 : 010-9999-9999 | 대표: 정재윤
+    문의전화 : 010-9999-9999 | 대표: 류창훈
   </div>
 </footer>
