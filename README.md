@@ -37,6 +37,17 @@
 - 이벤트 등록 및 쿠폰 발급
 - 어트랙션/공지사항/리뷰 관리
 
+## 🖥️ 주요 화면
+### 👤 사용자
+| 메인화면 | 어트랙션 | 티켓 예매 |
+| --- | --- | --- |
+| <img src="images/user_main.gif" alt="메인화면" width="200"/> | <img src="images/user_attraction.gif" alt="어트랙션" width="200"/> | <img src="images/user_reserve.gif" alt="티켓 예매" width="200"/> |
+
+### 🛠️ 관리자
+| 관리자 로그인 | 관리자 매출 관리 | 관리자 QnA 관리 |
+| --- | --- | --- |
+| <img src="images/admin_login.gif" alt="관리자 로그인" width="200"/> | <img src="images/admin_sales.gif" alt="매출 관리" width="200"/> | <img src="images/admin_qna.gif" alt="QnA 관리" width="200"/> |
+
 ## 📚 DB 설계
 <img src="images/easyworld_erd.png" alt="ERD 다이어그램" width="500"/>
 
